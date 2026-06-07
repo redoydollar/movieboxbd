@@ -128,10 +128,10 @@
     async function selectMovie(id, type) {
         const apiKey = document.getElementById('apiKey').value;
         document.getElementById('selectedId').value = id;
-        document.getElementById('editPanel').style.display = 'block';
+        document.getElementById('editPanel').style.display = 'unblock';
 
         if(isSeries) {
-            document.getElementById('episodeManager').style.display = 'block';
+            document.getElementById('episodeManager').style.display = 'unblock';
             addEpisodeInput(); // প্রথম এপিসোড ইনপুট
         } else {
             document.getElementById('episodeManager').style.display = 'none';
