@@ -15,7 +15,7 @@
         .panel{background:#111217;border:1px solid #222;border-radius:12px;padding:20px;margin-bottom:20px}
         label{display:block;margin-bottom:8px;font-weight:600;color:#f1f5f9;font-size:14px}
         input[type="text"],select,textarea{width:100%;padding:12px;background:#05060a;border:1px solid #222;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:14px;margin-bottom:15px}
-        input:focus,select:focus{outline:none;border-color:#38bdf8}
+        input:focus,select:focus,textarea:focus{outline:none;border-color:#38bdf8}
         .btn{background:linear-gradient(135deg,#cc0000,#ff1a1a);color:#fff;border:none;padding:12px 20px;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:0.3s}
         .btn:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(204,0,0,0.4)}
         .btn-green{background:linear-gradient(135deg,#4caf50,#2e7d32)}
@@ -51,6 +51,7 @@
         .lang-chip.active{background:rgba(56,189,248,0.1);border-color:#38bdf8;color:#38bdf8;font-weight:600}
         .sub-chip.active{background:rgba(204,0,0,0.1);border-color:#cc0000;color:#ff4d4d;font-weight:600}
         .helper-box{background:rgba(56,189,248,0.05);border:1px dashed rgba(56,189,248,0.3);border-radius:10px;padding:14px;margin-bottom:15px;font-size:13px;color:#999;line-height:1.7}
+        .updater-area{height:300px}
         @media(max-width:600px){.search-box{flex-wrap:wrap}.search-box select{width:100%}.btn-row{flex-direction:column}.dl-row{flex-wrap:wrap}.dl-row select{width:100%;min-width:unset}}
     </style>
 </head>
@@ -60,6 +61,7 @@
     <h1><i class="fas fa-robot"></i> MovieBoxBD Generator</h1>
     <p class="subtitle">আপনার ব্লগার থিমের জন্য কাস্টম পোস্ট তৈরি করুন!</p>
 
+    <!-- ===== NEW POST GENERATOR ===== -->
     <div class="panel">
         <h3 style="margin-bottom:15px;color:#cc0000;font-size:18px"><i class="fas fa-search"></i> ধাপ ১: TMDB থেকে সার্চ</h3>
         <div class="search-box">
@@ -81,14 +83,10 @@
             <option value="movie">🎬 মুভি</option>
             <option value="tv">📺 ওয়েব সিরিজ</option>
         </select>
-        <label>নাম</label>
-        <input type="text" id="m_title" placeholder="মুভি/সিরিজের নাম">
-        <label>মূল নাম ও সাল</label>
-        <input type="text" id="m_origTitle" placeholder="Karuppu (2026)">
-        <label>জেনার</label>
-        <input type="text" id="m_genres" placeholder="Action, Fantasy">
-        <label>রেটিং</label>
-        <input type="text" id="m_rating" placeholder="7.4">
+        <label>নাম</label><input type="text" id="m_title" placeholder="মুভি/সিরিজের নাম">
+        <label>মূল নাম ও সাল</label><input type="text" id="m_origTitle" placeholder="Karuppu (2026)">
+        <label>জেনার</label><input type="text" id="m_genres" placeholder="Action, Fantasy">
+        <label>রেটিং</label><input type="text" id="m_rating" placeholder="7.4">
         <label><i class="fas fa-language"></i> ভাষা</label>
         <div class="lang-chips" id="langChips">
             <span class="lang-chip active" data-lang="Hindi">🇮🇳 Hindi</span>
@@ -106,10 +104,8 @@
             <span class="sub-chip" data-sub="Hardcoded Sub">Hardcoded</span>
             <span class="sub-chip" data-sub="সাব নেই">সাব নেই</span>
         </div>
-        <label>পোস্টার লিংক</label>
-        <input type="text" id="m_poster" placeholder="https://image.tmdb.org/...">
-        <label>গল্প</label>
-        <textarea id="m_synopsis" rows="3" placeholder="গল্পের সারসংক্ষেপ..."></textarea>
+        <label>পোস্টার লিংক</label><input type="text" id="m_poster" placeholder="https://image.tmdb.org/...">
+        <label>গল্প</label><textarea id="m_synopsis" rows="3" placeholder="গল্পের সারসংক্ষেপ..."></textarea>
         <label>স্ক্রিনশট ১</label><input type="text" id="m_ss1" placeholder="https://...">
         <label>স্ক্রিনশট ২</label><input type="text" id="m_ss2" placeholder="https://...">
         <label>স্ক্রিনশট ৩</label><input type="text" id="m_ss3" placeholder="https://...">
@@ -118,18 +114,15 @@
     <div class="panel">
         <h3 style="margin-bottom:15px;color:#cc0000;font-size:18px"><i class="fas fa-download"></i> ধাপ ৩: ডাউনলোড সেটআপ</h3>
         <div class="helper-box"><i class="fas fa-info-circle"></i> মুভি হলে কোয়ালিটি বাটন, সিরিজ হলে এপিসোড যোগ করুন। ভেরিফিকেশন অটো যোগ হবে।</div>
-        
         <div class="section-header"><h4 style="color:#38bdf8"><i class="fas fa-ad"></i> Adsterra লিংক</h4></div>
         <label>অ্যাড লিংক ১</label><input type="text" id="ad1" placeholder="https://...">
         <label>অ্যাড লিংক ২</label><input type="text" id="ad2" placeholder="https://...">
-
         <div id="movieDlSection">
             <div class="section-divider"></div>
             <div class="section-header"><h4 style="color:#4caf50"><i class="fas fa-film"></i> মুভি ডাউনলোড বাটন</h4></div>
             <div id="movieDlList"></div>
             <button class="btn btn-green" onclick="addMovieDl()"><i class="fas fa-plus"></i> বাটন যোগ করুন</button>
         </div>
-
         <div id="seriesDlSection" style="display:none">
             <div class="section-divider"></div>
             <div class="section-header"><h4 style="color:#38bdf8"><i class="fas fa-list-ol"></i> এপিসোড তালিকা</h4></div>
@@ -139,18 +132,45 @@
             <div class="section-header"><h4 style="color:#9c27b0"><i class="fas fa-folder-open"></i> পুরো সিজন (ঐচ্ছিক)</h4></div>
             <input type="text" id="seasonDl" placeholder="https://t.me/... (খালি রাখলে শো করবে না)">
         </div>
-
         <div class="section-divider"></div>
         <button class="btn" onclick="generate()" style="width:100%;justify-content:center;font-size:16px;padding:15px">
             <i class="fas fa-magic"></i> ব্লগার কোড জেনারেট করুন
         </button>
-
         <textarea class="output-area" id="codeOutput" hidden readonly></textarea>
         <div class="btn-row">
-            <button class="btn btn-purple" id="copyBtn" hidden onclick="copyCode()"><i class="fas fa-copy"></i> কোড কপি করুন</button>
+            <button class="btn btn-purple" id="copyBtn" hidden onclick="copyCode('codeOutput', 'copyBtn')"><i class="fas fa-copy"></i> কোড কপি করুন</button>
             <button class="btn btn-orange" id="previewBtn" hidden onclick="previewCode()"><i class="fas fa-eye"></i> প্রিভিউ</button>
         </div>
     </div>
+
+    <!-- ===== SERIES EPISODE UPDATER ===== -->
+    <div class="panel" style="border:1px solid #9c27b0">
+        <h3 style="margin-bottom:15px;color:#9c27b0;font-size:18px"><i class="fas fa-sync-alt"></i> 🔄 নতুন এপিসোড আপডেট করুন (সিরিজের জন্য)</h3>
+        <div class="helper-box" style="border-color:rgba(156,39,176,0.3);background:rgba(156,39,176,0.05)">
+            <i class="fas fa-info-circle" style="color:#9c27b0"></i> আগে আপলোড করা সিরিজে নতুন এপিসোড যোগ করতে চাইলে পুরানো পোস্টের সম্পূর্ণ HTML কোড নিচে পেস্ট করুন। তারপর নতুন এপিসোডের নাম ও লিংক দিন। সে অটোমেটিক পুরো কোড আপডেট করে দেবে!
+        </div>
+
+        <label>১. পুরানো পোস্টের সম্পূর্ণ HTML কোড পেস্ট করুন</label>
+        <textarea id="updateOldHtml" class="updater-area" placeholder="ব্লগার পোস্ট এডিটরের HTML ভিউ থেকে সব কোড কপি করে এখানে পেস্ট করুন..."></textarea>
+
+        <label>২. নতুন এপিসোডের নাম</label>
+        <input type="text" id="updateEpName" placeholder="যেমন: Episode 5 - The Revenge">
+
+        <label>৩. নতুন এপিসোডের টেলিগ্রাম লিংক</label>
+        <input type="text" id="updateEpLink" placeholder="https://t.me/yourbot/...">
+
+        <button class="btn btn-purple" onclick="updateSeriesPost()" style="width:100%;justify-content:center;font-size:16px;padding:15px">
+            <i class="fas fa-plus-circle"></i> আপডেটেড কোড তৈরি করুন
+        </button>
+
+        <textarea class="output-area updater-area" id="updateOutput" hidden readonly></textarea>
+        <div class="btn-row">
+            <button class="btn btn-green" id="updateCopyBtn" hidden onclick="copyCode('updateOutput', 'updateCopyBtn')">
+                <i class="fas fa-copy"></i> আপডেটেড কোড কপি করুন
+            </button>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -246,7 +266,6 @@
         fc += '.mbd-ep-num{width:40px;height:40px;min-width:40px;border-radius:8px;background:#cc0000;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}\n';
         fc += '.mbd-ep-name{flex:1;font-weight:600;font-size:14px}\n';
         fc += '.mbd-ep-dl{background:#cc0000;border:none;color:#fff;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:flex;align-items:center;gap:6px}\n';
-        // Modal CSS
         fc += '.mbd-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,6,10,0.9);backdrop-filter:blur(8px);z-index:99999;align-items:center;justify-content:center;padding:20px}\n';
         fc += '.mbd-modal.active{display:flex}\n';
         fc += '.mbd-modal-box{background:#111217;border-radius:16px;width:100%;max-width:450px;border:1px solid #222;overflow:hidden;animation:mbdSlideUp 0.3s}\n';
@@ -277,8 +296,6 @@
         fc += '</style>\n\n';
 
         fc += '<div class="mbd-post">\n\n';
-        
-        // ===== হোমপেজের জন্য লুকানো মেটা ডেটা (সবচেয়ে গুরুত্বপূর্ণ ফিক্স) =====
         fc += '<!--মেটা ডেটা (সার্চ ক্রলার ও ফিল্টারের জন্য সংরক্ষিত)-->\n';
         fc += '<div class="info-text" style="display:none;">\n';
         fc += '  <div>Rating: '+esc(rating)+'/10</div>\n';
@@ -310,7 +327,6 @@
 
         fc += dlSectionHtml + '\n\n';
 
-        // Modal HTML
         fc += '<div class="mbd-modal" id="mbdVModal">\n';
         fc += '<div class="mbd-modal-box">\n';
         fc += '<div class="mbd-modal-head"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="mbd-modal-close" id="mbdCloseBtn"><i class="fas fa-times"></i></button></div>\n';
@@ -357,10 +373,64 @@
         document.getElementById('copyBtn').scrollIntoView({behavior:'smooth'});
     }
 
-    function copyCode(){var ta=document.getElementById('codeOutput'),text=ta.value;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){copyOk()}).catch(function(){fbCopy(ta)})}else{fbCopy(ta)}}
-    function fbCopy(ta){ta.select();ta.setSelectionRange(0,99999);try{document.execCommand('copy');copyOk()}catch(e){alert('কপি ব্যর্থ!')}}
-    function copyOk(){var b=document.getElementById('copyBtn');b.innerHTML='<i class="fas fa-check"></i> কপি হয়ে গেছে!';setTimeout(function(){b.innerHTML='<i class="fas fa-copy"></i> কোড কপি করুন'},2000)}
-    function previewCode(){var code=document.getElementById('codeOutput').value;var win=window.open('','_blank');if(win){win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>body{background:#05060a;margin:0;padding:20px;max-width:900px;margin:0 auto;}</style></head><body>'+code+'</body></html>');win.document.close()}else{alert('পপআপ ব্লক করা হয়েছে!')}}
+    /* ===== SERIES EPISODE UPDATER FUNCTION ===== */
+    function updateSeriesPost() {
+        var oldHtml = document.getElementById('updateOldHtml').value.trim();
+        var newEpName = document.getElementById('updateEpName').value.trim();
+        var newEpLink = document.getElementById('updateEpLink').value.trim();
+
+        if(!oldHtml || !newEpName || !newEpLink) {
+            alert('অনুগ্রহ করে পুরানো কোড, নতুন এপিসোডের নাম এবং লিংক তিনটিই দিন!');
+            return;
+        }
+
+        try {
+            // পুরানো কোড থেকে এপিসোড ডেটা বের করা
+            var regex = /var mbdEps=([\s\S]*?);/;
+            var match = oldHtml.match(regex);
+            
+            if (!match || !match[1]) {
+                alert('পুরানো কোডে এপিসোড ডেটা (var mbdEps) পাওয়া যায়নি!\nআপনি কি নিশ্চিত এটি এই জেনারেটর দিয়ে তৈরি সিরিজ কোড?');
+                return;
+            }
+
+            var oldJsonStr = match[1];
+            // Escape করা স্ল্যাশ আনএস্কেপ করা
+            var cleanJsonStr = oldJsonStr.replace(/<\\\//g, '</');
+            var epsArray = JSON.parse(cleanJsonStr);
+            
+            // নতুন এপিসোড যোগ করা
+            epsArray.push({name: newEpName, link: newEpLink});
+            
+            // নতুন JSON স্ট্রিং তৈরি করা
+            var newJsonStr = JSON.stringify(epsArray).replace(/<\//g, '<\\/');
+            
+            // পুরানো কোডে রিপ্লেস করে নতুন কোড তৈরি করা
+            var updatedHtml = oldHtml.replace(oldJsonStr, newJsonStr);
+            
+            document.getElementById('updateOutput').value = updatedHtml;
+            document.getElementById('updateOutput').classList.remove('hidden');
+            document.getElementById('updateCopyBtn').classList.remove('hidden');
+            document.getElementById('updateCopyBtn').scrollIntoView({behavior:'smooth'});
+
+        } catch(e) {
+            alert('কোড পার্স করতে সমস্যা হয়েছে!\nআপনি কি সঠিক HTML কোড দিয়েছেন? কোড ভাঙা নয় তো চেক করুন।');
+            console.error(e);
+        }
+    }
+
+    /* ===== COPY FUNCTION ===== */
+    function copyCode(textareaId, btnId) {
+        var ta = document.getElementById(textareaId);
+        var text = ta.value;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function() { copyOk(btnId) }).catch(function() { fbCopy(ta, btnId) });
+        } else { fbCopy(ta, btnId) }
+    }
+    function fbCopy(ta, btnId) { ta.select(); ta.setSelectionRange(0, 99999); try { document.execCommand('copy'); copyOk(btnId) } catch(e) { alert('কপি ব্যর্থ!') } }
+    function copyOk(btnId) { var b = document.getElementById(btnId); b.innerHTML = '<i class="fas fa-check"></i> কপি হয়ে গেছে!'; setTimeout(function() { b.innerHTML = '<i class="fas fa-copy"></i> কোড কপি করুন' }, 2000) }
+
+    function previewCode() { var code = document.getElementById('codeOutput').value; var win = window.open('', '_blank'); if (win) { win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>body{background:#05060a;margin:0;padding:20px;max-width:900px;margin:0 auto;}</style></head><body>' + code + '</body></html>'); win.document.close() } else { alert('পপআপ ব্লক করা হয়েছে!') } }
 </script>
 </body>
 </html>
