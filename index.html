@@ -276,7 +276,16 @@
         fc += '@media(max-width:768px){.mbd-hero{grid-template-columns:1fr}.mbd-poster{max-width:180px;margin:0 auto}.mbd-ss-grid{grid-template-columns:1fr}.mbd-ep-card{flex-wrap:wrap}.mbd-ep-dl{width:100%;justify-content:center}}\n';
         fc += '</style>\n\n';
 
-        fc += '<div class="mbd-post">\n';
+        fc += '<div class="mbd-post">\n\n';
+        
+        // ===== হোমপেজের জন্য লুকানো মেটা ডেটা (সবচেয়ে গুরুত্বপূর্ণ ফিক্স) =====
+        fc += '<!--মেটা ডেটা (সার্চ ক্রলার ও ফিল্টারের জন্য সংরক্ষিত)-->\n';
+        fc += '<div class="info-text" style="display:none;">\n';
+        fc += '  <div>Rating: '+esc(rating)+'/10</div>\n';
+        fc += '  <div>Language: '+esc(movieLang)+'</div>\n';
+        fc += '  <div>Genres: '+esc(genres)+'</div>\n';
+        fc += '</div>\n\n';
+
         fc += '<div class="mbd-hero">\n';
         fc += '<div class="mbd-poster">\n';
         fc += '<img src="'+esc(poster)+'" alt="'+esc(title)+'">\n';
