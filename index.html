@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieBoxBD - Auto Post Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: #0a0a0f; color: #e0e0e0; min-height: 100vh; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; color: #e50914; margin-bottom: 20px; font-size: 28px; }
+        .panel { background: #12121c; border: 1px solid rgba(229, 9, 20, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #fff; }
+        input[type="text"], select { width: 100%; padding: 12px; background: #0a0a0f; border: 1px solid #333; border-radius: 8px; color: #fff; font-family: inherit; font-size: 14px; margin-bottom: 15px; }
+        input:focus, select:focus { outline: none; border-color: #e50914; }
+        .btn { background: linear-gradient(135deg, #e50914, #ff3030); color: #fff; border: none; padding: 12px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4); }
+        .btn-green { background: linear-gradient(135deg, #4caf50, #2e7d32); margin-top: 10px; }
+        
+        .search-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 15px; }
+        .movie-item { cursor: pointer; text-align: center; transition: transform 0.2s; }
+        .movie-item:hover { transform: scale(1.05); }
+        .movie-item img { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .movie-item p { font-size: 12px; margin-top: 5px; color: #ccc; }
+        
+        .episode-manager { display: none; margin-top: 20px; border-top: 1px solid #333; padding-top: 20px; }
+        .ep-input-group { display: flex; gap: 10px; margin-bottom: 10px; }
+        .ep-input-group input { margin-bottom: 0; }
+        
+        textarea { width: 100%; height: 300px; background: #000; color: #0f0; border: 1px solid #333; border-radius: 8px; padding: 15px; font-family: monospace; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1><i class="fas fa-robot"></i> MovieBoxBD Auto Generator</h1>
+
+    <div class="panel">
+        <label><i class="fas fa-key"></i> TMDB API Key (একবার দিলেই হবে)</label>
+        <input type="text" id="apiKey" placeholder="আপনার TMDB API Key এখানে দিন">
+        
+        <label><i class="fas fa-film"></i> টাইপ সিলেক্ট করুন</label>
+        <select id="searchType">
+            <option value="movie">মুভি</option>
+            <option value="tv">ওয়েব সিরিজ</option>
+        </select>
+
+        <label><i class="fas fa-search"></i> মুভি/সিরিজের নাম লিখুন</label>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="searchQuery" placeholder="যেমন: Squid Game">
+            <button class="btn" onclick="searchMovie()"><i class="fas fa-search"></i> খুঁজুন</button>
+        </div>
+
+        <div id="results" class="search-results"></div>
+    </div>
+
+    <!-- সিলেক্ট করার পর যে ফর্ম আসবে -->
+    <div class="panel" id="editPanel" style="display: none;">
+        <h3 style="margin-bottom: 15px; color: #e50914;">পোস্ট কাস্টমাইজেশন</h3>
+        <input type="hidden" id="selectedId">
+        
+        <label>বাংলা টাইটেল (ঐচ্ছিক)</label>
+        <input type="text" id="banglaTitle" placeholder="স্কুইড গেম">
+
+        <label>ডাউনলোড লিংক (আসল ডাউনলোড লিংক)</label>
+        <input type="text" id="downloadLink" placeholder="https://drive.google.com/...">
+
+        <label>অ্যাড কোড ১ (HTML)</label>
+        <input type="text" id="adCode1" placeholder="Ad code 1">
+
+        <label>অ্যাড কোড ২ (HTML)</label>
+        <input type="text" id="adCode2" placeholder="Ad code 2">
+
+        <!-- এপিসোড সেকশন (শুধু সিরিজের জন্য) -->
+        <div class="episode-manager" id="episodeManager">
+            <h3 style="color: #9c27b0; margin-bottom: 10px;"><i class="fas fa-tv"></i> এপিসোড যোগ করুন</h3>
+            <div id="episodeList">
+                <!-- ডাইনামিক এপিসোড ইনপুট এখানে আসবে -->
+            </div>
+            <button class="btn btn-green" onclick="addEpisodeInput()"><i class="fas fa-plus"></i> এপিসোড যোগ করুন</button>
+        </div>
+
+        <br>
+        <button class="btn" onclick="generateHTML()" style="width: 100%; justify-content: center; font-size: 16px; padding: 15px;">
+            <i class="fas fa-code"></i> HTML জেনারেট করুন
+        </button>
+
+        <textarea id="outputCode" style="display:none;" readonly></textarea>
+        <br>
+        <button class="btn btn-green" id="copyBtn" style="display:none; width: 100%; justify-content: center;" onclick="copyCode()"><i class="fas fa-copy"></i> কোড কপি করুন</button>
+    </div>
+</div>
+
+<script>
+    let isSeries = false;
+    const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
+    const IMG_ORIGINAL = 'https://image.tmdb.org/t/p/original';
+
+    async function searchMovie() {
+        const apiKey = document.getElementById('apiKey').value;
+        const query = document.getElementById('searchQuery').value;
+        const type = document.getElementById('searchType').value;
+        isSeries = type === 'tv';
+
+        if(!apiKey || !query) return alert('API Key এবং নাম দিন!');
+
+        const res = await fetch(`https://api.themoviedb.org/3/search/${type}?api_key=${apiKey}&query=${query}&language=bn-BD`);
+        const data = await res.json();
+        
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '';
+
+        data.results.slice(0, 8).forEach(item => {
+            if(!item.poster_path) return;
+            const div = document.createElement('div');
+            div.className = 'movie-item';
+            div.innerHTML = `
+                <img src="${IMG_BASE}${item.poster_path}" alt="${item.title || item.name}">
+                <p>${item.title || item.name} (${(item.release_date || item.first_air_date || '').substring(0, 4)})</p>
+            `;
+            div.onclick = () => selectMovie(item.id, type);
+            resultsDiv.appendChild(div);
+        });
+    }
+
+    async function selectMovie(id, type) {
+        const apiKey = document.getElementById('apiKey').value;
+        document.getElementById('selectedId').value = id;
+        document.getElementById('editPanel').style.display = 'block';
+
+        if(isSeries) {
+            document.getElementById('episodeManager').style.display = 'block';
+            addEpisodeInput(); // প্রথম এপিসোড ইনপুট
+        } else {
+            document.getElementById('episodeManager').style.display = 'none';
+        }
+    }
+
+    function addEpisodeInput() {
+        const list = document.getElementById('episodeList');
+        const index = list.children.length + 1;
+        const div = document.createElement('div');
+        div.className = 'ep-input-group';
+        div.innerHTML = `
+            <input type="text" placeholder="এপিসোড ${index} নাম" class="ep-name">
+            <input type="text" placeholder="ডাউনলোড লিংক" class="ep-link">
+        `;
+        list.appendChild(div);
+    }
+
+    async function generateHTML() {
+        const apiKey = document.getElementById('apiKey').value;
+        const id = document.getElementById('selectedId').value;
+        const type = isSeries ? 'tv' : 'movie';
+        const banglaTitle = document.getElementById('banglaTitle').value;
+        const finalDL = document.getElementById('downloadLink').value || '#';
+        const ad1 = document.getElementById('adCode1').value || '<div class="ad-placeholder-text"><i class="fas fa-ad"></i>Ad 1</div>';
+        const ad2 = document.getElementById('adCode2').value || '<div class="ad-placeholder-text"><i class="fas fa-ad"></i>Ad 2</div>';
+
+        // TMDB থেকে ডিটেইলস আনা
+        const res = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${apiKey}&language=bn-BD`);
+        const data = await res.json();
+
+        const title = banglaTitle || (data.title || data.name);
+        const origTitle = data.title || data.name;
+        const rating = data.vote_average.toFixed(1);
+        const overview = data.overview || 'কোনো বিবরণ পাওয়া যায়নি।';
+        const poster = `${IMG_BASE}${data.poster_path}`;
+        const genres = data.genres.map(g => g.name).join(', ');
+        const year = (data.release_date || data.first_air_date || '').substring(0, 4);
+        
+        // স্ক্রিনশট (Backdrop images)
+        const imgRes = await fetch(`https://api.themoviedb.org/3/${type}/${id}/images?api_key=${apiKey}`);
+        const imgData = await imgRes.json();
+        const screenshots = imgData.backdrops.slice(0, 3).map(img => `<div class="screenshot-item"><img src="${IMG_ORIGINAL}${img.file_path}" alt="Screenshot"></div>`).join('');
+
+        // এপিসোড লুপ
+        let episodeHTML = '';
+        if(isSeries) {
+            const epNames = document.querySelectorAll('.ep-name');
+            const epLinks = document.querySelectorAll('.ep-link');
+            epNames.forEach((input, index) => {
+                const epTitle = input.value || `এপিসোড ${index + 1}`;
+                const epLink = epLinks[index].value || '#';
+                episodeHTML += `
+                <div class="episode-card">
+                    <div class="episode-card-inner">
+                        <div class="ep-number">${String(index + 1).padStart(2, '0')}</div>
+                        <div class="ep-info"><h4>${epTitle}</h4></div>
+                        <div class="ep-downloads">
+                            <button class="ep-dl-btn" onclick="startVerification('S01E${index+1}', '${epLink}')"><i class="fas fa-download"></i> ডাউনলোড</button>
+                        </div>
+                    </div>
+                </div>`;
+            });
+        }
+
+        // ফাইনাল টেমপ্লেট তৈরি
+        const finalHTML = `<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title} - MovieBoxBD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: #0a0a0f; color: #e0e0e0; min-height: 100vh; overflow-x: hidden; }
+        .site-header { background: linear-gradient(135deg, #0d0d15 0%, #1a1a2e 100%); border-bottom: 2px solid #e50914; padding: 12px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(229, 9, 20, 0.15); }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-icon { width: 42px; height: 42px; background: linear-gradient(135deg, #e50914, #ff6b35); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; }
+        .logo-text { font-size: 22px; font-weight: 700; color: #fff; }
+        .logo-text span { color: #e50914; }
+        .movie-container { max-width: 1200px; margin: 0 auto; padding: 24px 16px 60px; }
+        .movie-hero { display: grid; grid-template-columns: 280px 1fr; gap: 30px; background: linear-gradient(145deg, #12121c, #1a1a2e); border-radius: 16px; padding: 24px; border: 1px solid rgba(229, 9, 20, 0.1); position: relative; overflow: hidden; }
+        .movie-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #e50914, #ff6b35, #e50914); }
+        .poster-wrap { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); aspect-ratio: 2/3; }
+        .poster-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .poster-badge { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #e50914, #ff3030); color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+        .poster-rating { position: absolute; bottom: 12px; right: 12px; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); color: #ffd700; padding: 6px 12px; border-radius: 8px; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+        .movie-info { display: flex; flex-direction: column; gap: 14px; }
+        .movie-title { font-size: 28px; font-weight: 700; color: #fff; line-height: 1.3; }
+        .movie-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+        .meta-tag { background: rgba(229, 9, 20, 0.1); border: 1px solid rgba(229, 9, 20, 0.2); color: #ff6b6b; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .meta-tag.blue { background: rgba(33, 150, 243, 0.1); border-color: rgba(33, 150, 243, 0.2); color: #42a5f5; }
+        .info-grid { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-size: 14px; }
+        .info-label { color: #666; font-weight: 500; }
+        .info-value { color: #ccc; }
+        .movie-synopsis { font-size: 14px; line-height: 1.8; color: #999; border-left: 3px solid #e50914; padding-left: 16px; margin-top: 4px; }
+        .section-title { font-size: 20px; font-weight: 700; color: #fff; margin: 40px 0 16px; display: flex; align-items: center; gap: 10px; }
+        .section-title i { color: #e50914; }
+        .screenshots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .screenshot-item { border-radius: 10px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .screenshot-item img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+        .episode-section { margin-top: 40px; background: linear-gradient(145deg, #12121c, #1a1a2e); border-radius: 16px; padding: 28px; border: 1px solid rgba(229, 9, 20, 0.1); position: relative; overflow: hidden; }
+        .episode-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #9c27b0, #e50914, #ff6b35); }
+        .episode-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .episode-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; overflow: hidden; transition: all 0.3s; }
+        .episode-card:hover { border-color: rgba(229, 9, 20, 0.25); background: rgba(229, 9, 20, 0.02); }
+        .episode-card-inner { display: flex; align-items: center; padding: 14px 16px; gap: 14px; }
+        .ep-number { width: 48px; height: 48px; min-width: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; background: linear-gradient(135deg, #e50914, #ff3030); }
+        .ep-info { flex: 1; min-width: 0; }
+        .ep-info h4 { font-size: 15px; font-weight: 600; color: #fff; }
+        .ep-downloads { display: flex; gap: 8px; flex-shrink: 0; }
+        .ep-dl-btn { background: linear-gradient(135deg, #e50914, #ff3030); border: none; color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Hind Siliguri', sans-serif; display: flex; align-items: center; gap: 6px; }
+        .download-section { margin-top: 40px; background: linear-gradient(145deg, #12121c, #1a1a2e); border-radius: 16px; padding: 28px; border: 1px solid rgba(229, 9, 20, 0.1); position: relative; overflow: hidden; }
+        .download-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #e50914, #ff6b35, #e50914); }
+        .download-btn { background: linear-gradient(135deg, #e50914, #ff3030); color: #fff; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Hind Siliguri', sans-serif; width: 100%; box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3); }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(8px); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .modal-box { background: linear-gradient(145deg, #15151f, #1e1e32); border-radius: 20px; width: 100%; max-width: 480px; border: 1px solid rgba(229, 9, 20, 0.15); overflow: hidden; }
+        .modal-header { background: linear-gradient(135deg, #e50914, #ff3030); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+        .modal-header h3 { color: #fff; font-size: 15px; font-weight: 700; }
+        .modal-close { background: rgba(255,255,255,0.2); border: none; color: #fff; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; }
+        .modal-body { padding: 24px; }
+        .step-indicator { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .step-dot { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; border: 2px solid rgba(255,255,255,0.1); color: #555; }
+        .step-dot.active { border-color: #e50914; color: #e50914; background: rgba(229, 9, 20, 0.1); }
+        .step-dot.completed { border-color: #4caf50; color: #fff; background: #4caf50; }
+        .step-line { width: 35px; height: 2px; background: rgba(255,255,255,0.1); }
+        .step-line.completed { background: #4caf50; }
+        .verification-message { text-align: center; margin-bottom: 16px; }
+        .verification-message h4 { font-size: 17px; color: #fff; margin-bottom: 6px; }
+        .verification-message p { font-size: 13px; color: #888; }
+        .ad-container { background: rgba(0,0,0,0.3); border: 2px dashed rgba(229,9,20,0.2); border-radius: 12px; min-height: 100px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; overflow: hidden; }
+        .timer-section { text-align: center; }
+        .timer-bar { width: 100%; height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
+        .timer-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #e50914, #ff6b35); border-radius: 3px; transition: width 0.1s linear; }
+        .timer-text { font-size: 14px; color: #aaa; }
+        .timer-text span { color: #e50914; font-weight: 700; }
+        .unlock-btn { display: none; width: 100%; padding: 13px; background: linear-gradient(135deg, #4caf50, #2e7d32); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Hind Siliguri', sans-serif; margin-top: 14px; }
+        .success-state { text-align: center; padding: 16px 0; }
+        .success-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #4caf50, #2e7d32); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 28px; color: #fff; }
+        .success-state h3 { font-size: 18px; color: #fff; margin-bottom: 6px; }
+        .success-state p { font-size: 13px; color: #888; margin-bottom: 18px; }
+        .final-download-btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 36px; background: linear-gradient(135deg, #e50914, #ff3030); color: #fff; text-decoration: none; border-radius: 12px; font-size: 15px; font-weight: 700; font-family: 'Hind Siliguri', sans-serif; }
+        @media (max-width: 768px) { .movie-hero { grid-template-columns: 1fr; } .poster-wrap { max-width: 200px; margin: 0 auto; } .screenshots-grid { grid-template-columns: 1fr; } .episode-card-inner { flex-wrap: wrap; } .ep-downloads { width: 100%; } .ep-dl-btn { flex: 1; justify-content: center; } }
+    </style>
+</head>
+<body>
+    <header class="site-header"><div class="header-inner"><a href="#" class="logo"><div class="logo-icon"><i class="fas fa-play"></i></div><div class="logo-text">Movie<span>Box</span>BD</div></a></div></header>
+    <div class="movie-container">
+        <div class="movie-hero">
+            <div class="poster-wrap">
+                <img src="${poster}" alt="${title}">
+                <div class="poster-badge">${isSeries ? 'SERIES' : 'MOVIE'}</div>
+                <div class="poster-rating"><i class="fas fa-star"></i> ${rating}</div>
+            </div>
+            <div class="movie-info">
+                <h1 class="movie-title">${title}</h1>
+                <p style="font-size:15px; color:#888;">${origTitle} (${year})</p>
+                <div class="movie-meta">
+                    <span class="meta-tag"><i class="fas fa-film"></i> ${isSeries ? 'ওয়েব সিরিজ' : 'মুভি'}</span>
+                    <span class="meta-tag blue"><i class="fas fa-language"></i> বাংলা সাব</span>
+                </div>
+                <div class="info-grid">
+                    <span class="info-label">জেনার:</span><span class="info-value">${genres}</span>
+                    <span class="info-label">রেটিং:</span><span class="info-value">⭐ ${rating}/10 (IMDb)</span>
+                </div>
+                <p class="movie-synopsis">${overview}</p>
+            </div>
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-images"></i> স্ক্রিনশট</h2>
+        <div class="screenshots-grid">${screenshots}</div>
+
+        ${isSeries ? `
+        <h2 class="section-title"><i class="fas fa-list-ol"></i> এপিসোড তালিকা</h2>
+        <div class="episode-section">
+            <div class="episode-grid">
+                ${episodeHTML}
+            </div>
+        </div>` : ''}
+
+        <h2 class="section-title"><i class="fas fa-download"></i> ডাউনলোড</h2>
+        <div class="download-section">
+            <button class="download-btn" onclick="startVerification('Full', '${finalDL}')"><i class="fas fa-download"></i> ${isSeries ? 'পুরো সিজন ডাউনলোড' : 'মুভি ডাউনলোড'}</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="verificationModal">
+        <div class="modal-box">
+            <div class="modal-header"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="step-indicator"><div class="step-dot active" id="step1Dot">1</div><div class="step-line" id="step1Line"></div><div class="step-dot" id="step2Dot">2</div><div class="step-line" id="step2Line"></div><div class="step-dot" id="step3Dot"><i class="fas fa-check" style="font-size:11px"></i></div></div>
+                <div id="step1Content"><div class="verification-message"><h4>ধাপ ১</h4><p>৫ সেকেন্ড অপেক্ষা করুন</p></div><div class="ad-container">${ad1}</div><div class="timer-section" id="timer1Section"><div class="timer-bar"><div class="timer-fill" id="timer1Fill"></div></div><p class="timer-text">অপেক্ষা <span id="timer1Count">5</span> সেকেন্ড</p></div><button class="unlock-btn" id="step1Unlock" onclick="goToStep2()">পরবর্তী</button></div>
+                <div id="step2Content" style="display:none"><div class="verification-message"><h4>ধাপ ২</h4><p>আরো ৫ সেকেন্ড অপেক্ষা করুন</p></div><div class="ad-container">${ad2}</div><div class="timer-section" id="timer2Section"><div class="timer-bar"><div class="timer-fill" id="timer2Fill"></div></div><p class="timer-text">অপেক্ষা <span id="timer2Count">5</span> সেকেন্ড</p></div><button class="unlock-btn" id="step2Unlock" onclick="goToStep3()">আনলক করুন</button></div>
+                <div id="step3Content" style="display:none"><div class="success-state"><div class="success-icon"><i class="fas fa-check"></i></div><h3>রেডি!</h3><p>ডাউনলোড করুন</p><a href="#" class="final-download-btn" id="finalDownloadBtn" target="_blank"><i class="fas fa-download"></i> ডাউনলোড</a></div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLink='';let timer1Interval=null;let timer2Interval=null;
+        function startVerification(id,link){currentLink=link;resetModal();document.getElementById('verificationModal').classList.add('active');document.body.style.overflow='hidden';startTimer1();}
+        function resetModal(){if(timer1Interval)clearInterval(timer1Interval);if(timer2Interval)clearInterval(timer2Interval);document.getElementById('step1Dot').className='step-dot active';document.getElementById('step2Dot').className='step-dot';document.getElementById('step3Dot').className='step-dot';document.getElementById('step1Line').className='step-line';document.getElementById('step2Line').className='step-line';document.getElementById('step1Content').style.display='block';document.getElementById('step2Content').style.display='none';document.getElementById('step3Content').style.display='none';document.getElementById('timer1Fill').style.width='0%';document.getElementById('timer1Count').textContent='5';document.getElementById('timer1Section').style.display='block';document.getElementById('step1Unlock').style.display='none';document.getElementById('timer2Fill').style.width='0%';document.getElementById('timer2Count').textContent='5';document.getElementById('timer2Section').style.display='block';document.getElementById('step2Unlock').style.display='none';}
+        function startTimer1(){let t=5;const f=document.getElementById('timer1Fill');const c=document.getElementById('timer1Count');timer1Interval=setInterval(()=>{t--;c.textContent=t;f.style.width=((5-t)/5*100)+'%';if(t<=0){clearInterval(timer1Interval);document.getElementById('timer1Section').style.display='none';document.getElementById('step1Unlock').style.display='block';}},1000);}
+        function goToStep2(){document.getElementById('step1Dot').className='step-dot completed';document.getElementById('step1Line').className='step-line completed';document.getElementById('step2Dot').className='step-dot active';document.getElementById('step1Content').style.display='none';document.getElementById('step2Content').style.display='block';startTimer2();}
+        function startTimer2(){let t=5;const f=document.getElementById('timer2Fill');const c=document.getElementById('timer2Count');timer2Interval=setInterval(()=>{t--;c.textContent=t;f.style.width=((5-t)/5*100)+'%';if(t<=0){clearInterval(timer2Interval);document.getElementById('timer2Section').style.display='none';document.getElementById('step2Unlock').style.display='block';}},1000);}
+        function goToStep3(){document.getElementById('step2Dot').className='step-dot completed';document.getElementById('step2Line').className='step-line completed';document.getElementById('step3Dot').className='step-dot completed';document.getElementById('step2Content').style.display='none';document.getElementById('step3Content').style.display='block';document.getElementById('finalDownloadBtn').href=currentLink;}
+        function closeModal(){document.getElementById('verificationModal').classList.remove('active');document.body.style.overflow='';if(timer1Interval)clearInterval(timer1Interval);if(timer2Interval)clearInterval(timer2Interval);}
+        document.getElementById('verificationModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+    </script>
+</body>
+</html>`;
+
+        document.getElementById('outputCode').style.display = 'block';
+        document.getElementById('copyBtn').style.display = 'block';
+        document.getElementById('outputCode').value = finalHTML;
+    }
+
+    function copyCode() {
+        const copyText = document.getElementById('outputCode');
+        copyText.select();
+        document.execCommand('copy');
+        alert('কোড কপি হয়ে গেছে! এবার আপনার ওয়েবসাইটে পেস্ট করুন।');
+    }
+</script>
+</body>
+</html>
