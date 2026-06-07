@@ -52,7 +52,7 @@
         .lang-chip.active{background:rgba(56,189,248,0.1);border-color:#38bdf8;color:#38bdf8;font-weight:600}
         .sub-chip.active{background:rgba(204,0,0,0.1);border-color:#cc0000;color:#ff4d4d;font-weight:600}
         .helper-box{background:rgba(56,189,248,0.05);border:1px dashed rgba(56,189,248,0.3);border-radius:10px;padding:14px;margin-bottom:15px;font-size:13px;color:#999;line-height:1.7}
-        .updater-area{height:300px}
+        .updater-area{height:250px}
         .ads-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
         .ads-header h4{margin:0;font-size:16px;font-weight:600;color:#38bdf8}
         .ads-saved-badge{background:rgba(76,175,80,0.15);color:#4caf50;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;display:none}
@@ -141,13 +141,17 @@
             <button class="btn btn-blue" onclick="addEp()"><i class="fas fa-plus"></i> নতুন এপিসোড</button>
             
             <div class="section-divider"></div>
+            <label><i class="fas fa-star"></i> সর্বশেষ কয়টি এপিসোডে "NEW ADDED" ট্যাগ দেবেন?</label>
+            <input type="text" id="m_newTagCount" value="3" placeholder="3">
+            <p class="warn">⚠️ সর্বশেষ এপিসোডগুলো সবার উপরে শো করবে এবং এখানে যত দেবেন, ততটিতে লাল ট্যাগ শো করবে।</p>
+            
+            <div class="section-divider"></div>
             <label><i class="fas fa-file-alt"></i> প্রতি পেজে কয়টি এপিসোড দেখাবেন?</label>
-            <input type="text" id="m_epsPerPage" placeholder="10" value="10">
-            <p class="warn">⚠️ ৫০-১০০টি এপিসোড থাকলে পেজ বড় না হওয়ার জন্য ১০ বা ১৫ দেওয়া ভালো। তাহলে অটো পেজিনেশন যোগ হবে!</p>
+            <input type="text" id="m_epsPerPage" value="10" placeholder="10">
 
             <div class="section-divider"></div>
             <div class="section-header"><h4 style="color:#9c27b0"><i class="fas fa-folder-open"></i> পুরো সিজন (ঐচ্ছিক)</h4></div>
-            <input type="text" id="seasonDl" placeholder="https://t.me/... (খালি রাখলে শো করবে না)">
+            <input type="text" id="seasonDl" placeholder="https://t.me/...">
         </div>
         <div class="section-divider"></div>
         <button class="btn" onclick="generate()" style="width:100%;justify-content:center;font-size:16px;padding:15px">
@@ -160,17 +164,21 @@
         </div>
     </div>
 
+    <!-- ===== SERIES EPISODE UPDATER ===== -->
     <div class="panel" style="border:1px solid #9c27b0">
         <h3 style="margin-bottom:15px;color:#9c27b0;font-size:18px"><i class="fas fa-sync-alt"></i> 🔄 নতুন এপিসোড আপডেট করুন</h3>
         <div class="helper-box" style="border-color:rgba(156,39,176,0.3);background:rgba(156,39,176,0.05)">
-            <i class="fas fa-info-circle" style="color:#9c27b0"></i> আগের সিরিজে নতুন এপিসোড যোগ করতে পুরানো পোস্টের HTML কোড দিন।
+            <i class="fas fa-info-circle" style="color:#9c27b0"></i> একসাথে ১ বা একাধিক এপিসোড যোগ করতে নিচের বক্সে নতুন লাইনে লিখুন। আগের এপিসোডের "NEW ADDED" ট্যাগ অটো চলে যাবে!
         </div>
         <label>১. পুরানো পোস্টের সম্পূর্ণ HTML কোড</label>
         <textarea id="updateOldHtml" class="updater-area" placeholder="ব্লগার পোস্ট এডিটরের HTML ভিউ থেকে সব কোড কপি করে এখানে পেস্ট করুন..."></textarea>
-        <label>২. নতুন এপিসোডের নাম</label>
-        <input type="text" id="updateEpName" placeholder="যেমন: Episode 5 - The Revenge">
-        <label>৩. নতুন এপিসোডের টেলিগ্রাম লিংক</label>
-        <input type="text" id="updateEpLink" placeholder="https://t.me/yourbot/...">
+        
+        <label>২. নতুন এপিসোডের নাম (একাধিক হলে নতুন লাইনে লিখুন)</label>
+        <textarea id="updateEpNames" rows="3" placeholder="Episode 48&#10;Episode 49&#10;Episode 50" style="margin-bottom:15px"></textarea>
+        
+        <label>৩. নতুন এপিসোডের লিংক (একই ক্রমে, নতুন লাইনে)</label>
+        <textarea id="updateEpLinks" rows="3" placeholder="https://t.me/...48&#10;https://t.me/...49&#10;https://t.me/...50" style="margin-bottom:15px"></textarea>
+
         <button class="btn btn-purple" onclick="updateSeriesPost()" style="width:100%;justify-content:center;font-size:16px;padding:15px">
             <i class="fas fa-plus-circle"></i> আপডেটেড কোড তৈরি করুন
         </button>
@@ -222,7 +230,19 @@
 
         var adLink1=document.getElementById('ad1').value.trim()||'#',adLink2=document.getElementById('ad2').value.trim()||'#';
         var movieDlArr=[];document.querySelectorAll('#movieDlList .dl-row').forEach(function(r){var q=r.querySelector('.movie-dl-quality').value,l=r.querySelector('.movie-dl-link').value.trim();if(q&&l)movieDlArr.push({quality:q,link:l})});
-        var epArr=[];document.querySelectorAll('#epList .dl-row').forEach(function(r){var n=r.querySelector('.ep-name').value.trim(),l=r.querySelector('.ep-link').value.trim();if(n)epArr.push({name:n,link:l||'#'})});
+        
+        // Episode Array with isNew tag logic
+        var epArr=[]; 
+        var epCount=document.querySelectorAll('#epList .dl-row').length;
+        var newTagCount=parseInt(document.getElementById('m_newTagCount').value)||0;
+        document.querySelectorAll('#epList .dl-row').forEach(function(r,idx){
+            var n=r.querySelector('.ep-name').value.trim(),l=r.querySelector('.ep-link').value.trim();
+            if(n){
+                var isNew=(idx>=epCount-newTagCount); // Last N episodes get isNew=true
+                epArr.push({name:n,link:l||'#',isNew:isNew});
+            }
+        });
+        
         var seasonDlLink=document.getElementById('seasonDl').value.trim();
         var epsPerPage=parseInt(document.getElementById('m_epsPerPage').value)||10;
 
@@ -267,11 +287,14 @@
         fc += '.mbd-season-btn{background:linear-gradient(135deg,#38bdf8,#0ea5e9);color:#000;border:none;padding:14px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:\'Hind Siliguri\',sans-serif;width:100%}\n';
         fc += '.mbd-ep-box{background:#111217;border-radius:12px;padding:25px;border:1px solid #222}\n';
         fc += '.mbd-ep-grid{display:grid;grid-template-columns:1fr;gap:10px}\n';
-        fc += '.mbd-ep-card{background:rgba(255,255,255,0.02);border:1px solid #222;border-radius:10px;display:flex;align-items:center;padding:12px;gap:12px;transition:0.3s}\n';
+        fc += '.mbd-ep-card{background:rgba(255,255,255,0.02);border:1px solid #222;border-radius:10px;display:flex;align-items:center;padding:12px;gap:12px;transition:0.3s;position:relative;overflow:hidden}\n';
         fc += '.mbd-ep-card:hover{border-color:#cc0000}\n';
         fc += '.mbd-ep-num{width:40px;height:40px;min-width:40px;border-radius:8px;background:#cc0000;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}\n';
         fc += '.mbd-ep-name{flex:1;font-weight:600;font-size:14px}\n';
         fc += '.mbd-ep-dl{background:#cc0000;border:none;color:#fff;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:flex;align-items:center;gap:6px}\n';
+        // NEW ADDED Badge CSS
+        fc += '.mbd-new-badge{position:absolute;top:0;right:0;background:linear-gradient(135deg,#cc0000,#ff1a1a);color:#fff;font-size:9px;padding:3px 8px;border-radius:0 10px 0 8px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;animation:mbdPulse 2s infinite}\n';
+        fc += '@keyframes mbdPulse{0%,100%{opacity:1}50%{opacity:0.7}}\n';
         // Pagination CSS
         fc += '.mbd-pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:20px;padding-top:15px;border-top:1px solid #222}\n';
         fc += '.mbd-page-btn{background:#222;color:#f1f5f9;border:1px solid #333;padding:8px 18px;border-radius:6px;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;transition:0.2s}\n';
@@ -309,11 +332,7 @@
 
         fc += '<div class="mbd-post">\n\n';
         fc += '<!--মেটা ডেটা (সার্চ ক্রলার ও ফিল্টারের জন্য সংরক্ষিত)-->\n';
-        fc += '<div class="info-text" style="display:none;">\n';
-        fc += '  <div>Rating: '+esc(rating)+'/10</div>\n';
-        fc += '  <div>Language: '+esc(movieLang)+'</div>\n';
-        fc += '  <div>Genres: '+esc(genres)+'</div>\n';
-        fc += '</div>\n\n';
+        fc += '<div class="info-text" style="display:none;">\n  <div>Rating: '+esc(rating)+'/10</div>\n  <div>Language: '+esc(movieLang)+'</div>\n  <div>Genres: '+esc(genres)+'</div>\n</div>\n\n';
         fc += '<div class="mbd-hero">\n<div class="mbd-poster">\n<img src="'+esc(poster)+'" alt="'+esc(title)+'">\n<div class="mbd-badge">'+badgeLabel+'</div>\n<div class="mbd-lang">'+esc(movieLang)+'</div>\n<div class="mbd-rating"><i class="fas fa-star"></i> '+esc(rating)+'</div>\n</div>\n<div class="mbd-details">\n<h1 class="mbd-title">'+esc(title)+'</h1>\n<p class="mbd-orig">'+esc(origTitle)+'</p>\n<div class="mbd-metas">\n<span class="mbd-meta red"><i class="fas fa-film"></i> '+typeLabel+'</span>\n<span class="mbd-meta blue"><i class="fas fa-language"></i> '+esc(movieLang)+'</span>\n<span class="mbd-meta yellow"><i class="fas fa-closed-captioning"></i> '+esc(movieSub)+'</span>\n</div>\n<div style="font-size:13px;color:#aaa">জেনার: '+esc(genres)+'</div>\n<p class="mbd-synopsis">'+esc(overview)+'</p>\n</div>\n</div>\n\n';
         fc += '<div class="mbd-section-title"><i class="fas fa-images"></i> স্ক্রিনশট</div>\n<div class="mbd-ss-grid">'+screens+'</div>\n\n';
         fc += dlSectionHtml + '\n\n';
@@ -325,14 +344,19 @@
         }
         if(isTV){
             fc += 'var mbdEps='+safeJson(epArr)+';\n';
+            // Reverse the array so newest episodes are first
+            fc += 'mbdEps=mbdEps.reverse();\n';
             fc += 'var mbdPerPage='+epsPerPage+';\nvar mbdCurrentPage=1;\n\n';
             
             // Pagination Rendering Logic
             fc += 'function mbdRenderEps(page){\n';
             fc += 'mbdCurrentPage=page;\nvar grid=document.getElementById("mbd-ep-grid");\ngrid.innerHTML="";\n';
             fc += 'var start=(page-1)*mbdPerPage;\nvar end=start+mbdPerPage;\nvar pageEps=mbdEps.slice(start,end);\n';
-            fc += 'for(var i=0;i<pageEps.length;i++){\nvar actualIdx=start+i;\nvar e=pageEps[i];\nvar n=(actualIdx+1).toString();\nif(n.length<2)n="0"+n;\n';
-            fc += 'var c=document.createElement("div");\nc.className="mbd-ep-card";\nc.innerHTML=\'<div class="mbd-ep-num">\'+n+\'</div><div class="mbd-ep-name">\'+e.name+\'</div><button class="mbd-ep-dl mbd-trigger-dl" data-link="\'+e.link+\'"><i class="fas fa-download"></i> ডাউনলোড</button>\';\n';
+            fc += 'for(var i=0;i<pageEps.length;i++){\nvar actualIdx=start+i;\nvar e=pageEps[i];\n';
+            // Calculate original number: length - actualIdx
+            fc += 'var epNum=mbdEps.length-actualIdx;\nvar n=epNum.toString();\nif(n.length<2)n="0"+n;\n';
+            fc += 'var newTag=e.isNew?\'<span class="mbd-new-badge">NEW ADDED</span>\':"";\n';
+            fc += 'var c=document.createElement("div");\nc.className="mbd-ep-card";\nc.innerHTML=\'<div class="mbd-ep-num">\'+n+\'</div><div class="mbd-ep-name">\'+e.name+newTag+\'</div><button class="mbd-ep-dl mbd-trigger-dl" data-link="\'+e.link+\'"><i class="fas fa-download"></i> ডাউনলোড</button>\';\n';
             fc += 'grid.appendChild(c);\n}\nmbdRenderPag();\n}\n\n';
             
             fc += 'function mbdRenderPag(){\nvar pDiv=document.getElementById("mbd-pagination");\nvar totalP=Math.ceil(mbdEps.length/mbdPerPage);\nif(totalP<=1){pDiv.innerHTML="";return;}\nvar h="";\n';
@@ -364,21 +388,39 @@
         document.getElementById('copyBtn').scrollIntoView({behavior:'smooth'});
     }
 
+    /* ===== SERIES EPISODE UPDATER FUNCTION ===== */
     function updateSeriesPost() {
-        var oldHtml=document.getElementById('updateOldHtml').value.trim(),newEpName=document.getElementById('updateEpName').value.trim(),newEpLink=document.getElementById('updateEpLink').value.trim();
-        if(!oldHtml||!newEpName||!newEpLink){alert('অনুগ্রহ করে পুরানো কোড, নতুন এপিসোডের নাম এবং লিংক তিনটিই দিন!');return}
-        try{var regex=/var mbdEps=([\s\S]*?);/;var match=oldHtml.match(regex);if(!match||!match[1]){alert('পুরানো কোডে এপিসোড ডেটা (var mbdEps) পাওয়া যায়নি!');return}
+        var oldHtml=document.getElementById('updateOldHtml').value.trim();
+        var newEpNames=document.getElementById('updateEpNames').value.trim();
+        var newEpLinks=document.getElementById('updateEpLinks').value.trim();
+
+        if(!oldHtml||!newEpNames||!newEpLinks){alert('পুরানো কোড, নতুন এপিসোডের নাম এবং লিংক দিন!');return}
+
+        try{var regex=/var mbdEps=([\s\S]*?);/;var match=oldHtml.match(regex);if(!match||!match[1]){alert('পুরানো কোডে এপিসোড ডেটা পাওয়া যায়নি!');return}
         var oldJsonStr=match[1];var cleanJsonStr=oldJsonStr.replace(/<\\\//g,'</');var epsArray=JSON.parse(cleanJsonStr);
-        epsArray.push({name:newEpName,link:newEpLink});var newJsonStr=JSON.stringify(epsArray).replace(/<\//g,'<\\/');
+        
+        // Remove NEW ADDED tag from all existing episodes
+        epsArray.forEach(function(ep){ep.isNew=false});
+        
+        // Add new episodes with isNew=true
+        var names=newEpNames.split('\n');var links=newEpLinks.split('\n');
+        for(var i=0;i<names.length;i++){
+            if(names[i].trim()){
+                epsArray.push({name:names[i].trim(),link:(links[i]||'').trim()||'#',isNew:true});
+            }
+        }
+        
+        var newJsonStr=JSON.stringify(epsArray).replace(/<\//g,'<\\/');
         var updatedHtml=oldHtml.replace(oldJsonStr,newJsonStr);
+        
         document.getElementById('updateOutput').value=updatedHtml;document.getElementById('updateOutput').classList.remove('hidden');document.getElementById('updateCopyBtn').classList.remove('hidden');document.getElementById('updateCopyBtn').scrollIntoView({behavior:'smooth'});
-        }catch(e){alert('কোড পার্স করতে সমস্যা হয়েছে!');console.error(e)}
+        }catch(e){alert('কোড পার্স করতে সমস্যা!');console.error(e)}
     }
 
     function copyCode(tid,bid){var ta=document.getElementById(tid),text=ta.value;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){copyOk(bid)}).catch(function(){fbCopy(ta,bid)})}else{fbCopy(ta,bid)}}
     function fbCopy(ta,bid){ta.select();ta.setSelectionRange(0,99999);try{document.execCommand('copy');copyOk(bid)}catch(e){alert('কপি ব্যর্থ!')}}
     function copyOk(bid){var b=document.getElementById(bid);b.innerHTML='<i class="fas fa-check"></i> কপি হয়ে গেছে!';setTimeout(function(){b.innerHTML='<i class="fas fa-copy"></i> কোড কপি করুন'},2000)}
-    function previewCode(){var code=document.getElementById('codeOutput').value;var win=window.open('','_blank');if(win){win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>body{background:#05060a;margin:0;padding:20px;max-width:900px;margin:0 auto;}</style></head><body>'+code+'</body></html>');win.document.close()}else{alert('পপআপ ব্লক করা হয়েছে!')}}
+    function previewCode(){var code=document.getElementById('codeOutput').value;var win=window.open('','_blank');if(win){win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"><style>body{background:#05060a;margin:0;padding:20px;max-width:900px;margin:0 auto;}</style></head><body>'+code+'</body></html>');win.document.close()}else{alert('পপআপ ব্লক!')}}
 </script>
 </body>
 </html>
