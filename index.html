@@ -10,206 +10,284 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Hind Siliguri', sans-serif; background: #0a0a0f; color: #e0e0e0; min-height: 100vh; }
         .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        h1 { text-align: center; color: #e50914; margin-bottom: 20px; font-size: 28px; }
+        h1 { text-align: center; color: #e50914; margin-bottom: 5px; font-size: 26px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 25px; font-size: 14px; }
         .panel { background: #12121c; border: 1px solid rgba(229, 9, 20, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: 600; color: #fff; font-size: 14px; }
         input[type="text"], select { width: 100%; padding: 12px; background: #0a0a0f; border: 1px solid #333; border-radius: 8px; color: #fff; font-family: inherit; font-size: 14px; margin-bottom: 15px; }
         input:focus, select:focus { outline: none; border-color: #e50914; }
-        .btn { background: linear-gradient(135deg, #e50914, #ff3030); color: #fff; border: none; padding: 12px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .btn { background: linear-gradient(135deg, #e50914, #ff3030); color: #fff; border: none; padding: 12px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4); }
         .btn-green { background: linear-gradient(135deg, #4caf50, #2e7d32); }
         .btn-blue { background: linear-gradient(135deg, #2196f3, #1565c0); margin-top: 10px; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         
-        .search-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; margin-top: 15px; }
-        .movie-item { cursor: pointer; text-align: center; transition: transform 0.2s; }
-        .movie-item:hover { transform: scale(1.05); }
-        .movie-item img { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .movie-item p { font-size: 11px; margin-top: 5px; color: #ccc; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 15px; }
+        .search-box input { margin-bottom: 0; }
         
-        .episode-manager { display: none; margin-top: 20px; border-top: 1px solid #333; padding-top: 20px; }
-        .ep-input-group { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
-        .ep-input-group input { margin-bottom: 0; }
-        .ep-remove-btn { background: #ff5252; border: none; color: white; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+        .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; margin-top: 15px; }
+        .result-card { cursor: pointer; text-align: center; transition: transform 0.2s; border: 2px solid transparent; border-radius: 10px; padding: 8px; background: rgba(255,255,255,0.02); }
+        .result-card:hover { transform: scale(1.03); border-color: rgba(229, 9, 20, 0.3); background: rgba(229,9,20,0.05); }
+        .result-card img { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); aspect-ratio: 2/3; object-fit: cover; }
+        .result-card p { font-size: 11px; margin-top: 6px; color: #ccc; line-height: 1.3; }
+        .result-card .year { color: #e50914; font-weight: 600; }
         
-        textarea { width: 100%; height: 300px; background: #000; color: #0f0; border: 1px solid #333; border-radius: 8px; padding: 15px; font-family: monospace; margin-top: 15px; font-size: 13px; }
+        .status-msg { text-align: center; padding: 20px; color: #888; font-size: 14px; }
+        .status-msg.error { color: #ff5252; }
+        .status-msg.loading { color: #ffd700; }
+        
+        .ep-manager { display: none; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+        .ep-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+        .ep-row input { margin-bottom: 0; }
+        .ep-remove { background: #ff5252; border: none; color: white; width: 36px; height: 36px; min-width: 36px; border-radius: 50%; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+        
+        .output-area { width: 100%; height: 250px; background: #050505; color: #00ff00; border: 1px solid #333; border-radius: 8px; padding: 15px; font-family: 'Courier New', monospace; margin-top: 15px; font-size: 12px; resize: vertical; }
+        
+        .selected-badge { background: linear-gradient(135deg, #4caf50, #2e7d32); color: #fff; padding: 8px 15px; border-radius: 8px; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1><i class="fas fa-robot"></i> MovieBoxBD Auto Post Generator</h1>
+    <h1><i class="fas fa-robot"></i> MovieBoxBD Generator</h1>
+    <p class="subtitle">মুভি/সিরিজের নাম দিলেই অটো পোস্ট রেডি!</p>
 
+    <!-- STEP 1: SEARCH -->
     <div class="panel">
-        <label><i class="fas fa-film"></i> টাইপ সিলেক্ট করুন</label>
-        <select id="searchType" onchange="resetSearch()">
-            <option value="movie">মুভি</option>
-            <option value="tv">ওয়েব সিরিজ</option>
+        <label><i class="fas fa-tv"></i> টাইপ সিলেক্ট করুন</label>
+        <select id="typeSelect">
+            <option value="movie">🎬 মুভি</option>
+            <option value="tv">📺 ওয়েব সিরিজ</option>
         </select>
 
-        <label><i class="fas fa-search"></i> মুভি/সিরিজের নাম লিখুন (English)</label>
-        <div style="display: flex; gap: 10px;">
-            <input type="text" id="searchQuery" placeholder="যেমন: Squid Game" style="margin-bottom:0">
-            <button class="btn" onclick="searchMovie()"><i class="fas fa-search"></i> খুঁজুন</button>
+        <label><i class="fas fa-search"></i> নাম লিখে সার্চ করুন</label>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="যেমন: Squid Game, Iron Man...">
+            <button class="btn" id="searchBtn" onclick="doSearch()"><i class="fas fa-search"></i> সার্চ</button>
         </div>
 
-        <div id="results" class="search-results"></div>
+        <div id="resultsArea">
+            <div class="status-msg"><i class="fas fa-film"></i> উপরে নাম লিখে সার্চ বাটনে ক্লিক করুন</div>
+        </div>
     </div>
 
-    <!-- সিলেক্ট করার পর যে ফর্ম আসবে -->
-    <div class="panel" id="editPanel" style="display: none;">
-        <h3 style="margin-bottom: 15px; color: #e50914;"><i class="fas fa-edit"></i> পোস্ট সেটআপ</h3>
-        <input type="hidden" id="selectedId">
+    <!-- STEP 2: SETUP -->
+    <div class="panel" id="setupPanel" style="display:none;">
+        <h3 style="margin-bottom:15px; color:#e50914; font-size:18px;"><i class="fas fa-cog"></i> পোস্ট সেটআপ</h3>
         
+        <div id="selectedInfo" class="selected-badge"></div>
+
         <label>বাংলা টাইটেল (ঐচ্ছিক)</label>
-        <input type="text" id="banglaTitle" placeholder="স্কুইড গেম">
+        <input type="text" id="bnTitle" placeholder="স্কুইড গেম">
 
         <label><i class="fas fa-ad"></i> Adsterra Direct Ad Link ১</label>
-        <input type="text" id="adLink1" placeholder="https://adsterra-link-1.com...">
+        <input type="text" id="ad1" placeholder="https://adsterra-link-1.com...">
 
         <label><i class="fas fa-ad"></i> Adsterra Direct Ad Link ২</label>
-        <input type="text" id="adLink2" placeholder="https://adsterra-link-2.com...">
+        <input type="text" id="ad2" placeholder="https://adsterra-link-2.com...">
 
-        <!-- মুভির জন্য ডাউনলোড লিংক -->
-        <div id="movieDlSection">
-            <label><i class="fas fa-telegram"></i> Telegram Download Link (পুরো মুভি বা পুরো সিজনের)</label>
-            <input type="text" id="mainDownloadLink" placeholder="https://t.me/yourbot/... ">
+        <div id="movieDlBox">
+            <label><i class="fab fa-telegram"></i> Telegram Download Link (মুভি বা পুরো সিজন)</label>
+            <input type="text" id="mainDl" placeholder="https://t.me/yourbot/...">
         </div>
 
-        <!-- এপিসোড সেকশন (শুধু সিরিজের জন্য) -->
-        <div class="episode-manager" id="episodeManager">
-            <h3 style="color: #9c27b0; margin-bottom: 10px;"><i class="fas fa-tv"></i> এপিসোড যোগ করুন</h3>
-            <div id="episodeList"></div>
-            <button class="btn btn-blue" onclick="addEpisodeInput()"><i class="fas fa-plus"></i> এপিসোড যোগ করুন</button>
+        <div class="ep-manager" id="epManager">
+            <h3 style="color:#9c27b0; margin-bottom:10px; font-size:16px;"><i class="fas fa-list-ol"></i> এপিসোড যোগ করুন</h3>
+            <div id="epList"></div>
+            <button class="btn btn-blue" onclick="addEp()"><i class="fas fa-plus"></i> নতুন এপিসোড যোগ করুন</button>
         </div>
 
         <br>
-        <button class="btn" onclick="generateHTML()" style="width: 100%; justify-content: center; font-size: 16px; padding: 15px;">
-            <i class="fas fa-code"></i> HTML জেনারেট করুন
+        <button class="btn" id="genBtn" onclick="generate()" style="width:100%; justify-content:center; font-size:16px; padding:15px;">
+            <i class="fas fa-magic"></i> HTML জেনারেট করুন
         </button>
 
-        <textarea id="outputCode" style="display:none;" readonly></textarea>
+        <textarea class="output-area" id="codeOutput" style="display:none;" readonly></textarea>
         <br>
-        <button class="btn btn-green" id="copyBtn" style="display:none; width: 100%; justify-content: center; margin-top: 10px;" onclick="copyCode()"><i class="fas fa-copy"></i> কোড কপি করুন</button>
+        <button class="btn btn-green" id="copyBtn" style="display:none; width:100%; justify-content:center; margin-top:10px;" onclick="copyCode()">
+            <i class="fas fa-copy"></i> কোড কপি করুন
+        </button>
     </div>
 </div>
 
 <script>
-    const API_KEY = 'c0d37f0558b975f73bd73328e07324eb'; // আপনার TMDB API Key
-    let isSeries = false;
-    const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
-    const IMG_ORIGINAL = 'https://image.tmdb.org/t/p/original';
+    // ============ CONFIG ============
+    const API_KEY = 'c0d37f0558b975f73bd73328e07324eb';
+    const IMG = 'https://image.tmdb.org/t/p/w500';
+    const IMG_HD = 'https://image.tmdb.org/t/p/original';
+    
+    let selectedItem = null;
+    let isTV = false;
 
-    function resetSearch() {
-        document.getElementById('results').innerHTML = '';
-        document.getElementById('editPanel').style.display = 'none';
-    }
+    // Enter key support
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') doSearch();
+    });
 
-    async function searchMovie() {
-        const query = document.getElementById('searchQuery').value;
-        const type = document.getElementById('searchType').value;
-        isSeries = type === 'tv';
+    // ============ SEARCH ============
+    async function doSearch() {
+        const query = document.getElementById('searchInput').value.trim();
+        const type = document.getElementById('typeSelect').value;
+        isTV = type === 'tv';
+        const area = document.getElementById('resultsArea');
+        const btn = document.getElementById('searchBtn');
 
-        if(!query) return alert('নাম লিখুন!');
-
-        const res = await fetch(`https://api.themoviedb.org/3/search/${type}?api_key=${API_KEY}&query=${query}&language=bn-BD`);
-        const data = await res.json();
-        
-        const resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = '';
-
-        if(data.results.length === 0) {
-            resultsDiv.innerHTML = '<p style="color:red; text-align:center;">কিছু পাওয়া যায়নি!</p>';
+        if (!query) {
+            area.innerHTML = '<div class="status-msg error"><i class="fas fa-exclamation-circle"></i> নাম লিখুন!</div>';
             return;
         }
 
-        data.results.slice(0, 8).forEach(item => {
-            if(!item.poster_path) return;
-            const div = document.createElement('div');
-            div.className = 'movie-item';
-            div.innerHTML = `
-                <img src="${IMG_BASE}${item.poster_path}" alt="${item.title || item.name}">
-                <p>${item.title || item.name} (${(item.release_date || item.first_air_date || '').substring(0, 4)})</p>
-            `;
-            div.onclick = () => selectMovie(item.id, type);
-            resultsDiv.appendChild(div);
-        });
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> খুঁজছি...';
+        area.innerHTML = '<div class="status-msg loading"><i class="fas fa-spinner fa-spin"></i> সার্চ করা হচ্ছে...</div>';
+
+        try {
+            const url = `https://api.themoviedb.org/3/search/${type}?api_key=${API_KEY}&query=${encodeURIComponent(query)}`;
+            const res = await fetch(url);
+            
+            if (!res.ok) throw new Error('API Error: ' + res.status);
+            
+            const data = await res.json();
+
+            if (!data.results || data.results.length === 0) {
+                area.innerHTML = '<div class="status-msg error"><i class="fas fa-times-circle"></i> কিছু পাওয়া যায়নি! ইংরেজিতে নাম লিখুন।</div>';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-search"></i> সার্চ';
+                return;
+            }
+
+            let html = '<div class="results-grid">';
+            data.results.slice(0, 10).forEach(item => {
+                if (!item.poster_path) return;
+                const title = item.title || item.name;
+                const year = (item.release_date || item.first_air_date || '').substring(0, 4);
+                html += `
+                    <div class="result-card" onclick='selectItem(${JSON.stringify(item)})'>
+                        <img src="${IMG}${item.poster_path}" alt="${title}" loading="lazy">
+                        <p>${title}</p>
+                        <p class="year">${year}</p>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            area.innerHTML = html;
+
+        } catch (err) {
+            area.innerHTML = `<div class="status-msg error"><i class="fas fa-exclamation-triangle"></i> সার্চ ব্যর্থ! ইন্টারনেট চেক করুন।<br><small>${err.message}</small></div>`;
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-search"></i> সার্চ';
     }
 
-    function selectMovie(id, type) {
-        document.getElementById('selectedId').value = id;
-        document.getElementById('editPanel').style.display = 'block';
+    // ============ SELECT ITEM ============
+    function selectItem(item) {
+        selectedItem = item;
+        const title = item.title || item.name;
+        const year = (item.release_date || item.first_air_date || '').substring(0, 4);
+        
+        document.getElementById('selectedInfo').innerHTML = `<i class="fas fa-check-circle"></i> সিলেক্টেড: <strong>${title}</strong> (${year})`;
+        document.getElementById('setupPanel').style.display = 'block';
+        
+        // Scroll to setup
+        document.getElementById('setupPanel').scrollIntoView({ behavior: 'smooth' });
 
-        if(isSeries) {
-            document.getElementById('episodeManager').style.display = 'block';
-            document.getElementById('movieDlSection').querySelector('label').innerText = '📱 Telegram Download Link (পুরো সিজনের - ঐচ্ছিক)';
-            addEpisodeInput(); // প্রথম এপিসোড ইনপুট
+        if (isTV) {
+            document.getElementById('epManager').style.display = 'block';
+            document.getElementById('movieDlBox').querySelector('label').innerText = '📱 Telegram Link (পুরো সিজন - ঐচ্ছিক)';
+            document.getElementById('epList').innerHTML = '';
+            addEp(); // Add first episode input
         } else {
-            document.getElementById('episodeManager').style.display = 'none';
-            document.getElementById('movieDlSection').querySelector('label').innerText = '📱 Telegram Download Link (মুভি)';
+            document.getElementById('epManager').style.display = 'none';
+            document.getElementById('movieDlBox').querySelector('label').innerText = '📱 Telegram Download Link (মুভি)';
         }
     }
 
-    function addEpisodeInput() {
-        const list = document.getElementById('episodeList');
-        const index = list.children.length + 1;
+    // ============ EPISODE MANAGER ============
+    function addEp() {
+        const list = document.getElementById('epList');
+        const num = list.children.length + 1;
         const div = document.createElement('div');
-        div.className = 'ep-input-group';
+        div.className = 'ep-row';
         div.innerHTML = `
-            <input type="text" placeholder="এপিসোড ${index} নাম" class="ep-name" style="flex:1">
+            <input type="text" placeholder="এপিসোড ${num} নাম" class="ep-name" style="flex:1">
             <input type="text" placeholder="টেলিগ্রাম লিংক" class="ep-link" style="flex:2">
-            <button class="ep-remove-btn" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            <button class="ep-remove" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
         `;
         list.appendChild(div);
     }
 
-    async function generateHTML() {
-        const id = document.getElementById('selectedId').value;
-        const type = isSeries ? 'tv' : 'movie';
-        const banglaTitle = document.getElementById('banglaTitle').value;
-        const mainDL = document.getElementById('mainDownloadLink').value || '#';
-        const ad1 = document.getElementById('adLink1').value || '#';
-        const ad2 = document.getElementById('adLink2').value || '#';
+    // ============ GENERATE HTML ============
+    async function generate() {
+        if (!selectedItem) return alert('আগে মুভি সিলেক্ট করুন!');
 
-        // TMDB থেকে ডিটেইলস আনা
-        const res = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&language=bn-BD`);
-        const data = await res.json();
+        const genBtn = document.getElementById('genBtn');
+        genBtn.disabled = true;
+        genBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> তথ্য আনা হচ্ছে...';
 
-        const title = banglaTitle || (data.title || data.name);
-        const origTitle = data.title || data.name;
-        const rating = data.vote_average.toFixed(1);
-        const overview = data.overview || 'কোনো বিবরণ পাওয়া যায়নি।';
-        const poster = `${IMG_BASE}${data.poster_path}`;
-        const genres = data.genres.map(g => g.name).join(', ');
-        const year = (data.release_date || data.first_air_date || '').substring(0, 4);
-        
-        // স্ক্রিনশট
-        const imgRes = await fetch(`https://api.themoviedb.org/3/${type}/${id}/images?api_key=${API_KEY}`);
-        const imgData = await imgRes.json();
-        const screenshots = imgData.backdrops.slice(0, 3).map(img => `<div class="screenshot-item"><img src="${IMG_ORIGINAL}${img.file_path}" alt="Screenshot"></div>`).join('');
+        const id = selectedItem.id;
+        const type = isTV ? 'tv' : 'movie';
+        const bnTitle = document.getElementById('bnTitle').value.trim();
+        const adLink1 = document.getElementById('ad1').value.trim() || '#';
+        const adLink2 = document.getElementById('ad2').value.trim() || '#';
+        const mainDlLink = document.getElementById('mainDl').value.trim() || '#';
 
-        // এপিসোড লুপ
-        let episodeHTML = '';
-        if(isSeries) {
-            const epNames = document.querySelectorAll('.ep-name');
-            const epLinks = document.querySelectorAll('.ep-link');
-            epNames.forEach((input, index) => {
-                const epTitle = input.value || `এপিসোড ${index + 1}`;
-                const epLink = epLinks[index].value || '#';
-                episodeHTML += `
-                <div class="episode-card">
-                    <div class="episode-card-inner">
-                        <div class="ep-number">${String(index + 1).padStart(2, '0')}</div>
-                        <div class="ep-info"><h4>${epTitle}</h4></div>
-                        <div class="ep-downloads">
-                            <button class="ep-dl-btn" onclick="startVerification('${epLink}')"><i class="fas fa-download"></i> ডাউনলোড</button>
+        try {
+            // Fetch details
+            const detRes = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}`);
+            const det = await detRes.json();
+
+            const title = bnTitle || (det.title || det.name);
+            const origTitle = det.title || det.name;
+            const rating = det.vote_average.toFixed(1);
+            const overview = det.overview || 'কোনো বিবরণ পাওয়া যায়নি।';
+            const poster = `${IMG}${det.poster_path}`;
+            const genres = det.genres.map(g => g.name).join(', ');
+            const year = (det.release_date || det.first_air_date || '').substring(0, 4);
+            const typeLabel = isTV ? 'ওয়েব সিরিজ' : 'মুভি';
+            const badgeLabel = isTV ? 'SERIES' : 'MOVIE';
+
+            // Fetch screenshots
+            const imgRes = await fetch(`https://api.themoviedb.org/3/${type}/${id}/images?api_key=${API_KEY}`);
+            const imgData = await imgRes.json();
+            const screens = imgData.backdrops.slice(0, 3).map(i => 
+                `<div class="screenshot-item"><img src="${IMG_HD}${i.file_path}" alt="Screenshot"></div>`
+            ).join('');
+
+            // Episodes
+            let epHTML = '';
+            if (isTV) {
+                const names = document.querySelectorAll('.ep-name');
+                const links = document.querySelectorAll('.ep-link');
+                names.forEach((inp, i) => {
+                    const epT = inp.value.trim() || `এপিসোড ${i+1}`;
+                    const epL = links[i].value.trim() || '#';
+                    const num = String(i+1).padStart(2, '0');
+                    epHTML += `
+                    <div class="episode-card">
+                        <div class="episode-card-inner">
+                            <div class="ep-number">${num}</div>
+                            <div class="ep-info"><h4>${epT}</h4></div>
+                            <div class="ep-downloads">
+                                <button class="ep-dl-btn" onclick="startVerify('${epL}')"><i class="fas fa-download"></i> ডাউনলোড</button>
+                            </div>
                         </div>
-                    </div>
-                </div>`;
-            });
-        }
+                    </div>`;
+                });
+            }
 
-        // ফাইনাল টেমপ্লেট তৈরি (যেটা কপি করবেন)
-        const finalHTML = `<!DOCTYPE html>
+            // FULL DOWNLOAD BUTTON
+            let fullDlBtn = '';
+            if (mainDlLink !== '#') {
+                fullDlBtn = `
+                <h2 class="section-title"><i class="fas fa-download"></i> ডাউনলোড</h2>
+                <div class="download-section">
+                    <button class="download-btn" onclick="startVerify('${mainDlLink}')"><i class="fas fa-download"></i> ${isTV ? 'পুরো সিজন ডাউনলোড' : 'মুভি ডাউনলোড'}</button>
+                </div>`;
+            }
+
+            // ========= FINAL HTML TEMPLATE =========
+            const finalCode = `<!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
@@ -218,83 +296,80 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Hind Siliguri', sans-serif; background: #0a0a0f; color: #e0e0e0; min-height: 100vh; overflow-x: hidden; }
-        .site-header { background: linear-gradient(135deg, #0d0d15 0%, #1a1a2e 100%); border-bottom: 2px solid #e50914; padding: 12px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(229, 9, 20, 0.15); }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; }
-        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .logo-icon { width: 42px; height: 42px; background: linear-gradient(135deg, #e50914, #ff6b35); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; }
-        .logo-text { font-size: 22px; font-weight: 700; color: #fff; }
-        .logo-text span { color: #e50914; }
-        .movie-container { max-width: 1200px; margin: 0 auto; padding: 24px 16px 60px; }
-        .movie-hero { display: grid; grid-template-columns: 280px 1fr; gap: 30px; background: linear-gradient(145deg, #12121c, #1a1a2e); border-radius: 16px; padding: 24px; border: 1px solid rgba(229, 9, 20, 0.1); position: relative; overflow: hidden; }
-        .movie-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #e50914, #ff6b35, #e50914); }
-        .poster-wrap { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); aspect-ratio: 2/3; }
-        .poster-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .poster-badge { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #e50914, #ff3030); color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; }
-        .poster-rating { position: absolute; bottom: 12px; right: 12px; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); color: #ffd700; padding: 6px 12px; border-radius: 8px; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
-        .movie-info { display: flex; flex-direction: column; gap: 14px; }
-        .movie-title { font-size: 28px; font-weight: 700; color: #fff; line-height: 1.3; }
-        .movie-meta { display: flex; flex-wrap: wrap; gap: 8px; }
-        .meta-tag { background: rgba(229, 9, 20, 0.1); border: 1px solid rgba(229, 9, 20, 0.2); color: #ff6b6b; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
-        .meta-tag.blue { background: rgba(33, 150, 243, 0.1); border-color: rgba(33, 150, 243, 0.2); color: #42a5f5; }
-        .info-grid { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-size: 14px; }
-        .info-label { color: #666; font-weight: 500; }
-        .info-value { color: #ccc; }
-        .movie-synopsis { font-size: 14px; line-height: 1.8; color: #999; border-left: 3px solid #e50914; padding-left: 16px; margin-top: 4px; }
-        .section-title { font-size: 20px; font-weight: 700; color: #fff; margin: 40px 0 16px; display: flex; align-items: center; gap: 10px; }
-        .section-title i { color: #e50914; }
-        .screenshots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .screenshot-item { border-radius: 10px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .screenshot-item img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
-        .episode-section { margin-top: 40px; background: linear-gradient(145deg, #12121c, #1a1a2e); border-radius: 16px; padding: 28px; border: 1px solid rgba(229, 9, 20, 0.1); position: relative; overflow: hidden; }
-        .episode-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #9c27b0, #e50914, #ff6b35); }
-        .episode-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        .episode-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; overflow: hidden; transition: all 0.3s; }
-        .episode-card:hover { border-color: rgba(229, 9, 20, 0.25); background: rgba(229, 9, 20, 0.02); }
-        .episode-card-inner { display: flex; align-items: center; padding: 14px 16px; gap: 14px; }
-        .ep-number { width: 48px; height: 48px; min-width: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; background: linear-gradient(135deg, #e50914, #ff3030); }
-        .ep-info { flex: 1; min-width: 0; }
-        .ep-info h4 { font-size: 15px; font-weight: 600; color: #fff; }
-        .ep-downloads { display: flex; gap: 8px; flex-shrink: 0; }
-        .ep-dl-btn { background: linear-gradient(135deg, #e50914, #ff3030); border: none; color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Hind Siliguri', sans-serif; display: flex; align-items: center; gap: 6px; }
-        .download-section { margin-top: 40px; background: linear-gradient(145deg, #12121c, #1a1a2e); border-radius: 16px; padding: 28px; border: 1px solid rgba(229, 9, 20, 0.1); position: relative; overflow: hidden; }
-        .download-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #e50914, #ff6b35, #e50914); }
-        .download-btn { background: linear-gradient(135deg, #e50914, #ff3030); color: #fff; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Hind Siliguri', sans-serif; width: 100%; box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3); }
-        
-        /* Modal Styles */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
-        .modal-overlay.active { display: flex; }
-        .modal-box { background: linear-gradient(145deg, #15151f, #1e1e32); border-radius: 20px; width: 100%; max-width: 480px; border: 1px solid rgba(229, 9, 20, 0.15); overflow: hidden; animation: slideUp 0.3s; }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .modal-header { background: linear-gradient(135deg, #e50914, #ff3030); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
-        .modal-header h3 { color: #fff; font-size: 15px; font-weight: 700; }
-        .modal-close { background: rgba(255,255,255,0.2); border: none; color: #fff; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-size: 14px; }
-        .modal-body { padding: 24px; }
-        .step-indicator { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
-        .step-dot { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; border: 2px solid rgba(255,255,255,0.1); color: #555; }
-        .step-dot.active { border-color: #e50914; color: #e50914; background: rgba(229, 9, 20, 0.1); }
-        .step-dot.completed { border-color: #4caf50; color: #fff; background: #4caf50; }
-        .step-line { width: 35px; height: 2px; background: rgba(255,255,255,0.1); }
-        .step-line.completed { background: #4caf50; }
-        .verification-message { text-align: center; margin-bottom: 16px; }
-        .verification-message h4 { font-size: 17px; color: #fff; margin-bottom: 6px; }
-        .verification-message p { font-size: 13px; color: #888; }
-        .ad-visit-btn { display: none; width: 100%; padding: 14px; background: linear-gradient(135deg, #ff9800, #f57c00); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Hind Siliguri', sans-serif; text-decoration: none; margin-bottom: 15px; }
-        .ad-visit-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); }
-        .timer-bar { width: 100%; height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
-        .timer-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #e50914, #ff6b35); border-radius: 3px; transition: width 0.1s linear; }
-        .timer-text { font-size: 14px; color: #aaa; text-align: center; }
-        .timer-text span { color: #e50914; font-weight: 700; }
-        .unlock-btn { display: none; width: 100%; padding: 13px; background: linear-gradient(135deg, #4caf50, #2e7d32); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Hind Siliguri', sans-serif; margin-top: 14px; }
-        .success-state { text-align: center; padding: 16px 0; }
-        .success-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #4caf50, #2e7d32); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 28px; color: #fff; }
-        .success-state h3 { font-size: 18px; color: #fff; margin-bottom: 6px; }
-        .success-state p { font-size: 13px; color: #888; margin-bottom: 18px; }
-        .final-download-btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 36px; background: #0088cc; color: #fff; text-decoration: none; border-radius: 12px; font-size: 15px; font-weight: 700; font-family: 'Hind Siliguri', sans-serif; box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4); }
-        .final-download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6); }
-
-        @media (max-width: 768px) { .movie-hero { grid-template-columns: 1fr; } .poster-wrap { max-width: 200px; margin: 0 auto; } .screenshots-grid { grid-template-columns: 1fr; } .episode-card-inner { flex-wrap: wrap; } .ep-downloads { width: 100%; } .ep-dl-btn { flex: 1; justify-content: center; } }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Hind Siliguri',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;overflow-x:hidden}
+        .site-header{background:linear-gradient(135deg,#0d0d15,#1a1a2e);border-bottom:2px solid #e50914;padding:12px 0;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(229,9,20,0.15)}
+        .header-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between}
+        .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+        .logo-icon{width:42px;height:42px;background:linear-gradient(135deg,#e50914,#ff6b35);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff}
+        .logo-text{font-size:22px;font-weight:700;color:#fff}
+        .logo-text span{color:#e50914}
+        .movie-container{max-width:1200px;margin:0 auto;padding:24px 16px 60px}
+        .movie-hero{display:grid;grid-template-columns:280px 1fr;gap:30px;background:linear-gradient(145deg,#12121c,#1a1a2e);border-radius:16px;padding:24px;border:1px solid rgba(229,9,20,0.1);position:relative;overflow:hidden}
+        .movie-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e50914,#ff6b35,#e50914)}
+        .poster-wrap{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.5);aspect-ratio:2/3}
+        .poster-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+        .poster-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,#e50914,#ff3030);color:#fff;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:700}
+        .poster-rating{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);color:#ffd700;padding:6px 12px;border-radius:8px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:5px}
+        .movie-info{display:flex;flex-direction:column;gap:14px}
+        .movie-title{font-size:28px;font-weight:700;color:#fff;line-height:1.3}
+        .movie-meta{display:flex;flex-wrap:wrap;gap:8px}
+        .meta-tag{background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.2);color:#ff6b6b;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500}
+        .meta-tag.blue{background:rgba(33,150,243,0.1);border-color:rgba(33,150,243,0.2);color:#42a5f5}
+        .info-grid{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:14px}
+        .info-label{color:#666;font-weight:500}
+        .info-value{color:#ccc}
+        .movie-synopsis{font-size:14px;line-height:1.8;color:#999;border-left:3px solid #e50914;padding-left:16px;margin-top:4px}
+        .section-title{font-size:20px;font-weight:700;color:#fff;margin:40px 0 16px;display:flex;align-items:center;gap:10px}
+        .section-title i{color:#e50914}
+        .screenshots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+        .screenshot-item{border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.05)}
+        .screenshot-item img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+        .episode-section{margin-top:40px;background:linear-gradient(145deg,#12121c,#1a1a2e);border-radius:16px;padding:28px;border:1px solid rgba(229,9,20,0.1);position:relative;overflow:hidden}
+        .episode-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#9c27b0,#e50914,#ff6b35)}
+        .episode-grid{display:grid;grid-template-columns:1fr;gap:12px}
+        .episode-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;overflow:hidden;transition:all 0.3s}
+        .episode-card:hover{border-color:rgba(229,9,20,0.25);background:rgba(229,9,20,0.02)}
+        .episode-card-inner{display:flex;align-items:center;padding:14px 16px;gap:14px}
+        .ep-number{width:48px;height:48px;min-width:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;background:linear-gradient(135deg,#e50914,#ff3030)}
+        .ep-info{flex:1;min-width:0}
+        .ep-info h4{font-size:15px;font-weight:600;color:#fff}
+        .ep-downloads{display:flex;gap:8px;flex-shrink:0}
+        .ep-dl-btn{background:linear-gradient(135deg,#e50914,#ff3030);border:none;color:#fff;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Hind Siliguri',sans-serif;display:flex;align-items:center;gap:6px}
+        .download-section{margin-top:40px;background:linear-gradient(145deg,#12121c,#1a1a2e);border-radius:16px;padding:28px;border:1px solid rgba(229,9,20,0.1);position:relative;overflow:hidden}
+        .download-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e50914,#ff6b35,#e50914)}
+        .download-btn{background:linear-gradient(135deg,#e50914,#ff3030);color:#fff;border:none;padding:16px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Hind Siliguri',sans-serif;width:100%;box-shadow:0 4px 15px rgba(229,9,20,0.3)}
+        .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);backdrop-filter:blur(8px);z-index:9999;align-items:center;justify-content:center;padding:20px}
+        .modal-overlay.active{display:flex}
+        .modal-box{background:linear-gradient(145deg,#15151f,#1e1e32);border-radius:20px;width:100%;max-width:480px;border:1px solid rgba(229,9,20,0.15);overflow:hidden;animation:slideUp 0.3s}
+        @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+        .modal-header{background:linear-gradient(135deg,#e50914,#ff3030);padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+        .modal-header h3{color:#fff;font-size:15px;font-weight:700}
+        .modal-close{background:rgba(255,255,255,0.2);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:14px}
+        .modal-body{padding:24px}
+        .step-indicator{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px}
+        .step-dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid rgba(255,255,255,0.1);color:#555}
+        .step-dot.active{border-color:#e50914;color:#e50914;background:rgba(229,9,20,0.1)}
+        .step-dot.completed{border-color:#4caf50;color:#fff;background:#4caf50}
+        .step-line{width:35px;height:2px;background:rgba(255,255,255,0.1)}
+        .step-line.completed{background:#4caf50}
+        .v-msg{text-align:center;margin-bottom:16px}
+        .v-msg h4{font-size:17px;color:#fff;margin-bottom:6px}
+        .v-msg p{font-size:13px;color:#888}
+        .ad-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#ff9800,#f57c00);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;text-decoration:none;text-align:center;margin-bottom:15px}
+        .ad-btn:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,152,0,0.4)}
+        .timer-bar{width:100%;height:5px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;margin-bottom:10px}
+        .timer-fill{height:100%;width:0%;background:linear-gradient(90deg,#e50914,#ff6b35);border-radius:3px;transition:width 0.1s linear}
+        .timer-text{font-size:14px;color:#aaa;text-align:center}
+        .timer-text span{color:#e50914;font-weight:700}
+        .unlock-btn{display:none;width:100%;padding:13px;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;margin-top:14px}
+        .success-state{text-align:center;padding:16px 0}
+        .success-icon{width:64px;height:64px;background:linear-gradient(135deg,#4caf50,#2e7d32);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:28px;color:#fff}
+        .success-state h3{font-size:18px;color:#fff;margin-bottom:6px}
+        .success-state p{font-size:13px;color:#888;margin-bottom:18px}
+        .final-dl-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 36px;background:#0088cc;color:#fff;text-decoration:none;border-radius:12px;font-size:15px;font-weight:700;font-family:'Hind Siliguri',sans-serif;box-shadow:0 4px 15px rgba(0,136,204,0.4)}
+        .final-dl-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,136,204,0.6)}
+        @media(max-width:768px){.movie-hero{grid-template-columns:1fr}.poster-wrap{max-width:200px;margin:0 auto}.screenshots-grid{grid-template-columns:1fr}.episode-card-inner{flex-wrap:wrap}.ep-downloads{width:100%}.ep-dl-btn{flex:1;justify-content:center}}
     </style>
 </head>
 <body>
@@ -303,71 +378,64 @@
         <div class="movie-hero">
             <div class="poster-wrap">
                 <img src="${poster}" alt="${title}">
-                <div class="poster-badge">${isSeries ? 'SERIES' : 'MOVIE'}</div>
+                <div class="poster-badge">${badgeLabel}</div>
                 <div class="poster-rating"><i class="fas fa-star"></i> ${rating}</div>
             </div>
             <div class="movie-info">
                 <h1 class="movie-title">${title}</h1>
-                <p style="font-size:15px; color:#888;">${origTitle} (${year})</p>
+                <p style="font-size:15px;color:#888">${origTitle} (${year})</p>
                 <div class="movie-meta">
-                    <span class="meta-tag"><i class="fas fa-film"></i> ${isSeries ? 'ওয়েব সিরিজ' : 'মুভি'}</span>
+                    <span class="meta-tag"><i class="fas fa-film"></i> ${typeLabel}</span>
                     <span class="meta-tag blue"><i class="fas fa-language"></i> বাংলা সাব</span>
                 </div>
                 <div class="info-grid">
                     <span class="info-label">জেনার:</span><span class="info-value">${genres}</span>
-                    <span class="info-label">রেটিং:</span><span class="info-value">⭐ ${rating}/10 (IMDb)</span>
+                    <span class="info-label">রেটিং:</span><span class="info-value">⭐ ${rating}/10</span>
                 </div>
                 <p class="movie-synopsis">${overview}</p>
             </div>
         </div>
 
         <h2 class="section-title"><i class="fas fa-images"></i> স্ক্রিনশট</h2>
-        <div class="screenshots-grid">${screenshots}</div>
+        <div class="screenshots-grid">${screens}</div>
 
-        ${isSeries ? `
+        ${isTV ? `
         <h2 class="section-title"><i class="fas fa-list-ol"></i> এপিসোড তালিকা</h2>
         <div class="episode-section">
-            <div class="episode-grid">
-                ${episodeHTML}
-            </div>
+            <div class="episode-grid">${epHTML}</div>
         </div>` : ''}
 
-        ${mainDL !== '#' ? `
-        <h2 class="section-title"><i class="fas fa-download"></i> ডাউনলোড</h2>
-        <div class="download-section">
-            <button class="download-btn" onclick="startVerification('${mainDL}')"><i class="fas fa-download"></i> ${isSeries ? 'পুরো সিজন ডাউনলোড' : 'মুভি ডাউনলোড'}</button>
-        </div>
-        ` : ''}
+        ${fullDlBtn}
     </div>
 
-    <div class="modal-overlay" id="verificationModal">
+    <div class="modal-overlay" id="vModal">
         <div class="modal-box">
-            <div class="modal-header"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button></div>
+            <div class="modal-header"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="modal-close" onclick="closeVModal()"><i class="fas fa-times"></i></button></div>
             <div class="modal-body">
-                <div class="step-indicator"><div class="step-dot active" id="step1Dot">1</div><div class="step-line" id="step1Line"></div><div class="step-dot" id="step2Dot">2</div><div class="step-line" id="step2Line"></div><div class="step-dot" id="step3Dot"><i class="fas fa-check" style="font-size:11px"></i></div></div>
+                <div class="step-indicator"><div class="step-dot active" id="s1d">1</div><div class="step-line" id="s1l"></div><div class="step-dot" id="s2d">2</div><div class="step-line" id="s2l"></div><div class="step-dot" id="s3d"><i class="fas fa-check" style="font-size:11px"></i></div></div>
                 
-                <div id="step1Content">
-                    <div class="verification-message"><h4>ধাপ ১: অ্যাড ভিজিট করুন</h4><p>ডাউনলোড আনলক করতে নিচের বাটনে ক্লিক করুন</p></div>
-                    <a href="${ad1}" target="_blank" class="ad-visit-btn" id="adBtn1" onclick="startTimer1()"><i class="fas fa-external-link-alt"></i> অ্যাড ভিজিট করুন ১</a>
-                    <div class="timer-bar"><div class="timer-fill" id="timer1Fill"></div></div>
-                    <p class="timer-text" id="timer1Text">অপেক্ষা করুন... <span id="timer1Count">5</span> সেকেন্ড</p>
-                    <button class="unlock-btn" id="step1Unlock" onclick="goToStep2()"><i class="fas fa-arrow-right"></i> পরবর্তী ধাপে যান</button>
+                <div id="step1">
+                    <div class="v-msg"><h4>ধাপ ১: অ্যাড ভিজিট করুন</h4><p>ডাউনলোড আনলক করতে নিচের বাটনে ক্লিক করুন</p></div>
+                    <a href="${adLink1}" target="_blank" class="ad-btn" id="ab1" onclick="startT1()"><i class="fas fa-external-link-alt"></i> অ্যাড ভিজিট করুন ১</a>
+                    <div class="timer-bar"><div class="timer-fill" id="tf1"></div></div>
+                    <p class="timer-text" id="tt1">অপেক্ষা... <span id="tc1">5</span> সেকেন্ড</p>
+                    <button class="unlock-btn" id="ub1" onclick="goS2()"><i class="fas fa-arrow-right"></i> পরবর্তী ধাপ</button>
                 </div>
 
-                <div id="step2Content" style="display:none">
-                    <div class="verification-message"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যাড ভিজিট করুন</p></div>
-                    <a href="${ad2}" target="_blank" class="ad-visit-btn" id="adBtn2" onclick="startTimer2()"><i class="fas fa-external-link-alt"></i> অ্যাড ভিজিট করুন ২</a>
-                    <div class="timer-bar"><div class="timer-fill" id="timer2Fill"></div></div>
-                    <p class="timer-text" id="timer2Text">অপেক্ষা করুন... <span id="timer2Count">5</span> সেকেন্ড</p>
-                    <button class="unlock-btn" id="step2Unlock" onclick="goToStep3()"><i class="fas fa-unlock"></i> ডাউনলোড আনলক করুন</button>
+                <div id="step2" style="display:none">
+                    <div class="v-msg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যাড ভিজিট করুন</p></div>
+                    <a href="${adLink2}" target="_blank" class="ad-btn" id="ab2" onclick="startT2()"><i class="fas fa-external-link-alt"></i> অ্যাড ভিজিট করুন ২</a>
+                    <div class="timer-bar"><div class="timer-fill" id="tf2"></div></div>
+                    <p class="timer-text" id="tt2">অপেক্ষা... <span id="tc2">5</span> সেকেন্ড</p>
+                    <button class="unlock-btn" id="ub2" onclick="goS3()"><i class="fas fa-unlock"></i> আনলক করুন</button>
                 </div>
 
-                <div id="step3Content" style="display:none">
+                <div id="step3" style="display:none">
                     <div class="success-state">
                         <div class="success-icon"><i class="fas fa-check"></i></div>
                         <h3>ডাউনলোড রেডি!</h3>
                         <p>ভেরিফিকেশন সম্পন্ন ✅</p>
-                        <a href="#" class="final-download-btn" id="finalDownloadBtn" target="_blank"><i class="fab fa-telegram"></i> টেলিগ্রাম থেকে ডাউনলোড</a>
+                        <a href="#" class="final-dl-btn" id="fdl" target="_blank"><i class="fab fa-telegram"></i> টেলিগ্রাম থেকে ডাউনলোড</a>
                     </div>
                 </div>
             </div>
@@ -375,34 +443,43 @@
     </div>
 
     <script>
-        let currentLink='';let timer1Interval=null;let timer2Interval=null;
-        function startVerification(link){currentLink=link;resetModal();document.getElementById('verificationModal').classList.add('active');document.body.style.overflow='hidden';}
-        function resetModal(){if(timer1Interval)clearInterval(timer1Interval);if(timer2Interval)clearInterval(timer2Interval);document.getElementById('step1Dot').className='step-dot active';document.getElementById('step2Dot').className='step-dot';document.getElementById('step3Dot').className='step-dot';document.getElementById('step1Line').className='step-line';document.getElementById('step2Line').className='step-line';document.getElementById('step1Content').style.display='block';document.getElementById('step2Content').style.display='none';document.getElementById('step3Content').style.display='none';document.getElementById('adBtn1').style.display='block';document.getElementById('timer1Fill').style.width='0%';document.getElementById('timer1Text').style.display='block';document.getElementById('timer1Count').textContent='5';document.getElementById('step1Unlock').style.display='none';document.getElementById('adBtn2').style.display='block';document.getElementById('timer2Fill').style.width='0%';document.getElementById('timer2Text').style.display='block';document.getElementById('timer2Count').textContent='5';document.getElementById('step2Unlock').style.display='none';}
-        
-        function startTimer1(){document.getElementById('adBtn1').style.pointerEvents='none';document.getElementById('adBtn1').style.opacity='0.6';let t=5;const f=document.getElementById('timer1Fill');const c=document.getElementById('timer1Count');timer1Interval=setInterval(()=>{t--;c.textContent=t;f.style.width=((5-t)/5*100)+'%';if(t<=0){clearInterval(timer1Interval);document.getElementById('timer1Text').style.display='none';document.getElementById('step1Unlock').style.display='block';}},1000);}
-        
-        function goToStep2(){document.getElementById('step1Dot').className='step-dot completed';document.getElementById('step1Line').className='step-line completed';document.getElementById('step2Dot').className='step-dot active';document.getElementById('step1Content').style.display='none';document.getElementById('step2Content').style.display='block';}
-
-        function startTimer2(){document.getElementById('adBtn2').style.pointerEvents='none';document.getElementById('adBtn2').style.opacity='0.6';let t=5;const f=document.getElementById('timer2Fill');const c=document.getElementById('timer2Count');timer2Interval=setInterval(()=>{t--;c.textContent=t;f.style.width=((5-t)/5*100)+'%';if(t<=0){clearInterval(timer2Interval);document.getElementById('timer2Text').style.display='none';document.getElementById('step2Unlock').style.display='block';}},1000);}
-
-        function goToStep3(){document.getElementById('step2Dot').className='step-dot completed';document.getElementById('step2Line').className='step-line completed';document.getElementById('step3Dot').className='step-dot completed';document.getElementById('step2Content').style.display='none';document.getElementById('step3Content').style.display='block';document.getElementById('finalDownloadBtn').href=currentLink;}
-        
-        function closeModal(){document.getElementById('verificationModal').classList.remove('active');document.body.style.overflow='';if(timer1Interval)clearInterval(timer1Interval);if(timer2Interval)clearInterval(timer2Interval);}
-        document.getElementById('verificationModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+        var cLink='',t1I=null,t2I=null;
+        function startVerify(l){cLink=l;resetV();document.getElementById('vModal').classList.add('active');document.body.style.overflow='hidden';}
+        function resetV(){if(t1I)clearInterval(t1I);if(t2I)clearInterval(t2I);document.getElementById('s1d').className='step-dot active';document.getElementById('s2d').className='step-dot';document.getElementById('s3d').className='step-dot';document.getElementById('s1l').className='step-line';document.getElementById('s2l').className='step-line';document.getElementById('step1').style.display='block';document.getElementById('step2').style.display='none';document.getElementById('step3').style.display='none';document.getElementById('ab1').style.display='block';document.getElementById('ab1').style.pointerEvents='auto';document.getElementById('ab1').style.opacity='1';document.getElementById('tf1').style.width='0%';document.getElementById('tt1').style.display='block';document.getElementById('tc1').textContent='5';document.getElementById('ub1').style.display='none';document.getElementById('ab2').style.display='block';document.getElementById('ab2').style.pointerEvents='auto';document.getElementById('ab2').style.opacity='1';document.getElementById('tf2').style.width='0%';document.getElementById('tt2').style.display='block';document.getElementById('tc2').textContent='5';document.getElementById('ub2').style.display='none';}
+        function startT1(){var b=document.getElementById('ab1');b.style.pointerEvents='none';b.style.opacity='0.6';var t=5,f=document.getElementById('tf1'),c=document.getElementById('tc1');t1I=setInterval(function(){t--;c.textContent=t;f.style.width=((5-t)/5*100)+'%';if(t<=0){clearInterval(t1I);document.getElementById('tt1').style.display='none';document.getElementById('ub1').style.display='block';}},1000);}
+        function goS2(){document.getElementById('s1d').className='step-dot completed';document.getElementById('s1l').className='step-line completed';document.getElementById('s2d').className='step-dot active';document.getElementById('step1').style.display='none';document.getElementById('step2').style.display='block';}
+        function startT2(){var b=document.getElementById('ab2');b.style.pointerEvents='none';b.style.opacity='0.6';var t=5,f=document.getElementById('tf2'),c=document.getElementById('tc2');t2I=setInterval(function(){t--;c.textContent=t;f.style.width=((5-t)/5*100)+'%';if(t<=0){clearInterval(t2I);document.getElementById('tt2').style.display='none';document.getElementById('ub2').style.display='block';}},1000);}
+        function goS3(){document.getElementById('s2d').className='step-dot completed';document.getElementById('s2l').className='step-line completed';document.getElementById('s3d').className='step-dot completed';document.getElementById('step2').style.display='none';document.getElementById('step3').style.display='block';document.getElementById('fdl').href=cLink;}
+        function closeVModal(){document.getElementById('vModal').classList.remove('active');document.body.style.overflow='';if(t1I)clearInterval(t1I);if(t2I)clearInterval(t2I);}
+        document.getElementById('vModal').addEventListener('click',function(e){if(e.target===this)closeVModal();});
     </script>
 </body>
 </html>`;
 
-        document.getElementById('outputCode').style.display = 'block';
-        document.getElementById('copyBtn').style.display = 'block';
-        document.getElementById('outputCode').value = finalHTML;
+            document.getElementById('codeOutput').value = finalCode;
+            document.getElementById('codeOutput').style.display = 'block';
+            document.getElementById('copyBtn').style.display = 'block';
+
+        } catch (err) {
+            alert('তথ্য আনতে সমস্যা হয়েছে: ' + err.message);
+        }
+
+        genBtn.disabled = false;
+        genBtn.innerHTML = '<i class="fas fa-magic"></i> HTML জেনারেট করুন';
     }
 
+    // ============ COPY ============
     function copyCode() {
-        const copyText = document.getElementById('outputCode');
-        copyText.select();
+        const ta = document.getElementById('codeOutput');
+        ta.select();
+        ta.setSelectionRange(0, 99999);
         document.execCommand('copy');
-        alert('✅ কোড কপি হয়ে গেছে! এবার আপনার ব্লগার/ওয়েবসাইট পোস্টে পেস্ট করুন।');
+        
+        const btn = document.getElementById('copyBtn');
+        btn.innerHTML = '<i class="fas fa-check"></i> কপি হয়ে গেছে!';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-copy"></i> কোড কপি করুন';
+        }, 2000);
     }
 </script>
 </body>
