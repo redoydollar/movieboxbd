@@ -113,7 +113,7 @@
         
         <div class="section-divider"></div>
         <div class="section-header">
-            <h4 style="color:#ff9800"><i class="fas fa-images"></i> স্ক্রিনশট</h4>
+            <h4 style="color:#ff9800"><i class="fas fa-images"></i> স্ক্রিনশট (সর্বোচ্চ ৮টি)</h4>
         </div>
         <div id="ssList"></div>
         <button class="btn btn-orange btn-sm" onclick="addSs('')" style="margin-bottom:15px"><i class="fas fa-plus"></i> স্ক্রিনশট যোগ করুন</button>
@@ -221,10 +221,10 @@
     
     async function selectItem(idx){var item=searchData[idx];if(!item)return;var id=item.id,type=document.getElementById('typeSelect').value,year=(item.release_date||item.first_air_date||'').substring(0,4);try{var r=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'?api_key='+API_KEY+'&language=en-US');var d=await r.json();var t=d.title||d.name||d.original_title||d.original_name||'Unknown';document.getElementById('m_type').value=type;document.getElementById('m_title').value=t;document.getElementById('m_origTitle').value=t+' ('+year+')';document.getElementById('m_genres').value=(d.genres||[]).map(function(g){return g.name}).join(', ');document.getElementById('m_rating').value=d.vote_average?d.vote_average.toFixed(1):'0.0';document.getElementById('m_poster').value=d.poster_path?IMG+d.poster_path:'';document.getElementById('m_synopsis').value=d.overview||'';var ml=langMap[d.original_language]||'';if(ml)setSelectedLang(ml);
         
-        // Screenshot Auto Fill Logic
+        // Screenshot Auto Fill Logic (Maximum 8 Screenshots)
         var ssListEl=document.getElementById('ssList');ssListEl.innerHTML='';
         var ir=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'/images?api_key='+API_KEY+'&include_image_language=en,null');var id2=await ir.json();
-        if(id2.backdrops&&id2.backdrops.length>0){for(var si=0;si<id2.backdrops.length;si++){addSs(IMG_HD+id2.backdrops[si].file_path)}}
+        if(id2.backdrops&&id2.backdrops.length>0){for(var si=0;si<id2.backdrops.length&&si<8;si++){addSs(IMG_HD+id2.backdrops[si].file_path)}}
         
         toggleDlSections();document.getElementById('autoFillMsg').style.display='block';window.scrollTo({top:document.getElementById('autoFillMsg').offsetTop-20,behavior:'smooth'})}catch(e){alert('তথ্য আনতে সমস্যা!')}}
 
