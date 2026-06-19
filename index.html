@@ -54,20 +54,15 @@
         .ads-saved-badge{background:rgba(76,175,80,0.15);color:#4caf50;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;display:none}
         .optional-tag{background:rgba(255,152,0,0.15);color:#ff9800;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:0.5px}
 
-        /* জেনারেটর টেবিল রো */
         .dl-table-row{
-            display:grid;
-            grid-template-columns:1fr 120px 80px 1fr 34px;
+            display:grid;grid-template-columns:1fr 120px 80px 1fr 34px;
             gap:0;align-items:center;
-            background:rgba(255,255,255,0.03);
-            border:1px solid #222;border-radius:10px;
-            margin-bottom:8px;overflow:hidden;
-            transition:border-color 0.3s;
+            background:rgba(255,255,255,0.03);border:1px solid #222;
+            border-radius:10px;margin-bottom:8px;overflow:hidden;transition:border-color 0.3s;
         }
         .dl-table-row:hover{border-color:rgba(204,0,0,0.5)}
         .dl-table-row .cell-input{
-            width:100%;padding:9px 10px;margin:0;
-            background:transparent;border:none;
+            width:100%;padding:9px 10px;margin:0;background:transparent;border:none;
             color:#f1f5f9;font-family:inherit;font-size:13px;font-weight:600;
             border-radius:0;min-height:46px;
         }
@@ -79,17 +74,11 @@
         .dl-table-row .cell-input.link-input{color:#38bdf8;font-weight:400;font-size:11px}
         .cell-border-l{border-left:1px solid #222}
         .cell-border-r{border-right:1px solid #222}
-        .dl-table-row .dl-remove-cell{
-            display:flex;align-items:center;justify-content:center;min-height:46px;
-        }
-        .dl-table-row .dl-remove-cell button{
-            background:none;border:none;color:#555;cursor:pointer;
-            font-size:13px;padding:5px;border-radius:6px;transition:0.2s;
-        }
+        .dl-table-row .dl-remove-cell{display:flex;align-items:center;justify-content:center;min-height:46px}
+        .dl-table-row .dl-remove-cell button{background:none;border:none;color:#555;cursor:pointer;font-size:13px;padding:5px;border-radius:6px;transition:0.2s}
         .dl-table-row .dl-remove-cell button:hover{color:#ff5252;background:rgba(255,82,82,0.1)}
         .dl-table-header{
-            display:grid;
-            grid-template-columns:1fr 120px 80px 1fr 34px;
+            display:grid;grid-template-columns:1fr 120px 80px 1fr 34px;
             gap:0;margin-bottom:6px;padding:0 0 8px;border-bottom:1px solid #222;
         }
         .dl-table-header span{
@@ -109,9 +98,8 @@
         .ep-row .ep-name-input{flex:1}
         .ep-row .ep-link-input{flex:2}
         .remove-btn{
-            background:#ff5252;border:none;color:white;
-            width:34px;height:34px;min-width:34px;border-radius:50%;
-            cursor:pointer;font-size:13px;
+            background:#ff5252;border:none;color:white;width:34px;height:34px;min-width:34px;
+            border-radius:50%;cursor:pointer;font-size:13px;
             display:flex;align-items:center;justify-content:center;transition:0.2s;
         }
         .remove-btn:hover{transform:scale(1.1);box-shadow:0 0 10px rgba(255,82,82,0.4)}
@@ -343,7 +331,7 @@
         toggleDlSections();document.getElementById('autoFillMsg').style.display='block';window.scrollTo({top:document.getElementById('autoFillMsg').offsetTop-20,behavior:'smooth'})}catch(e){alert('তথ্য আনতে সমস্যা!')}
     }
 
-    /* ===== মূল জেনারেট ফাংশন ===== */
+    /* ===== জেনারেট ===== */
     function generate(){
         var type=document.getElementById('m_type').value,isTV=type==='tv';
         var title=document.getElementById('m_title').value.trim()||'Untitled',
@@ -384,7 +372,6 @@
         var seasonDlLink=document.getElementById('seasonDl').value.trim();
         var epsPerPage=parseInt(document.getElementById('m_epsPerPage').value)||10;
 
-        /* ডাউনলোড সেকশন HTML */
         var dlSectionHtml='';
         if(!isTV){
             dlSectionHtml='<div class="mbd-section-title"><i class="fas fa-download"></i> ডাউনলোড লিংক</div>';
@@ -421,23 +408,28 @@
         fc+='.mbd-ss-item{border-radius:8px;overflow:hidden;border:1px solid #222}\n';
         fc+='.mbd-ss-item img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}\n';
 
-        /* ===== ডাউনলোড টেবিল CSS — সুন্দর, ফোকাস Download এ ===== */
+        /* ===== ডাউনলোড টেবিল — বড় Download বাটন ===== */
         fc+='.mbd-dl-table-wrap{background:#111217;border-radius:12px;border:1px solid #222;overflow:hidden;border-top:3px solid #cc0000}\n';
-        fc+='.mbd-dl-table-head{display:grid;grid-template-columns:160px 120px 90px 1fr;align-items:center;background:#cc0000;padding:0}\n';
-        fc+='.mbd-dl-th{padding:13px 14px;font-size:11px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:1px;text-align:center;border-right:1px solid rgba(255,255,255,0.15)}\n';
+        fc+='.mbd-dl-table-head{display:grid;grid-template-columns:150px 110px 80px 1fr;align-items:center;background:#cc0000;padding:0}\n';
+        fc+='.mbd-dl-th{padding:12px 10px;font-size:10px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:0.8px;text-align:center;border-right:1px solid rgba(255,255,255,0.15)}\n';
         fc+='.mbd-dl-th:last-of-type{border-right:none}\n';
-        fc+='.mbd-dl-th-dl{padding:13px 14px;font-size:11px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:1px;text-align:center}\n';
-        fc+='.mbd-dl-trow{display:grid;grid-template-columns:160px 120px 90px 1fr;align-items:center;border-bottom:1px solid rgba(34,34,34,0.5);transition:all 0.25s ease}\n';
+        fc+='.mbd-dl-th-dl{padding:12px 10px;font-size:10px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:0.8px;text-align:center}\n';
+
+        /* রো — বড় হাইট যাতে বাটন প্রচুর জায়গা পায় */
+        fc+='.mbd-dl-trow{display:grid;grid-template-columns:150px 110px 80px 1fr;align-items:stretch;border-bottom:1px solid rgba(34,34,34,0.5);min-height:64px;transition:all 0.25s ease}\n';
         fc+='.mbd-dl-trow:last-child{border-bottom:none}\n';
         fc+='.mbd-dl-trow:hover{background:rgba(204,0,0,0.04)}\n';
-        fc+='.mbd-dl-trow:hover .mbd-dl-dlbtn{box-shadow:0 0 20px rgba(204,0,0,0.5);transform:scale(1.03)}\n';
-        fc+='.mbd-dl-trow-q{padding:14px;font-size:13px;font-weight:600;color:#ccc;border-right:1px solid rgba(34,34,34,0.5);letter-spacing:0.3px}\n';
-        fc+='.mbd-dl-trow-lang{text-align:center;font-size:12px;color:#666;padding:14px 10px;border-right:1px solid rgba(34,34,34,0.5)}\n';
-        fc+='.mbd-dl-trow-size{text-align:center;font-size:12px;color:#444;padding:14px 10px;border-right:1px solid rgba(34,34,34,0.5);font-weight:500}\n';
-        fc+='.mbd-dl-trow-dl{display:flex;align-items:center;justify-content:center;padding:12px 16px}\n';
-        fc+='.mbd-dl-dlbtn{background:linear-gradient(135deg,#cc0000,#e60000);color:#fff;border:none;padding:11px 28px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s ease;letter-spacing:0.3px;box-shadow:0 2px 8px rgba(204,0,0,0.3)}\n';
-        fc+='.mbd-dl-dlbtn:hover{background:linear-gradient(135deg,#e60000,#ff1a1a);box-shadow:0 4px 20px rgba(204,0,0,0.5);transform:scale(1.05)}\n';
-        fc+='.mbd-dl-dlbtn:active{transform:scale(0.98)}\n';
+        fc+='.mbd-dl-trow:hover .mbd-dl-dlbtn{box-shadow:0 0 25px rgba(204,0,0,0.6);transform:scale(1.04)}\n';
+        fc+='.mbd-dl-trow-q{padding:0 14px;font-size:13px;font-weight:600;color:#bbb;border-right:1px solid rgba(34,34,34,0.5);display:flex;align-items:center;letter-spacing:0.3px}\n';
+        fc+='.mbd-dl-trow-lang{text-align:center;font-size:11px;color:#555;padding:0 8px;border-right:1px solid rgba(34,34,34,0.5);display:flex;align-items:center;justify-content:center}\n';
+        fc+='.mbd-dl-trow-size{text-align:center;font-size:11px;color:#3a3a3a;padding:0 8px;border-right:1px solid rgba(34,34,34,0.5);display:flex;align-items:center;justify-content:center;font-weight:500}\n';
+        fc+='.mbd-dl-trow-dl{display:flex;align-items:center;justify-content:center;padding:10px 14px}\n';
+
+        /* ===== বড় Download বাটন — মোবাইল ফ্রেন্ডলি ===== */
+        fc+='.mbd-dl-dlbtn{background:linear-gradient(135deg,#cc0000,#b30000);color:#fff;border:none;padding:14px 36px;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:inline-flex;align-items:center;gap:10px;transition:all 0.3s ease;letter-spacing:0.5px;box-shadow:0 4px 15px rgba(204,0,0,0.4);width:100%;max-width:280px;justify-content:center}\n';
+        fc+='.mbd-dl-dlbtn i{font-size:16px}\n';
+        fc+='.mbd-dl-dlbtn:hover{background:linear-gradient(135deg,#e60000,#cc0000);box-shadow:0 6px 30px rgba(204,0,0,0.6);transform:scale(1.06)}\n';
+        fc+='.mbd-dl-dlbtn:active{transform:scale(0.97);box-shadow:0 2px 8px rgba(204,0,0,0.3)}\n';
 
         /* সিরিজ CSS */
         fc+='.mbd-dl-box{background:#111217;border-radius:12px;padding:25px;border:1px solid #222}\n';
@@ -477,7 +469,24 @@
         fc+='.mbd-success{text-align:center;padding:14px 0}\n';
         fc+='.mbd-success-icon{width:55px;height:55px;background:#4caf50;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;color:#fff}\n';
         fc+='.mbd-final-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 30px;background:#0088cc;color:#fff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(0,136,204,0.4)}\n';
-        fc+='@media(max-width:600px){.mbd-hero{grid-template-columns:1fr}.mbd-poster{max-width:180px;margin:0 auto}.mbd-ss-grid{grid-template-columns:1fr}.mbd-ep-card{flex-wrap:wrap}.mbd-ep-dl{width:100%;justify-content:center}.mbd-pagination{flex-wrap:wrap}.mbd-dl-table-head,.mbd-dl-trow{grid-template-columns:120px 90px 70px 1fr}.mbd-dl-th,.mbd-dl-trow-q{font-size:10px;padding:10px 8px}.mbd-dl-trow-lang,.mbd-dl-trow-size{font-size:10px;padding:10px 6px}.mbd-dl-dlbtn{padding:9px 16px;font-size:11px}}\n';
+
+        /* মোবাইল রেসপন্সিভ */
+        fc+='@media(max-width:600px){\n';
+        fc+='.mbd-hero{grid-template-columns:1fr}.mbd-poster{max-width:180px;margin:0 auto}.mbd-ss-grid{grid-template-columns:1fr}\n';
+        fc+='.mbd-ep-card{flex-wrap:wrap}.mbd-ep-dl{width:100%;justify-content:center}.mbd-pagination{flex-wrap:wrap}\n';
+        /* মোবাইলে টেবিল — Quality ছোট, Download বাটন আরও বড় */
+        fc+='.mbd-dl-table-head,.mbd-dl-trow{grid-template-columns:110px 80px 60px 1fr}\n';
+        fc+='.mbd-dl-th{font-size:8px;padding:10px 4px;letter-spacing:0.3px}\n';
+        fc+='.mbd-dl-trow-q{font-size:11px;padding:0 8px}\n';
+        fc+='.mbd-dl-trow-lang{font-size:10px;padding:0 4px}\n';
+        fc+='.mbd-dl-trow-size{font-size:9px;padding:0 4px}\n';
+        /* মোবাইলে Download বাটন পুরো জায়গা নেবে, বড় ট্যাপ টার্গেট */
+        fc+='.mbd-dl-trow-dl{padding:8px 10px}\n';
+        fc+='.mbd-dl-dlbtn{padding:16px 20px;font-size:15px;font-weight:800;max-width:100%;border-radius:10px;letter-spacing:0.8px}\n';
+        fc+='.mbd-dl-dlbtn i{font-size:18px}\n';
+        fc+='.mbd-dl-trow{min-height:58px}\n';
+        fc+='}\n';
+
         fc+='</style>\n\n';
 
         /* ===== HTML ===== */
@@ -542,7 +551,6 @@
             fc+='pDiv.innerHTML=h;}\n\nmbdRenderEps(1);\n\n';
         }
 
-        /* ভেরিফিকেশন */
         fc+='var mbdLink="",mbdTimer=null,mbdFocusHandler=null,mbdSingleAd='+(isSingleAd?'true':'false')+';\n';
         fc+='document.addEventListener("click",function(e){\n';
         fc+='var dlBtn=e.target.closest(".mbd-trigger-dl");if(dlBtn){e.preventDefault();mbdStartV(dlBtn.getAttribute("data-link"))}\n';
