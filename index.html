@@ -33,10 +33,6 @@
         .status-msg{text-align:center;padding:20px;color:#888}
         .status-msg.error{color:#ff5252}
         .status-msg.loading{color:#38bdf8}
-        .dl-row{display:flex;gap:10px;margin-bottom:10px;align-items:center}
-        .dl-row input{margin-bottom:0}
-        .dl-row select{margin-bottom:0;width:140px;min-width:140px}
-        .remove-btn{background:#ff5252;border:none;color:white;width:36px;height:36px;min-width:36px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
         .section-divider{border-top:1px solid #222;margin:20px 0;padding-top:20px}
         .section-header{display:flex;align-items:center;gap:10px;margin-bottom:15px}
         .section-header h4{font-size:16px;font-weight:600}
@@ -57,7 +53,133 @@
         .ads-header h4{margin:0;font-size:16px;font-weight:600;color:#38bdf8}
         .ads-saved-badge{background:rgba(76,175,80,0.15);color:#4caf50;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;display:none}
         .optional-tag{background:rgba(255,152,0,0.15);color:#ff9800;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:0.5px}
-        @media(max-width:600px){.search-box{flex-wrap:wrap}.search-box select{width:100%}.btn-row{flex-direction:column}.dl-row{flex-wrap:wrap}.dl-row select{width:100%;min-width:unset}.ads-header{flex-direction:column;gap:10px;align-items:flex-start}}
+
+        /* ===== জেনারেটরের ডাউনলোড টেবিল রো ===== */
+        .dl-table-row{
+            display:grid;
+            grid-template-columns:42px 1fr 120px 80px 1fr 36px;
+            gap:0;
+            align-items:center;
+            background:rgba(255,255,255,0.03);
+            border:1px solid #222;
+            border-radius:10px;
+            margin-bottom:8px;
+            overflow:hidden;
+            transition:border-color 0.3s;
+        }
+        .dl-table-row:hover{border-color:rgba(204,0,0,0.5)}
+        .dl-table-row .dl-icon-cell{
+            display:flex;align-items:center;justify-content:center;
+            height:100%;min-height:48px;
+            background:rgba(204,0,0,0.08);
+            border-right:1px solid #222;
+        }
+        .dl-table-row .dl-icon-cell i{color:#cc0000;font-size:14px}
+        .dl-table-row .cell-input{
+            width:100%;padding:8px 10px;margin:0;
+            background:transparent;border:none;
+            color:#f1f5f9;font-family:inherit;font-size:13px;font-weight:600;
+            border-radius:0;height:100%;min-height:48px;
+        }
+        .dl-table-row .cell-input:focus{outline:none;background:rgba(255,255,255,0.03)}
+        .dl-table-row .cell-input.lang-input{color:#888;font-weight:400;text-align:center}
+        .dl-table-row .cell-input.lang-input:focus{color:#f1f5f9}
+        .dl-table-row .cell-input.size-input{color:#555;font-weight:400;text-align:center}
+        .dl-table-row .cell-input.size-input:focus{color:#aaa}
+        .dl-table-row .cell-input.link-input{color:#38bdf8;font-weight:400;font-size:12px}
+        .dl-table-row .cell-input.link-input:focus{color:#38bdf8}
+        .cell-border-l{border-left:1px solid #222}
+        .cell-border-r{border-right:1px solid #222}
+        .dl-table-row .dl-remove-cell{
+            display:flex;align-items:center;justify-content:center;
+            height:100%;min-height:48px;
+        }
+        .dl-table-row .dl-remove-cell button{
+            background:none;border:none;color:#555;cursor:pointer;
+            font-size:13px;padding:5px;border-radius:6px;transition:0.2s;
+        }
+        .dl-table-row .dl-remove-cell button:hover{color:#ff5252;background:rgba(255,82,82,0.1)}
+
+        /* টেবিল হেডার */
+        .dl-table-header{
+            display:grid;
+            grid-template-columns:42px 1fr 120px 80px 1fr 36px;
+            gap:0;
+            margin-bottom:6px;
+            padding:0 0 8px;
+            border-bottom:1px solid #222;
+        }
+        .dl-table-header span{
+            font-size:10px;font-weight:700;color:#444;text-transform:uppercase;
+            letter-spacing:0.5px;
+            display:flex;align-items:center;justify-content:center;
+        }
+        .dl-table-header span:nth-child(2){justify-content:flex-start;padding-left:10px}
+        .dl-table-header span:nth-child(5){justify-content:flex-start;padding-left:10px}
+
+        /* এপিসোড রো */
+        .ep-row{
+            display:flex;gap:10px;margin-bottom:10px;align-items:center;
+            background:rgba(255,255,255,0.02);
+            border:1px solid #222;border-radius:10px;padding:10px 12px;
+            transition:border-color 0.3s;
+        }
+        .ep-row:hover{border-color:#38bdf8}
+        .ep-row input{margin-bottom:0}
+        .ep-row .ep-name-input{flex:1}
+        .ep-row .ep-link-input{flex:2}
+        .remove-btn{
+            background:#ff5252;border:none;color:white;
+            width:34px;height:34px;min-width:34px;border-radius:50%;
+            cursor:pointer;font-size:13px;
+            display:flex;align-items:center;justify-content:center;
+            transition:0.2s;
+        }
+        .remove-btn:hover{transform:scale(1.1);box-shadow:0 0 10px rgba(255,82,82,0.4)}
+
+        /* সাধারণ dl-row (স্ক্রিনশটের জন্য) */
+        .ss-row{
+            display:flex;gap:10px;margin-bottom:10px;align-items:center;
+        }
+        .ss-row input{flex:1;margin:0}
+
+        /* প্রিভিউ মোডাল */
+        .preview-overlay{
+            display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+            background:rgba(5,6,10,0.95);z-index:999999;
+            overflow-y:auto;padding:20px;
+        }
+        .preview-overlay.active{display:block}
+        .preview-close{
+            position:fixed;top:20px;right:20px;z-index:1000000;
+            background:#cc0000;border:none;color:#fff;
+            width:44px;height:44px;border-radius:50%;
+            font-size:18px;cursor:pointer;
+            display:flex;align-items:center;justify-content:center;
+            box-shadow:0 4px 15px rgba(204,0,0,0.5);
+        }
+        .preview-frame{
+            max-width:700px;margin:30px auto;
+            background:#0a0b10;border-radius:16px;
+            border:1px solid #222;overflow:hidden;
+        }
+
+        @media(max-width:768px){
+            .dl-table-row{grid-template-columns:36px 1fr 80px 60px 1fr 32px}
+            .dl-table-header{grid-template-columns:36px 1fr 80px 60px 1fr 32px}
+            .dl-table-header span{font-size:8px}
+            .dl-table-row .cell-input{font-size:11px;padding:6px 6px;min-height:42px}
+            .dl-table-row .cell-input.link-input{font-size:10px}
+            .ep-row{flex-wrap:wrap}
+            .ep-row .ep-link-input{width:100%;flex:unset}
+            .ads-header{flex-direction:column;gap:10px;align-items:flex-start}
+            .btn-row{flex-direction:column}
+            .dl-table-row{grid-template-columns:36px 1fr 1fr;grid-template-rows:auto auto}
+            .dl-table-row .dl-icon-cell{grid-row:1/3;min-height:100%}
+            .dl-table-row .cell-input.lang-input,
+            .dl-table-row .cell-input.size-input{border-top:1px solid #222;text-align:left;padding-left:10px}
+            .dl-table-header{display:none}
+        }
     </style>
 </head>
 <body>
@@ -66,6 +188,7 @@
     <h1><i class="fas fa-robot"></i> MovieBoxBD Generator</h1>
     <p class="subtitle">আপনার ব্লগার থিমের জন্য কাস্টম পোস্ট তৈরি করুন!</p>
 
+    <!-- ধাপ ১ -->
     <div class="panel">
         <h3 style="margin-bottom:15px;color:#cc0000;font-size:18px"><i class="fas fa-search"></i> ধাপ ১: TMDB থেকে সার্চ</h3>
         <div class="search-box">
@@ -79,6 +202,7 @@
         <div id="resultsArea"><div class="status-msg"><i class="fas fa-film"></i> নাম লিখে সার্চ করুন</div></div>
     </div>
 
+    <!-- ধাপ ২ -->
     <div class="panel">
         <div id="autoFillMsg" class="success-msg"><i class="fas fa-check-circle"></i> TMDB থেকে তথ্য লোড হয়েছে!</div>
         <h3 style="margin-bottom:15px;color:#cc0000;font-size:18px"><i class="fas fa-pen"></i> ধাপ ২: পোস্টের তথ্য</h3>
@@ -110,18 +234,16 @@
         </div>
         <label>পোস্টার লিংক</label><input type="text" id="m_poster" placeholder="https://image.tmdb.org/...">
         <label>গল্প</label><textarea id="m_synopsis" rows="3" placeholder="গল্পের সারসংক্ষেপ..."></textarea>
-        
         <div class="section-divider"></div>
-        <div class="section-header">
-            <h4 style="color:#ff9800"><i class="fas fa-images"></i> স্ক্রিনশট (সর্বোচ্চ ৮টি)</h4>
-        </div>
+        <div class="section-header"><h4 style="color:#ff9800"><i class="fas fa-images"></i> স্ক্রিনশট (সর্বোচ্চ ৮টি)</h4></div>
         <div id="ssList"></div>
         <button class="btn btn-orange btn-sm" onclick="addSs('')" style="margin-bottom:15px"><i class="fas fa-plus"></i> স্ক্রিনশট যোগ করুন</button>
     </div>
 
+    <!-- ধাপ ৩ -->
     <div class="panel">
         <h3 style="margin-bottom:15px;color:#cc0000;font-size:18px"><i class="fas fa-download"></i> ধাপ ৩: ডাউনলোড সেটআপ</h3>
-        
+
         <div class="ads-header">
             <h4><i class="fas fa-ad"></i> Adsterra লিংক</h4>
             <div style="display:flex;gap:8px;align-items:center">
@@ -133,31 +255,40 @@
         <label>অ্যাড লিংক ১ (আবশ্যক)</label><input type="text" id="ad1" placeholder="https://...">
         <label>অ্যাড লিংক ২ <span class="optional-tag">OPTIONAL</span></label><input type="text" id="ad2" placeholder="খালি রাখলে ২য় ধাপ স্কিপ হবে">
 
+        <!-- মুভি ডাউনলোড -->
         <div id="movieDlSection">
             <div class="section-divider"></div>
-            <div class="section-header"><h4 style="color:#4caf50"><i class="fas fa-film"></i> মুভি ডাউনলোড বাটন</h4></div>
+            <div class="section-header"><h4 style="color:#4caf50"><i class="fas fa-film"></i> মুভি ডাউনলোড লিংক</h4></div>
+            <div class="dl-table-header">
+                <span></span>
+                <span>Quality</span>
+                <span>Language</span>
+                <span>Size</span>
+                <span>Link</span>
+                <span></span>
+            </div>
             <div id="movieDlList"></div>
-            <button class="btn btn-green" onclick="addMovieDl()"><i class="fas fa-plus"></i> বাটন যোগ করুন</button>
+            <button class="btn btn-green btn-sm" onclick="addMovieDl()" style="margin-top:5px"><i class="fas fa-plus"></i> নতুন রো যোগ করুন</button>
         </div>
+
+        <!-- সিরিজ ডাউনলোড -->
         <div id="seriesDlSection" style="display:none">
             <div class="section-divider"></div>
             <div class="section-header"><h4 style="color:#38bdf8"><i class="fas fa-list-ol"></i> এপিসোড তালিকা</h4></div>
             <div id="epList"></div>
-            <button class="btn btn-blue" onclick="addEp()"><i class="fas fa-plus"></i> নতুন এপিসোড</button>
-            
+            <button class="btn btn-blue btn-sm" onclick="addEp()" style="margin-top:5px"><i class="fas fa-plus"></i> নতুন এপিসোড</button>
             <div class="section-divider"></div>
             <label><i class="fas fa-star"></i> সর্বশেষ কয়টি এপিসোডে "NEW ADDED" ট্যাগ দেবেন?</label>
             <input type="text" id="m_newTagCount" value="3" placeholder="3">
             <p class="warn">⚠️ সর্বশেষ এপিসোডগুলো সবার উপরে শো করবে এবং এখানে যত দেবেন, ততটিতে লাল ট্যাগ শো করবে।</p>
-            
             <div class="section-divider"></div>
             <label><i class="fas fa-file-alt"></i> প্রতি পেজে কয়টি এপিসোড দেখাবেন?</label>
             <input type="text" id="m_epsPerPage" value="10" placeholder="10">
-
             <div class="section-divider"></div>
             <div class="section-header"><h4 style="color:#9c27b0"><i class="fas fa-folder-open"></i> পুরো সিজন (ঐচ্ছিক)</h4></div>
             <input type="text" id="seasonDl" placeholder="https://t.me/...">
         </div>
+
         <div class="section-divider"></div>
         <button class="btn" onclick="generate()" style="width:100%;justify-content:center;font-size:16px;padding:15px">
             <i class="fas fa-magic"></i> ব্লগার কোড জেনারেট করুন
@@ -169,7 +300,7 @@
         </div>
     </div>
 
-    <!-- ===== SERIES EPISODE UPDATER ===== -->
+    <!-- সিরিজ আপডেটার -->
     <div class="panel" style="border:1px solid #9c27b0">
         <h3 style="margin-bottom:15px;color:#9c27b0;font-size:18px"><i class="fas fa-sync-alt"></i> 🔄 নতুন এপিসোড আপডেট করুন</h3>
         <div class="helper-box" style="border-color:rgba(156,39,176,0.3);background:rgba(156,39,176,0.05)">
@@ -177,13 +308,10 @@
         </div>
         <label>১. পুরানো পোস্টের সম্পূর্ণ HTML কোড</label>
         <textarea id="updateOldHtml" class="updater-area" placeholder="ব্লগার পোস্ট এডিটরের HTML ভিউ থেকে সব কোড কপি করে এখানে পেস্ট করুন..."></textarea>
-        
-        <label>২. নতুন এপিসোডের নাম (একাধিক হলে নতুন লাইনে লিখুন)</label>
+        <label>২. নতুন এপিসোডের নাম</label>
         <textarea id="updateEpNames" rows="3" placeholder="Episode 48&#10;Episode 49&#10;Episode 50" style="margin-bottom:15px"></textarea>
-        
-        <label>৩. নতুন এপিসোডের লিংক (একই ক্রমে, নতুন লাইনে)</label>
+        <label>৩. নতুন এপিসোডের লিংক</label>
         <textarea id="updateEpLinks" rows="3" placeholder="https://t.me/...48&#10;https://t.me/...49&#10;https://t.me/...50" style="margin-bottom:15px"></textarea>
-
         <button class="btn btn-purple" onclick="updateSeriesPost()" style="width:100%;justify-content:center;font-size:16px;padding:15px">
             <i class="fas fa-plus-circle"></i> আপডেটেড কোড তৈরি করুন
         </button>
@@ -194,277 +322,369 @@
     </div>
 </div>
 
+<!-- প্রিভিউ ওভারলে -->
+<div class="preview-overlay" id="previewOverlay">
+    <button class="preview-close" onclick="closePreview()"><i class="fas fa-times"></i></button>
+    <div class="preview-frame" id="previewFrame"></div>
+</div>
+
 <script>
     var API_KEY='c0d37f0558b975f73bd73328e07324eb',IMG='https://image.tmdb.org/t/p/w780',IMG_HD='https://image.tmdb.org/t/p/original',searchData=[];
     var langMap={'hi':'Hindi','bn':'Bangla','ta':'Tamil','te':'Telugu','ml':'Malayalam','kn':'Kannada','en':'English','ko':'Korean','ja':'Japanese'};
-    
-    function setupChips(id){var c=document.getElementById(id);c.addEventListener('click',function(e){var chip=e.target.closest('.lang-chip,.sub-chip');if(!chip)return;c.querySelectorAll('.lang-chip,.sub-chip').forEach(function(x){x.classList.remove('active')});chip.classList.add('active')})}
+
+    function setupChips(id){
+        document.getElementById(id).addEventListener('click',function(e){
+            var chip=e.target.closest('.lang-chip,.sub-chip');
+            if(!chip)return;
+            this.querySelectorAll('.lang-chip,.sub-chip').forEach(function(x){x.classList.remove('active')});
+            chip.classList.add('active');
+        });
+    }
     setupChips('langChips');setupChips('subChips');
+
     function getSelectedLang(){var a=document.querySelector('#langChips .lang-chip.active');var c=document.getElementById('m_langCustom').value.trim();return c||(a?a.getAttribute('data-lang'):'Hindi')}
     function getSelectedSub(){var a=document.querySelector('#subChips .sub-chip.active');return a?a.getAttribute('data-sub'):'বাংলা সাব'}
     function setSelectedLang(l){var f=false;document.querySelectorAll('#langChips .lang-chip').forEach(function(c){c.classList.remove('active');if(c.getAttribute('data-lang')===l){c.classList.add('active');f=true}});if(!f)document.getElementById('m_langCustom').value=l}
     function toggleDlSections(){var t=document.getElementById('m_type').value;document.getElementById('movieDlSection').style.display=t==='movie'?'block':'none';document.getElementById('seriesDlSection').style.display=t==='tv'?'block':'none'}
-    
-    // Unlimited Screenshot Add Function
-    function addSs(v){var list=document.getElementById('ssList'),div=document.createElement('div');div.className='dl-row';div.innerHTML='<input type="text" class="ss-link" placeholder="https://..." style="flex:1" value="'+(v||'')+'"><button class="remove-btn" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>';list.appendChild(div)}
-    
-    function addMovieDl(q,l){var list=document.getElementById('movieDlList'),div=document.createElement('div');div.className='dl-row';div.innerHTML='<select class="movie-dl-quality"><option value="1080p WEB-DL"'+(q==='1080p WEB-DL'?' selected':'')+'>1080p WEB-DL</option><option value="720p WEB-DL"'+(q==='720p WEB-DL'?' selected':'')+'>720p WEB-DL</option><option value="480p HDRip"'+(q==='480p HDRip'?' selected':'')+'>480p HDRip</option><option value="4K UHD"'+(q==='4K UHD'?' selected':'')+'>4K UHD</option><option value="CAM"'+(q==='CAM'?' selected':'')+'>CAM</option></select><input type="text" class="movie-dl-link" placeholder="টেলিগ্রাম লিংক" style="flex:1" value="'+(l||'')+'"><button class="remove-btn" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>';list.appendChild(div)}
-    addMovieDl('1080p WEB-DL','');addMovieDl('720p WEB-DL','');addMovieDl('480p HDRip','');
-    function addEp(n,l){var list=document.getElementById('epList'),num=list.children.length+1,div=document.createElement('div');div.className='dl-row';div.innerHTML='<input type="text" class="ep-name" placeholder="এপিসোড '+num+' নাম" style="flex:1" value="'+(n||'')+'"><input type="text" class="ep-link" placeholder="টেলিগ্রাম লিংক" style="flex:2" value="'+(l||'')+'"><button class="remove-btn" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>';list.appendChild(div)}
+
+    /* স্ক্রিনশট যোগ */
+    function addSs(v){
+        var list=document.getElementById('ssList'),div=document.createElement('div');
+        div.className='ss-row';
+        div.innerHTML='<input type="text" class="ss-link" placeholder="https://..." value="'+(v||'')+'"><button class="remove-btn" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>';
+        list.appendChild(div);
+    }
+
+    /* ===== মুভি ডাউনলোড রো যোগ — Quality + Language + Size + Link সব দেখা যাবে ===== */
+    function addMovieDl(q,lang,size,link){
+        var list=document.getElementById('movieDlList'),div=document.createElement('div');
+        div.className='dl-table-row';
+        div.innerHTML=
+            '<div class="dl-icon-cell"><i class="fas fa-download"></i></div>'+
+            '<input type="text" class="cell-input quality-input" placeholder="1080p WEB-DL" value="'+(q||'')+'">'+
+            '<input type="text" class="cell-input lang-input cell-border-l cell-border-r" placeholder="Dual Audio" value="'+(lang||'')+'">'+
+            '<input type="text" class="cell-input size-input cell-border-r" placeholder="----" value="'+(size||'')+'">'+
+            '<input type="text" class="cell-input link-input cell-border-l" placeholder="https://t.me/..." value="'+(link||'')+'">'+
+            '<div class="dl-remove-cell cell-border-l"><button onclick="this.closest(\'.dl-table-row\').remove()"><i class="fas fa-trash-alt"></i></button></div>';
+        list.appendChild(div);
+    }
+    /* ডিফল্ট ৩টি রো */
+    addMovieDl('1080p WEB-DL','Dual Audio','----','');
+    addMovieDl('720p WEB-DL','Dual Audio','----','');
+    addMovieDl('480p HDRip','Dual Audio','----','');
+
+    /* এপিসোড যোগ */
+    function addEp(n,l){
+        var list=document.getElementById('epList'),num=list.children.length+1,div=document.createElement('div');
+        div.className='ep-row';
+        div.innerHTML='<input type="text" class="ep-name ep-name-input" placeholder="এপিসোড '+num+' নাম" value="'+(n||'')+'"><input type="text" class="ep-link ep-link-input" placeholder="টেলিগ্রাম লিংক" value="'+(l||'')+'"><button class="remove-btn" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>';
+        list.appendChild(div);
+    }
+
+    /* সার্চ */
     document.getElementById('searchInput').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch()});
     function esc(s){if(s===null||s===undefined)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
     function safeJson(o){return JSON.stringify(o).replace(/<\//g,'<\\/')}
-    function saveAds(){var a1=document.getElementById('ad1').value.trim(),a2=document.getElementById('ad2').value.trim();localStorage.setItem('mbd_ad1',a1);localStorage.setItem('mbd_ad2',a2);var b=document.getElementById('saveAdsBtn'),bd=document.getElementById('adsSavedBadge');b.innerHTML='<i class="fas fa-check"></i> Saved!';bd.style.display='inline-block';setTimeout(function(){b.innerHTML='<i class="fas fa-save"></i> Save Ads'},2000)}
-    function loadAds(){var s1=localStorage.getItem('mbd_ad1'),s2=localStorage.getItem('mbd_ad2');if(s1)document.getElementById('ad1').value=s1;if(s2)document.getElementById('ad2').value=s2;if(s1||s2)document.getElementById('adsSavedBadge').style.display='inline-block'}
-    loadAds();
-    async function doSearch(){var q=document.getElementById('searchInput').value.trim(),t=document.getElementById('typeSelect').value,a=document.getElementById('resultsArea');if(!q)return;a.innerHTML='<div class="status-msg loading"><i class="fas fa-spinner fa-spin"></i> খুঁজছি...</div>';try{var r=await fetch('https://api.themoviedb.org/3/search/'+t+'?api_key='+API_KEY+'&query='+encodeURIComponent(q)+'&language=en-US');var d=await r.json();if(!d.results||d.results.length===0){a.innerHTML='<div class="status-msg error">পাওয়া যায়নি!</div>';return}searchData=d.results.filter(function(i){return i.poster_path});var h='<div class="results-grid">';for(var i=0;i<searchData.length&&i<10;i++){var item=searchData[i],title=item.title||item.name||item.original_title||'Unknown',year=(item.release_date||item.first_air_date||'').substring(0,4),lang=langMap[item.original_language]||'';h+='<div class="result-card" data-idx="'+i+'"><img src="'+IMG+item.poster_path+'" alt=""><p>'+esc(title)+'</p><p style="color:#cc0000">'+year+'</p>'+(lang?'<span style="font-size:9px;background:rgba(56,189,248,0.2);color:#38bdf8;padding:1px 6px;border-radius:4px;display:inline-block;margin-top:3px">'+esc(lang)+'</span>':'')+'</div>'}a.innerHTML=h+'</div>';a.querySelectorAll('.result-card').forEach(function(c){c.addEventListener('click',function(){selectItem(parseInt(this.getAttribute('data-idx')))})})}catch(e){a.innerHTML='<div class="status-msg error">সার্চ ব্যর্থ!</div>'}}
-    
-    async function selectItem(idx){var item=searchData[idx];if(!item)return;var id=item.id,type=document.getElementById('typeSelect').value,year=(item.release_date||item.first_air_date||'').substring(0,4);try{var r=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'?api_key='+API_KEY+'&language=en-US');var d=await r.json();var t=d.title||d.name||d.original_title||d.original_name||'Unknown';document.getElementById('m_type').value=type;document.getElementById('m_title').value=t;document.getElementById('m_origTitle').value=t+' ('+year+')';document.getElementById('m_genres').value=(d.genres||[]).map(function(g){return g.name}).join(', ');document.getElementById('m_rating').value=d.vote_average?d.vote_average.toFixed(1):'0.0';document.getElementById('m_poster').value=d.poster_path?IMG+d.poster_path:'';document.getElementById('m_synopsis').value=d.overview||'';var ml=langMap[d.original_language]||'';if(ml)setSelectedLang(ml);
-        
-        // Screenshot Auto Fill Logic (Maximum 8 Screenshots)
-        var ssListEl=document.getElementById('ssList');ssListEl.innerHTML='';
-        var ir=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'/images?api_key='+API_KEY+'&include_image_language=en,null');var id2=await ir.json();
-        if(id2.backdrops&&id2.backdrops.length>0){for(var si=0;si<id2.backdrops.length&&si<8;si++){addSs(IMG_HD+id2.backdrops[si].file_path)}}
-        
-        toggleDlSections();document.getElementById('autoFillMsg').style.display='block';window.scrollTo({top:document.getElementById('autoFillMsg').offsetTop-20,behavior:'smooth'})}catch(e){alert('তথ্য আনতে সমস্যা!')}}
 
+    function saveAds(){
+        var a1=document.getElementById('ad1').value.trim(),a2=document.getElementById('ad2').value.trim();
+        localStorage.setItem('mbd_ad1',a1);localStorage.setItem('mbd_ad2',a2);
+        var b=document.getElementById('saveAdsBtn'),bd=document.getElementById('adsSavedBadge');
+        b.innerHTML='<i class="fas fa-check"></i> Saved!';bd.style.display='inline-block';
+        setTimeout(function(){b.innerHTML='<i class="fas fa-save"></i> Save Ads'},2000);
+    }
+    function loadAds(){
+        var s1=localStorage.getItem('mbd_ad1'),s2=localStorage.getItem('mbd_ad2');
+        if(s1)document.getElementById('ad1').value=s1;
+        if(s2)document.getElementById('ad2').value=s2;
+        if(s1||s2)document.getElementById('adsSavedBadge').style.display='inline-block';
+    }
+    loadAds();
+
+    async function doSearch(){
+        var q=document.getElementById('searchInput').value.trim(),t=document.getElementById('typeSelect').value,a=document.getElementById('resultsArea');
+        if(!q)return;
+        a.innerHTML='<div class="status-msg loading"><i class="fas fa-spinner fa-spin"></i> খুঁজছি...</div>';
+        try{
+            var r=await fetch('https://api.themoviedb.org/3/search/'+t+'?api_key='+API_KEY+'&query='+encodeURIComponent(q)+'&language=en-US');
+            var d=await r.json();
+            if(!d.results||d.results.length===0){a.innerHTML='<div class="status-msg error">পাওয়া যায়নি!</div>';return}
+            searchData=d.results.filter(function(i){return i.poster_path});
+            var h='<div class="results-grid">';
+            for(var i=0;i<searchData.length&&i<10;i++){
+                var item=searchData[i],title=item.title||item.name||item.original_title||'Unknown',
+                year=(item.release_date||item.first_air_date||'').substring(0,4),
+                lang=langMap[item.original_language]||'';
+                h+='<div class="result-card" data-idx="'+i+'"><img src="'+IMG+item.poster_path+'" alt=""><p>'+esc(title)+'</p><p style="color:#cc0000">'+year+'</p>'+(lang?'<span style="font-size:9px;background:rgba(56,189,248,0.2);color:#38bdf8;padding:1px 6px;border-radius:4px;display:inline-block;margin-top:3px">'+esc(lang)+'</span>':'')+'</div>';
+            }
+            a.innerHTML=h+'</div>';
+            a.querySelectorAll('.result-card').forEach(function(c){c.addEventListener('click',function(){selectItem(parseInt(this.getAttribute('data-idx')))})});
+        }catch(e){a.innerHTML='<div class="status-msg error">সার্চ ব্যর্থ!</div>'}
+    }
+
+    async function selectItem(idx){
+        var item=searchData[idx];if(!item)return;
+        var id=item.id,type=document.getElementById('typeSelect').value,year=(item.release_date||item.first_air_date||'').substring(0,4);
+        try{
+            var r=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'?api_key='+API_KEY+'&language=en-US');
+            var d=await r.json();
+            var t=d.title||d.name||d.original_title||d.original_name||'Unknown';
+            document.getElementById('m_type').value=type;
+            document.getElementById('m_title').value=t;
+            document.getElementById('m_origTitle').value=t+' ('+year+')';
+            document.getElementById('m_genres').value=(d.genres||[]).map(function(g){return g.name}).join(', ');
+            document.getElementById('m_rating').value=d.vote_average?d.vote_average.toFixed(1):'0.0';
+            document.getElementById('m_poster').value=d.poster_path?IMG+d.poster_path:'';
+            document.getElementById('m_synopsis').value=d.overview||'';
+            var ml=langMap[d.original_language]||'';if(ml)setSelectedLang(ml);
+            var ssListEl=document.getElementById('ssList');ssListEl.innerHTML='';
+            var ir=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'/images?api_key='+API_KEY+'&include_image_language=en,null');
+            var id2=await ir.json();
+            if(id2.backdrops&&id2.backdrops.length>0){for(var si=0;si<id2.backdrops.length&&si<8;si++){addSs(IMG_HD+id2.backdrops[si].file_path)}}
+            toggleDlSections();
+            document.getElementById('autoFillMsg').style.display='block';
+            window.scrollTo({top:document.getElementById('autoFillMsg').offsetTop-20,behavior:'smooth'});
+        }catch(e){alert('তথ্য আনতে সমস্যা!')}
+    }
+
+    /* ===== জেনারেট ===== */
     function generate(){
         var type=document.getElementById('m_type').value,isTV=type==='tv';
-        var title=document.getElementById('m_title').value.trim()||'Untitled',origTitle=document.getElementById('m_origTitle').value.trim()||title;
-        var genres=document.getElementById('m_genres').value.trim()||'N/A',rating=document.getElementById('m_rating').value.trim()||'0.0';
-        var poster=document.getElementById('m_poster').value.trim()||'https://via.placeholder.com/500x750/111217/cc0000?text=No+Poster';
-        var overview=document.getElementById('m_synopsis').value.trim()||'No synopsis available.';
-        var movieLang=getSelectedLang(),movieSub=getSelectedSub();
+        var title=document.getElementById('m_title').value.trim()||'Untitled',
+        origTitle=document.getElementById('m_origTitle').value.trim()||title,
+        genres=document.getElementById('m_genres').value.trim()||'N/A',
+        rating=document.getElementById('m_rating').value.trim()||'0.0',
+        poster=document.getElementById('m_poster').value.trim()||'https://via.placeholder.com/500x750/111217/cc0000?text=No+Poster',
+        overview=document.getElementById('m_synopsis').value.trim()||'No synopsis available.',
+        movieLang=getSelectedLang(),movieSub=getSelectedSub();
         var yearMatch=origTitle.match(/\((\d{4})\)/),year=yearMatch?yearMatch[1]:'N/A';
         var typeLabel=isTV?'ওয়েব সিরিজ':'মুভি',badgeLabel=isTV?'SERIES':'MOVIE';
 
-        // Screenshot Generate Logic
         var screens='';
         document.querySelectorAll('#ssList .ss-link').forEach(function(inp){var v=inp.value.trim();if(v)screens+='<div class="mbd-ss-item"><img src="'+esc(v)+'" alt="SS"></div>'});
         if(!screens)screens='<div class="mbd-ss-item"><img src="'+esc(poster)+'" alt="Poster"></div>';
 
         var adLink1=document.getElementById('ad1').value.trim()||'#';
         var adLink2=document.getElementById('ad2').value.trim();
-        var isSingleAd = !adLink2; 
-        
-        var movieDlArr=[];document.querySelectorAll('#movieDlList .dl-row').forEach(function(r){var q=r.querySelector('.movie-dl-quality').value,l=r.querySelector('.movie-dl-link').value.trim();if(q&&l)movieDlArr.push({quality:q,link:l})});
-        
-        var epArr=[]; 
-        var epCount=document.querySelectorAll('#epList .dl-row').length;
-        var newTagCount=parseInt(document.getElementById('m_newTagCount').value)||0;
-        document.querySelectorAll('#epList .dl-row').forEach(function(r,idx){
-            var n=r.querySelector('.ep-name').value.trim(),l=r.querySelector('.ep-link').value.trim();
-            if(n){
-                var isNew=(idx>=epCount-newTagCount);
-                epArr.push({name:n,link:l||'#',isNew:isNew});
-            }
+        var isSingleAd=!adLink2;
+
+        /* মুভি ডাউনলোড ডেটা */
+        var movieDlArr=[];
+        document.querySelectorAll('#movieDlList .dl-table-row').forEach(function(r){
+            var q=r.querySelector('.quality-input').value.trim();
+            var lang=r.querySelector('.lang-input').value.trim()||'Dual Audio';
+            var size=r.querySelector('.size-input').value.trim()||'----';
+            var link=r.querySelector('.link-input').value.trim()||'#';
+            if(q)movieDlArr.push({quality:q,lang:lang,size:size,link:link});
         });
-        
+
+        /* এপিসোড ডেটা */
+        var epArr=[];
+        var epCount=document.querySelectorAll('#epList .ep-row').length;
+        var newTagCount=parseInt(document.getElementById('m_newTagCount').value)||0;
+        document.querySelectorAll('#epList .ep-row').forEach(function(r,idx){
+            var n=r.querySelector('.ep-name').value.trim(),l=r.querySelector('.ep-link').value.trim();
+            if(n){var isNew=(idx>=epCount-newTagCount);epArr.push({name:n,link:l||'#',isNew:isNew})}
+        });
+
         var seasonDlLink=document.getElementById('seasonDl').value.trim();
         var epsPerPage=parseInt(document.getElementById('m_epsPerPage').value)||10;
 
+        /* ডাউনলোড সেকশন HTML */
         var dlSectionHtml='';
-        if(!isTV){dlSectionHtml='<div class="mbd-section-title"><i class="fas fa-download"></i> ডাউনলোড</div><div class="mbd-dl-box"><div class="mbd-dl-grid" id="mbd-dl-grid"></div></div>';}
-        else{dlSectionHtml='<div class="mbd-section-title"><i class="fas fa-list-ol"></i> এপিসোড তালিকা</div><div class="mbd-ep-box"><div class="mbd-ep-grid" id="mbd-ep-grid"></div><div class="mbd-pagination" id="mbd-pagination"></div></div>';if(seasonDlLink){dlSectionHtml+='<div class="mbd-dl-box" style="margin-top:20px"><button class="mbd-season-btn mbd-trigger-dl" data-link="'+esc(seasonDlLink)+'"><i class="fas fa-folder-open"></i> পুরো সিজন ডাউনলোড</button></div>';}}
-
-        var fc = '<style>\n';
-        fc += '.mbd-post{font-family:\'Hind Siliguri\',sans-serif;color:#f1f5f9;max-width:100%}\n';
-        fc += '.mbd-hero{display:grid;grid-template-columns:250px 1fr;gap:25px;background:#111217;border-radius:12px;padding:20px;border:1px solid #222}\n';
-        fc += '.mbd-poster{position:relative;border-radius:10px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.5);aspect-ratio:2/3}\n';
-        fc += '.mbd-poster img{width:100%;height:100%;object-fit:cover;display:block}\n';
-        fc += '.mbd-badge{position:absolute;top:10px;left:10px;background:#cc0000;color:#fff;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700}\n';
-        fc += '.mbd-lang{position:absolute;top:10px;right:10px;background:#38bdf8;color:#000;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700}\n';
-        fc += '.mbd-rating{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.85);color:#f5c518;padding:6px 10px;border-radius:6px;font-size:13px;font-weight:700;border:1px solid #f5c518;display:flex;align-items:center;gap:4px}\n';
-        fc += '.mbd-details{display:flex;flex-direction:column;gap:12px}\n';
-        fc += '.mbd-title{font-size:24px;font-weight:700;color:#f1f5f9;line-height:1.3}\n';
-        fc += '.mbd-orig{font-size:14px;color:#aaa}\n';
-        fc += '.mbd-metas{display:flex;flex-wrap:wrap;gap:8px}\n';
-        fc += '.mbd-meta{background:rgba(255,255,255,0.05);border:1px solid #222;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:#ccc}\n';
-        fc += '.mbd-meta.red{background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.2);color:#ff4d4d}\n';
-        fc += '.mbd-meta.blue{background:rgba(56,189,248,0.1);border-color:rgba(56,189,248,0.2);color:#38bdf8}\n';
-        fc += '.mbd-meta.yellow{background:rgba(245,197,24,0.1);border-color:rgba(245,197,24,0.2);color:#f5c518}\n';
-        fc += '.mbd-synopsis{font-size:13px;line-height:1.8;color:#aaa;border-left:3px solid #cc0000;padding-left:12px;margin-top:4px}\n';
-        fc += '.mbd-section-title{font-size:18px;font-weight:700;color:#f1f5f9;margin:30px 0 15px;display:flex;align-items:center;gap:8px}\n';
-        fc += '.mbd-section-title i{color:#cc0000}\n';
-        fc += '.mbd-ss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}\n';
-        fc += '.mbd-ss-item{border-radius:8px;overflow:hidden;border:1px solid #222}\n';
-        fc += '.mbd-ss-item img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}\n';
-        fc += '.mbd-dl-box{background:#111217;border-radius:12px;padding:25px;border:1px solid #222}\n';
-        fc += '.mbd-dl-grid{display:grid;grid-template-columns:1fr;gap:10px}\n';
-        fc += '.mbd-dl-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:13px 18px;border-radius:8px;border:none;font-family:\'Hind Siliguri\',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:0.3s;color:#fff}\n';
-        fc += '.mbd-dl-btn:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,0,0,0.3)}\n';
-        fc += '.mbd-dl-btn.q-1080{background:linear-gradient(135deg,#cc0000,#ff1a1a)}\n';
-        fc += '.mbd-dl-btn.q-720{background:linear-gradient(135deg,#ff6b35,#ff9800)}\n';
-        fc += '.mbd-dl-btn.q-480{background:linear-gradient(135deg,#4caf50,#2e7d32)}\n';
-        fc += '.mbd-dl-btn.q-4k{background:linear-gradient(135deg,#9c27b0,#7b1fa2)}\n';
-        fc += '.mbd-dl-btn.q-cam{background:linear-gradient(135deg,#607d8b,#455a64)}\n';
-        fc += '.mbd-dl-btn.q-default{background:linear-gradient(135deg,#cc0000,#ff1a1a)}\n';
-        fc += '.mbd-dl-btn .mbd-q-left{display:flex;align-items:center;gap:8px}\n';
-        fc += '.mbd-dl-btn .mbd-q-icon{width:30px;height:30px;background:rgba(255,255,255,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px}\n';
-        fc += '.mbd-season-btn{background:linear-gradient(135deg,#38bdf8,#0ea5e9);color:#000;border:none;padding:14px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:\'Hind Siliguri\',sans-serif;width:100%}\n';
-        fc += '.mbd-ep-box{background:#111217;border-radius:12px;padding:25px;border:1px solid #222}\n';
-        fc += '.mbd-ep-grid{display:grid;grid-template-columns:1fr;gap:10px}\n';
-        fc += '.mbd-ep-card{background:rgba(255,255,255,0.02);border:1px solid #222;border-radius:10px;display:flex;align-items:center;padding:12px;gap:12px;transition:0.3s;position:relative;overflow:hidden}\n';
-        fc += '.mbd-ep-card:hover{border-color:#cc0000}\n';
-        fc += '.mbd-ep-num{width:40px;height:40px;min-width:40px;border-radius:8px;background:#cc0000;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}\n';
-        fc += '.mbd-ep-name{flex:1;font-weight:600;font-size:14px}\n';
-        fc += '.mbd-ep-dl{background:#cc0000;border:none;color:#fff;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:flex;align-items:center;gap:6px}\n';
-        fc += '.mbd-new-badge{position:absolute;top:0;right:0;background:linear-gradient(135deg,#cc0000,#ff1a1a);color:#fff;font-size:9px;padding:3px 8px;border-radius:0 10px 0 8px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;animation:mbdPulse 2s infinite}\n';
-        fc += '@keyframes mbdPulse{0%,100%{opacity:1}50%{opacity:0.7}}\n';
-        fc += '.mbd-pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:20px;padding-top:15px;border-top:1px solid #222}\n';
-        fc += '.mbd-page-btn{background:#222;color:#f1f5f9;border:1px solid #333;padding:8px 18px;border-radius:6px;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;transition:0.2s}\n';
-        fc += '.mbd-page-btn:hover{background:#cc0000;border-color:#cc0000;color:#fff}\n';
-        fc += '.mbd-page-info{color:#888;font-size:13px;font-weight:600}\n';
-        fc += '.mbd-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,6,10,0.9);backdrop-filter:blur(8px);z-index:99999;align-items:center;justify-content:center;padding:20px}\n';
-        fc += '.mbd-modal.active{display:flex}\n';
-        fc += '.mbd-modal-box{background:#111217;border-radius:16px;width:100%;max-width:450px;border:1px solid #222;overflow:hidden;animation:mbdSlideUp 0.3s}\n';
-        fc += '@keyframes mbdSlideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}\n';
-        fc += '.mbd-modal-head{background:#cc0000;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}\n';
-        fc += '.mbd-modal-head h3{color:#fff;font-size:14px;font-weight:700}\n';
-        fc += '.mbd-modal-close{background:rgba(255,255,255,0.2);border:none;color:#fff;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:12px}\n';
-        fc += '.mbd-modal-body{padding:20px}\n';
-        
-        if(isSingleAd){
-            fc += '.mbd-steps{display:none}\n'; 
-        } else {
-            fc += '.mbd-steps{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px}\n';
-            fc += '.mbd-step{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid #222;color:#555}\n';
-            fc += '.mbd-step.active{border-color:#38bdf8;color:#38bdf8;background:rgba(56,189,248,0.1)}\n';
-            fc += '.mbd-step.done{border-color:#4caf50;color:#fff;background:#4caf50}\n';
-            fc += '.mbd-line{width:30px;height:2px;background:#222}\n';
-            fc += '.mbd-line.done{background:#4caf50}\n';
-        }
-        
-        fc += '.mbd-vmsg{text-align:center;margin-bottom:14px}\n';
-        fc += '.mbd-vmsg h4{font-size:15px;color:#f1f5f9;margin-bottom:4px}\n';
-        fc += '.mbd-vmsg p{font-size:12px;color:#888}\n';
-        fc += '.mbd-warn-box{background:rgba(255,82,82,0.1);border:1px solid #ff5252;color:#ff5252;padding:10px;border-radius:8px;font-size:12px;font-weight:600;text-align:center;margin-bottom:12px;display:none}\n';
-        fc += '.mbd-ad-btn{display:block;width:100%;padding:12px;background:linear-gradient(135deg,#ff9800,#f57c00);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;text-decoration:none;text-align:center;margin-bottom:12px}\n';
-        fc += '.mbd-timer-bar{width:100%;height:4px;background:#222;border-radius:2px;overflow:hidden;margin-bottom:8px}\n';
-        fc += '.mbd-timer-fill{height:100%;width:0%;background:linear-gradient(90deg,#cc0000,#38bdf8);border-radius:2px;transition:width 0.1s linear}\n';
-        fc += '.mbd-timer-txt{font-size:13px;color:#aaa;text-align:center}\n';
-        fc += '.mbd-timer-txt span{color:#38bdf8;font-weight:700}\n';
-        fc += '.mbd-unlock-btn{display:none;width:100%;padding:11px;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;margin-top:10px}\n';
-        fc += '.mbd-success{text-align:center;padding:14px 0}\n';
-        fc += '.mbd-success-icon{width:55px;height:55px;background:#4caf50;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;color:#fff}\n';
-        fc += '.mbd-final-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 30px;background:#0088cc;color:#fff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(0,136,204,0.4)}\n';
-        fc += '@media(max-width:768px){.mbd-hero{grid-template-columns:1fr}.mbd-poster{max-width:180px;margin:0 auto}.mbd-ss-grid{grid-template-columns:1fr}.mbd-ep-card{flex-wrap:wrap}.mbd-ep-dl{width:100%;justify-content:center}.mbd-pagination{flex-wrap:wrap}}\n';
-        fc += '</style>\n\n';
-
-        fc += '<div class="mbd-post">\n\n';
-        fc += '<!--মেটা ডেটা-->\n';
-        fc += '<div class="info-text" style="display:none;">\n  <div>Rating: '+esc(rating)+'/10</div>\n  <div>Language: '+esc(movieLang)+'</div>\n  <div>Genres: '+esc(genres)+'</div>\n</div>\n\n';
-        
-        fc += '<div class="mbd-hero">\n<div class="mbd-poster">\n<img src="'+esc(poster)+'" alt="'+esc(title)+'">\n<div class="mbd-badge">'+badgeLabel+'</div>\n<div class="mbd-lang">'+esc(movieLang)+'</div>\n<div class="mbd-rating"><i class="fas fa-star"></i> '+esc(rating)+'</div>\n</div>\n<div class="mbd-details">\n<h1 class="mbd-title">'+esc(title)+'</h1>\n<p class="mbd-orig">'+esc(origTitle)+'</p>\n<div class="mbd-metas">\n<span class="mbd-meta red"><i class="fas fa-film"></i> '+typeLabel+'</span>\n<span class="mbd-meta blue"><i class="fas fa-language"></i> '+esc(movieLang)+'</span>\n<span class="mbd-meta yellow"><i class="fas fa-closed-captioning"></i> '+esc(movieSub)+'</span>\n</div>\n<div style="font-size:13px;color:#aaa">জেনার: '+esc(genres)+'</div>\n<p class="mbd-synopsis">'+esc(overview)+'</p>\n</div>\n</div>\n\n';
-        
-        fc += '<div class="mbd-section-title"><i class="fas fa-images"></i> স্ক্রিনশট</div>\n<div class="mbd-ss-grid">'+screens+'</div>\n\n';
-        fc += dlSectionHtml + '\n\n';
-        
-        fc += '<div class="mbd-modal" id="mbdVModal">\n<div class="mbd-modal-box">\n<div class="mbd-modal-head"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="mbd-modal-close" id="mbdCloseBtn"><i class="fas fa-times"></i></button></div>\n<div class="mbd-modal-body">\n';
-        
-        if(!isSingleAd) {
-            fc += '<div class="mbd-steps"><div class="mbd-step active" id="mbdS1">1</div><div class="mbd-line" id="mbdL1"></div><div class="mbd-step" id="mbdS2">2</div><div class="mbd-line" id="mbdL2"></div><div class="mbd-step" id="mbdS3"><i class="fas fa-check" style="font-size:10px"></i></div></div>\n';
-        }
-        
-        fc += '<div id="mbdStep1">\n';
-        fc += '<div class="mbd-vmsg"><h4>ধাপ ১: অ্যাড ভিজিট করুন</h4><p>ডাউনলোড আনলক করতে ক্লিক করুন এবং কমপক্ষে ১০ সেকেন্ড অপেক্ষা করুন</p></div>\n';
-        fc += '<div class="mbd-warn-box" id="mbdWarn1"><i class="fas fa-exclamation-triangle"></i> আপনি ১০ সেকেন্ড অ্যাডে ছিলেন না! অনুগ্রহ করে আবার চেষ্টা করুন এবং কমপক্ষে ১০ সেকেন্ড অপেক্ষা করুন।</div>\n';
-        fc += '<a href="'+esc(adLink1)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb1"><i class="fas fa-external-link-alt"></i> অ্যাড ভিজিট ১</a>\n';
-        fc += '<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf1"></div></div>\n';
-        fc += '<p class="mbd-timer-txt" id="mbdTt1">অ্যাড পেজে অপেক্ষা করুন... <span id="mbdTc1">10</span> সেকেন্ড</p>\n';
-        fc += '<button class="mbd-unlock-btn" id="mbdUb1"><i class="fas fa-arrow-right"></i> পরবর্তী ধাপ</button>\n</div>\n';
-        
-        if(!isSingleAd) {
-            fc += '<div id="mbdStep2" style="display:none">\n';
-            fc += '<div class="mbd-vmsg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যাড ভিজিট করুন এবং ১০ সেকেন্ড অপেক্ষা করুন</p></div>\n';
-            fc += '<div class="mbd-warn-box" id="mbdWarn2"><i class="fas fa-exclamation-triangle"></i> আপনি ১০ সেকেন্ড অ্যাডে ছিলেন না! অনুগ্রহ করে আবার চেষ্টা করুন।</div>\n';
-            fc += '<a href="'+esc(adLink2)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb2"><i class="fas fa-external-link-alt"></i> অ্যাড ভিজিট ২</a>\n';
-            fc += '<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf2"></div></div>\n';
-            fc += '<p class="mbd-timer-txt" id="mbdTt2">অ্যাড পেজে অপেক্ষা করুন... <span id="mbdTc2">10</span> সেকেন্ড</p>\n';
-            fc += '<button class="mbd-unlock-btn" id="mbdUb2"><i class="fas fa-unlock"></i> আনলক করুন</button>\n</div>\n';
-        }
-
-        fc += '<div id="mbdStep3" style="display:none"><div class="mbd-success"><div class="mbd-success-icon"><i class="fas fa-check"></i></div><h3 style="color:#fff;font-size:16px;margin-bottom:4px">ডাউনলোড রেডি!</h3><p style="font-size:12px;color:#888;margin-bottom:14px">ভেরিফিকেশন সম্পন্ন ✅</p><a href="#" class="mbd-final-btn" id="mbdFdl" target="_blank" rel="noopener"><i class="fab fa-telegram"></i> টেলিগ্রাম থেকে ডাউনলোড</a></div></div>\n';
-        
-        fc += '</div>\n</div>\n</div>\n\n';
-
-        fc += '<script>\n';
         if(!isTV){
-            fc += 'var mbdDls='+safeJson(movieDlArr)+';\nvar mbdGrid=document.getElementById("mbd-dl-grid");\nif(mbdGrid&&mbdDls.length>0){for(var i=0;i<mbdDls.length;i++){var d=mbdDls[i];var c="q-default";if(d.quality.indexOf("1080")>-1)c="q-1080";else if(d.quality.indexOf("720")>-1)c="q-720";else if(d.quality.indexOf("480")>-1)c="q-480";else if(d.quality.indexOf("4K")>-1)c="q-4k";else if(d.quality.indexOf("CAM")>-1)c="q-cam";var b=document.createElement("button");b.className="mbd-dl-btn mbd-trigger-dl "+c;b.setAttribute("data-link",d.link);b.innerHTML=\'<div class="mbd-q-left"><div class="mbd-q-icon"><i class="fas fa-download"></i></div><span>\'+d.quality+\'</span></div><i class="fas fa-chevron-right"></i>\';mbdGrid.appendChild(b)}}\n\n';
+            dlSectionHtml='<div class="mbd-section-title"><i class="fas fa-download"></i> ডাউনলোড লিংক</div>';
+            dlSectionHtml+='<div class="mbd-dl-table-wrap">';
+            dlSectionHtml+='<div class="mbd-dl-table-head"><div class="mbd-dl-th-icon"></div><div class="mbd-dl-th-q">Quality</div><div class="mbd-dl-th-lang">Language</div><div class="mbd-dl-th-size">Size</div><div class="mbd-dl-th-dl">Download</div></div>';
+            dlSectionHtml+='<div class="mbd-dl-table-body" id="mbd-dl-grid"></div>';
+            dlSectionHtml+='</div>';
+        }else{
+            dlSectionHtml='<div class="mbd-section-title"><i class="fas fa-list-ol"></i> এপিসোড তালিকা</div><div class="mbd-ep-box"><div class="mbd-ep-grid" id="mbd-ep-grid"></div><div class="mbd-pagination" id="mbd-pagination"></div></div>';
+            if(seasonDlLink){dlSectionHtml+='<div class="mbd-dl-box" style="margin-top:20px"><button class="mbd-season-btn mbd-trigger-dl" data-link="'+esc(seasonDlLink)+'"><i class="fas fa-folder-open"></i> পুরো সিজন ডাউনলোড</button></div>';}
+        }
+
+        /* ===== CSS ===== */
+        var fc='<style>\n';
+        fc+='.mbd-post{font-family:\'Hind Siliguri\',sans-serif;color:#f1f5f9;max-width:100%}\n';
+        fc+='.mbd-hero{display:grid;grid-template-columns:250px 1fr;gap:25px;background:#111217;border-radius:12px;padding:20px;border:1px solid #222}\n';
+        fc+='.mbd-poster{position:relative;border-radius:10px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.5);aspect-ratio:2/3}\n';
+        fc+='.mbd-poster img{width:100%;height:100%;object-fit:cover;display:block}\n';
+        fc+='.mbd-badge{position:absolute;top:10px;left:10px;background:#cc0000;color:#fff;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700}\n';
+        fc+='.mbd-lang{position:absolute;top:10px;right:10px;background:#38bdf8;color:#000;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700}\n';
+        fc+='.mbd-rating{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.85);color:#f5c518;padding:6px 10px;border-radius:6px;font-size:13px;font-weight:700;border:1px solid #f5c518;display:flex;align-items:center;gap:4px}\n';
+        fc+='.mbd-details{display:flex;flex-direction:column;gap:12px}\n';
+        fc+='.mbd-title{font-size:24px;font-weight:700;color:#f1f5f9;line-height:1.3}\n';
+        fc+='.mbd-orig{font-size:14px;color:#aaa}\n';
+        fc+='.mbd-metas{display:flex;flex-wrap:wrap;gap:8px}\n';
+        fc+='.mbd-meta{background:rgba(255,255,255,0.05);border:1px solid #222;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:#ccc}\n';
+        fc+='.mbd-meta.red{background:rgba(204,0,0,0.1);border-color:rgba(204,0,0,0.2);color:#ff4d4d}\n';
+        fc+='.mbd-meta.blue{background:rgba(56,189,248,0.1);border-color:rgba(56,189,248,0.2);color:#38bdf8}\n';
+        fc+='.mbd-meta.yellow{background:rgba(245,197,24,0.1);border-color:rgba(245,197,24,0.2);color:#f5c518}\n';
+        fc+='.mbd-synopsis{font-size:13px;line-height:1.8;color:#aaa;border-left:3px solid #cc0000;padding-left:12px;margin-top:4px}\n';
+        fc+='.mbd-section-title{font-size:18px;font-weight:700;color:#f1f5f9;margin:30px 0 15px;display:flex;align-items:center;gap:8px}\n';
+        fc+='.mbd-section-title i{color:#cc0000}\n';
+        fc+='.mbd-ss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}\n';
+        fc+='.mbd-ss-item{border-radius:8px;overflow:hidden;border:1px solid #222}\n';
+        fc+='.mbd-ss-item img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}\n';
+
+        /* জেনারেটেড টেবিল CSS */
+        fc+='.mbd-dl-table-wrap{background:#111217;border-radius:12px;border:1px solid #222;overflow:hidden}\n';
+        fc+='.mbd-dl-table-head{display:grid;grid-template-columns:50px 1fr 130px 90px 110px;align-items:center;padding:12px 0;background:rgba(204,0,0,0.08);border-bottom:1px solid #222}\n';
+        fc+='.mbd-dl-th-icon{display:flex;align-items:center;justify-content:center}\n';
+        fc+='.mbd-dl-th-q{padding-left:14px;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px}\n';
+        fc+='.mbd-dl-th-lang,.mbd-dl-th-size,.mbd-dl-th-dl{text-align:center;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px}\n';
+        fc+='.mbd-dl-trow{display:grid;grid-template-columns:50px 1fr 130px 90px 110px;align-items:center;border-bottom:1px solid rgba(34,34,34,0.6);transition:background 0.2s}\n';
+        fc+='.mbd-dl-trow:last-child{border-bottom:none}\n';
+        fc+='.mbd-dl-trow:hover{background:rgba(255,255,255,0.02)}\n';
+        fc+='.mbd-dl-trow-icon{display:flex;align-items:center;justify-content:center;height:56px}\n';
+        fc+='.mbd-dl-trow-icon i{color:#cc0000;font-size:15px}\n';
+        fc+='.mbd-dl-trow-q{padding:14px;font-size:14px;font-weight:600;color:#f1f5f9}\n';
+        fc+='.mbd-dl-trow-lang{text-align:center;font-size:13px;color:#888;padding:14px 8px}\n';
+        fc+='.mbd-dl-trow-size{text-align:center;font-size:13px;color:#555;padding:14px 8px}\n';
+        fc+='.mbd-dl-trow-dl{display:flex;align-items:center;justify-content:center;padding:14px 10px}\n';
+        fc+='.mbd-dl-dlbtn{background:linear-gradient(135deg,#cc0000,#ff1a1a);color:#fff;border:none;padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:inline-flex;align-items:center;gap:6px;transition:0.3s}\n';
+        fc+='.mbd-dl-dlbtn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(204,0,0,0.4)}\n';
+
+        /* সিরিজ CSS */
+        fc+='.mbd-dl-box{background:#111217;border-radius:12px;padding:25px;border:1px solid #222}\n';
+        fc+='.mbd-season-btn{background:linear-gradient(135deg,#38bdf8,#0ea5e9);color:#000;border:none;padding:14px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:\'Hind Siliguri\',sans-serif;width:100%}\n';
+        fc+='.mbd-ep-box{background:#111217;border-radius:12px;padding:25px;border:1px solid #222}\n';
+        fc+='.mbd-ep-grid{display:grid;grid-template-columns:1fr;gap:10px}\n';
+        fc+='.mbd-ep-card{background:rgba(255,255,255,0.02);border:1px solid #222;border-radius:10px;display:flex;align-items:center;padding:12px;gap:12px;transition:0.3s;position:relative;overflow:hidden}\n';
+        fc+='.mbd-ep-card:hover{border-color:#cc0000}\n';
+        fc+='.mbd-ep-num{width:40px;height:40px;min-width:40px;border-radius:8px;background:#cc0000;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}\n';
+        fc+='.mbd-ep-name{flex:1;font-weight:600;font-size:14px}\n';
+        fc+='.mbd-ep-dl{background:#cc0000;border:none;color:#fff;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:flex;align-items:center;gap:6px}\n';
+        fc+='.mbd-new-badge{position:absolute;top:0;right:0;background:linear-gradient(135deg,#cc0000,#ff1a1a);color:#fff;font-size:9px;padding:3px 8px;border-radius:0 10px 0 8px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;animation:mbdPulse 2s infinite}\n';
+        fc+='@keyframes mbdPulse{0%,100%{opacity:1}50%{opacity:0.7}}\n';
+        fc+='.mbd-pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:20px;padding-top:15px;border-top:1px solid #222}\n';
+        fc+='.mbd-page-btn{background:#222;color:#f1f5f9;border:1px solid #333;padding:8px 18px;border-radius:6px;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;transition:0.2s}\n';
+        fc+='.mbd-page-btn:hover{background:#cc0000;border-color:#cc0000;color:#fff}\n';
+        fc+='.mbd-page-info{color:#888;font-size:13px;font-weight:600}\n';
+
+        /* মোডাল CSS */
+        fc+='.mbd-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,6,10,0.9);backdrop-filter:blur(8px);z-index:99999;align-items:center;justify-content:center;padding:20px}\n';
+        fc+='.mbd-modal.active{display:flex}\n';
+        fc+='.mbd-modal-box{background:#111217;border-radius:16px;width:100%;max-width:450px;border:1px solid #222;overflow:hidden;animation:mbdSlideUp 0.3s}\n';
+        fc+='@keyframes mbdSlideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}\n';
+        fc+='.mbd-modal-head{background:#cc0000;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}\n';
+        fc+='.mbd-modal-head h3{color:#fff;font-size:14px;font-weight:700}\n';
+        fc+='.mbd-modal-close{background:rgba(255,255,255,0.2);border:none;color:#fff;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:12px}\n';
+        fc+='.mbd-modal-body{padding:20px}\n';
+        if(isSingleAd){fc+='.mbd-steps{display:none}\n'}
+        else{fc+='.mbd-steps{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px}\n';fc+='.mbd-step{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid #222;color:#555}\n';fc+='.mbd-step.active{border-color:#38bdf8;color:#38bdf8;background:rgba(56,189,248,0.1)}\n';fc+='.mbd-step.done{border-color:#4caf50;color:#fff;background:#4caf50}\n';fc+='.mbd-line{width:30px;height:2px;background:#222}\n';fc+='.mbd-line.done{background:#4caf50}\n'}
+        fc+='.mbd-vmsg{text-align:center;margin-bottom:14px}\n';fc+='.mbd-vmsg h4{font-size:15px;color:#f1f5f9;margin-bottom:4px}\n';fc+='.mbd-vmsg p{font-size:12px;color:#888}\n';
+        fc+='.mbd-warn-box{background:rgba(255,82,82,0.1);border:1px solid #ff5252;color:#ff5252;padding:10px;border-radius:8px;font-size:12px;font-weight:600;text-align:center;margin-bottom:12px;display:none}\n';
+        fc+='.mbd-ad-btn{display:block;width:100%;padding:12px;background:linear-gradient(135deg,#ff9800,#f57c00);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;text-decoration:none;text-align:center;margin-bottom:12px}\n';
+        fc+='.mbd-timer-bar{width:100%;height:4px;background:#222;border-radius:2px;overflow:hidden;margin-bottom:8px}\n';
+        fc+='.mbd-timer-fill{height:100%;width:0%;background:linear-gradient(90deg,#cc0000,#38bdf8);border-radius:2px;transition:width 0.1s linear}\n';
+        fc+='.mbd-timer-txt{font-size:13px;color:#aaa;text-align:center}\n';fc+='.mbd-timer-txt span{color:#38bdf8;font-weight:700}\n';
+        fc+='.mbd-unlock-btn{display:none;width:100%;padding:11px;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;margin-top:10px}\n';
+        fc+='.mbd-success{text-align:center;padding:14px 0}\n';
+        fc+='.mbd-success-icon{width:55px;height:55px;background:#4caf50;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;color:#fff}\n';
+        fc+='.mbd-final-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 30px;background:#0088cc;color:#fff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(0,136,204,0.4)}\n';
+        fc+='@media(max-width:768px){.mbd-hero{grid-template-columns:1fr}.mbd-poster{max-width:180px;margin:0 auto}.mbd-ss-grid{grid-template-columns:1fr}.mbd-ep-card{flex-wrap:wrap}.mbd-ep-dl{width:100%;justify-content:center}.mbd-pagination{flex-wrap:wrap}.mbd-dl-table-head,.mbd-dl-trow{grid-template-columns:42px 1fr 90px 70px 90px}.mbd-dl-th-q,.mbd-dl-trow-q{font-size:12px}.mbd-dl-th-lang,.mbd-dl-th-size,.mbd-dl-trow-lang,.mbd-dl-trow-size{font-size:10px}.mbd-dl-dlbtn{padding:6px 10px;font-size:11px}}\n';
+        fc+='</style>\n\n';
+
+        /* ===== HTML ===== */
+        fc+='<div class="mbd-post">\n\n';
+        fc+='<!--মেটা ডেটা-->\n';
+        fc+='<div class="info-text" style="display:none;">\n  <div>Rating: '+esc(rating)+'/10</div>\n  <div>Language: '+esc(movieLang)+'</div>\n  <div>Genres: '+esc(genres)+'</div>\n</div>\n\n';
+        fc+='<div class="mbd-hero">\n<div class="mbd-poster">\n<img src="'+esc(poster)+'" alt="'+esc(title)+'">\n<div class="mbd-badge">'+badgeLabel+'</div>\n<div class="mbd-lang">'+esc(movieLang)+'</div>\n<div class="mbd-rating"><i class="fas fa-star"></i> '+esc(rating)+'</div>\n</div>\n<div class="mbd-details">\n<h1 class="mbd-title">'+esc(title)+'</h1>\n<p class="mbd-orig">'+esc(origTitle)+'</p>\n<div class="mbd-metas">\n<span class="mbd-meta red"><i class="fas fa-film"></i> '+typeLabel+'</span>\n<span class="mbd-meta blue"><i class="fas fa-language"></i> '+esc(movieLang)+'</span>\n<span class="mbd-meta yellow"><i class="fas fa-closed-captioning"></i> '+esc(movieSub)+'</span>\n</div>\n<div style="font-size:13px;color:#aaa">জেনার: '+esc(genres)+'</div>\n<p class="mbd-synopsis">'+esc(overview)+'</p>\n</div>\n</div>\n\n';
+        fc+='<div class="mbd-section-title"><i class="fas fa-images"></i> স্ক্রিনশট</div>\n<div class="mbd-ss-grid">'+screens+'</div>\n\n';
+        fc+=dlSectionHtml+'\n\n';
+
+        /* মোডাল */
+        fc+='<div class="mbd-modal" id="mbdVModal">\n<div class="mbd-modal-box">\n<div class="mbd-modal-head"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="mbd-modal-close" id="mbdCloseBtn"><i class="fas fa-times"></i></button></div>\n<div class="mbd-modal-body">\n';
+        if(!isSingleAd){fc+='<div class="mbd-steps"><div class="mbd-step active" id="mbdS1">1</div><div class="mbd-line" id="mbdL1"></div><div class="mbd-step" id="mbdS2">2</div><div class="mbd-line" id="mbdL2"></div><div class="mbd-step" id="mbdS3"><i class="fas fa-check" style="font-size:10px"></i></div></div>\n'}
+        fc+='<div id="mbdStep1">\n';
+        fc+='<div class="mbd-vmsg"><h4>ধাপ ১: অ্যাড ভিজিট করুন</h4><p>ডাউনলোড আনলক করতে ক্লিক করুন এবং কমপক্ষে ১০ সেকেন্ড অপেক্ষা করুন</p></div>\n';
+        fc+='<div class="mbd-warn-box" id="mbdWarn1"><i class="fas fa-exclamation-triangle"></i> আপনি ১০ সেকেন্ড অ্যাডে ছিলেন না!</div>\n';
+        fc+='<a href="'+esc(adLink1)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb1"><i class="fas fa-external-link-alt"></i> অ্যাড ভিজিট ১</a>\n';
+        fc+='<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf1"></div></div>\n';
+        fc+='<p class="mbd-timer-txt" id="mbdTt1">অ্যাড পেজে অপেক্ষা করুন... <span id="mbdTc1">10</span> সেকেন্ড</p>\n';
+        fc+='<button class="mbd-unlock-btn" id="mbdUb1"><i class="fas fa-arrow-right"></i> পরবর্তী ধাপ</button>\n</div>\n';
+        if(!isSingleAd){
+            fc+='<div id="mbdStep2" style="display:none">\n';
+            fc+='<div class="mbd-vmsg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যাড ভিজিট করুন এবং ১০ সেকেন্ড অপেক্ষা করুন</p></div>\n';
+            fc+='<div class="mbd-warn-box" id="mbdWarn2"><i class="fas fa-exclamation-triangle"></i> আপনি ১০ সেকেন্ড অ্যাডে ছিলেন না!</div>\n';
+            fc+='<a href="'+esc(adLink2)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb2"><i class="fas fa-external-link-alt"></i> অ্যাড ভিজিট ২</a>\n';
+            fc+='<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf2"></div></div>\n';
+            fc+='<p class="mbd-timer-txt" id="mbdTt2">অ্যড পেজে অপেক্ষা করুন... <span id="mbdTc2">10</span> সেকেন্ড</p>\n';
+            fc+='<button class="mbd-unlock-btn" id="mbdUb2"><i class="fas fa-unlock"></i> আনলক করুন</button>\n</div>\n';
+        }
+        fc+='<div id="mbdStep3" style="display:none"><div class="mbd-success"><div class="mbd-success-icon"><i class="fas fa-check"></i></div><h3 style="color:#fff;font-size:16px;margin-bottom:4px">ডাউনলোড রেডি!</h3><p style="font-size:12px;color:#888;margin-bottom:14px">ভেরিফিকেশন সম্পন্ন ✅</p><a href="#" class="mbd-final-btn" id="mbdFdl" target="_blank" rel="noopener"><i class="fab fa-telegram"></i> টেলিগ্রাম থেকে ডাউনলোড</a></div></div>\n';
+        fc+='</div>\n</div>\n</div>\n\n';
+
+        /* ===== JS ===== */
+        fc+='<script>\n';
+        if(!isTV){
+            fc+='var mbdDls='+safeJson(movieDlArr)+';\n';
+            fc+='var mbdGrid=document.getElementById("mbd-dl-grid");\n';
+            fc+='if(mbdGrid&&mbdDls.length>0){\nfor(var i=0;i<mbdDls.length;i++){\n';
+            fc+='var d=mbdDls[i];\n';
+            fc+='var row=document.createElement("div");row.className="mbd-dl-trow";\n';
+            fc+='row.innerHTML=\'<div class="mbd-dl-trow-icon"><i class="fas fa-download"></i></div>\';\n';
+            fc+='row.innerHTML+=\'<div class="mbd-dl-trow-q">\'+d.quality+\'</div>\';\n';
+            fc+='row.innerHTML+=\'<div class="mbd-dl-trow-lang">\'+d.lang+\'</div>\';\n';
+            fc+='row.innerHTML+=\'<div class="mbd-dl-trow-size">\'+d.size+\'</div>\';\n';
+            fc+='row.innerHTML+=\'<div class="mbd-dl-trow-dl"><button class="mbd-dl-dlbtn mbd-trigger-dl" data-link="\'+d.link+\'"><i class="fas fa-download"></i> Download</button></div>\';\n';
+            fc+='mbdGrid.appendChild(row);\n}\n}\n\n';
         }
         if(isTV){
-            fc += 'var mbdEps='+safeJson(epArr)+';\n';
-            fc += 'mbdEps=mbdEps.reverse();\n';
-            fc += 'var mbdPerPage='+epsPerPage+';\nvar mbdCurrentPage=1;\n\n';
-            fc += 'function mbdRenderEps(page){\n';
-            fc += 'mbdCurrentPage=page;\nvar grid=document.getElementById("mbd-ep-grid");\ngrid.innerHTML="";\n';
-            fc += 'var start=(page-1)*mbdPerPage;\nvar end=start+mbdPerPage;\nvar pageEps=mbdEps.slice(start,end);\n';
-            fc += 'for(var i=0;i<pageEps.length;i++){\nvar actualIdx=start+i;\nvar e=pageEps[i];\n';
-            fc += 'var epNum=mbdEps.length-actualIdx;\nvar n=epNum.toString();\nif(n.length<2)n="0"+n;\n';
-            fc += 'var newTag=e.isNew?\'<span class="mbd-new-badge">NEW ADDED</span>\':"";\n';
-            fc += 'var c=document.createElement("div");\nc.className="mbd-ep-card";\nc.innerHTML=\'<div class="mbd-ep-num">\'+n+\'</div><div class="mbd-ep-name">\'+e.name+newTag+\'</div><button class="mbd-ep-dl mbd-trigger-dl" data-link="\'+e.link+\'"><i class="fas fa-download"></i> ডাউনলোড</button>\';\n';
-            fc += 'grid.appendChild(c);\n}\nmbdRenderPag();\n}\n\n';
-            fc += 'function mbdRenderPag(){\nvar pDiv=document.getElementById("mbd-pagination");\nvar totalP=Math.ceil(mbdEps.length/mbdPerPage);\nif(totalP<=1){pDiv.innerHTML="";return;}\nvar h="";\n';
-            fc += 'if(mbdCurrentPage>1)h+=\'<button class="mbd-page-btn" onclick="mbdRenderEps(\'+(mbdCurrentPage-1)+\')"><i class="fas fa-chevron-left"></i> আগের পেজ</button>\';\n';
-            fc += 'h+=\'<span class="mbd-page-info">পেজ \'+mbdCurrentPage+\' / \'+totalP+\'</span>\';\n';
-            fc += 'if(mbdCurrentPage<totalP)h+=\'<button class="mbd-page-btn" onclick="mbdRenderEps(\'+(mbdCurrentPage+1)+\')">পরের পেজ <i class="fas fa-chevron-right"></i></button>\';\n';
-            fc += 'pDiv.innerHTML=h;\n}\n\n';
-            fc += 'mbdRenderEps(1);\n\n';
+            fc+='var mbdEps='+safeJson(epArr)+';\nmbdEps=mbdEps.reverse();\n';
+            fc+='var mbdPerPage='+epsPerPage+';var mbdCurrentPage=1;\n\n';
+            fc+='function mbdRenderEps(page){\nmbdCurrentPage=page;\nvar grid=document.getElementById("mbd-ep-grid");grid.innerHTML="";\n';
+            fc+='var start=(page-1)*mbdPerPage;var end=start+mbdPerPage;var pageEps=mbdEps.slice(start,end);\n';
+            fc+='for(var i=0;i<pageEps.length;i++){var actualIdx=start+i;var e=pageEps[i];\n';
+            fc+='var epNum=mbdEps.length-actualIdx;var n=epNum.toString();if(n.length<2)n="0"+n;\n';
+            fc+='var newTag=e.isNew?\'<span class="mbd-new-badge">NEW ADDED</span>\':"";\n';
+            fc+='var c=document.createElement("div");c.className="mbd-ep-card";\n';
+            fc+='c.innerHTML=\'<div class="mbd-ep-num">\'+n+\'</div><div class="mbd-ep-name">\'+e.name+newTag+\'</div><button class="mbd-ep-dl mbd-trigger-dl" data-link="\'+e.link+\'"><i class="fas fa-download"></i> ডাউনলোড</button>\';\n';
+            fc+='grid.appendChild(c);}\nmbdRenderPag();}\n\n';
+            fc+='function mbdRenderPag(){\nvar pDiv=document.getElementById("mbd-pagination");var totalP=Math.ceil(mbdEps.length/mbdPerPage);\nif(totalP<=1){pDiv.innerHTML="";return;}\nvar h="";\n';
+            fc+='if(mbdCurrentPage>1)h+=\'<button class="mbd-page-btn" onclick="mbdRenderEps(\'+(mbdCurrentPage-1)+\')"><i class="fas fa-chevron-left"></i> আগের পেজ</button>\';\n';
+            fc+='h+=\'<span class="mbd-page-info">পেজ \'+mbdCurrentPage+\' / \'+totalP+\'</span>\';\n';
+            fc+='if(mbdCurrentPage<totalP)h+=\'<button class="mbd-page-btn" onclick="mbdRenderEps(\'+(mbdCurrentPage+1)+\')">পরের পেজ <i class="fas fa-chevron-right"></i></button>\';\n';
+            fc+='pDiv.innerHTML=h;}\n\nmbdRenderEps(1);\n\n';
         }
-        
-        fc += 'var mbdLink="",mbdTimer=null,mbdFocusHandler=null,mbdSingleAd='+(isSingleAd?'true':'false')+';\n';
-        
-        fc += 'document.addEventListener("click",function(e){\n';
-        fc += 'var dlBtn=e.target.closest(".mbd-trigger-dl");if(dlBtn){e.preventDefault();mbdStartV(dlBtn.getAttribute("data-link"))}\n';
-        fc += 'if(e.target.id==="mbdAb1"||e.target.closest("#mbdAb1")){mbdClickAd(1)}\n';
-        fc += 'if(e.target.id==="mbdUb1"){mbdGoS2()}\n';
-        fc += 'if(!mbdSingleAd){if(e.target.id==="mbdAb2"||e.target.closest("#mbdAb2")){mbdClickAd(2)}if(e.target.id==="mbdUb2"){mbdGoS3()}}\n';
-        fc += 'if(e.target.id==="mbdCloseBtn"||e.target.closest("#mbdCloseBtn")){mbdCloseV()}\n';
-        fc += '});\n';
-        fc += 'document.getElementById("mbdVModal").addEventListener("click",function(e){if(e.target===this)mbdCloseV()});\n\n';
 
-        fc += 'function mbdStartV(l){mbdLink=l;mbdResetV();document.getElementById("mbdVModal").classList.add("active");document.body.style.overflow="hidden"}\n';
-        
-        fc += 'function mbdResetV(){\nif(mbdTimer)clearInterval(mbdTimer);\nwindow.removeEventListener("focus",mbdFocusHandler);\n';
-        fc += 'document.getElementById("mbdStep1").style.display="block";\ndocument.getElementById("mbdStep3").style.display="none";\n';
-        fc += 'document.getElementById("mbdWarn1").style.display="none";\ndocument.getElementById("mbdTf1").style.width="0%";\ndocument.getElementById("mbdTc1").textContent="10";\ndocument.getElementById("mbdTt1").style.display="block";\ndocument.getElementById("mbdUb1").style.display="none";\n';
-        if(!isSingleAd) {
-            fc += 'document.getElementById("mbdStep2").style.display="none";\ndocument.getElementById("mbdWarn2").style.display="none";\ndocument.getElementById("mbdTf2").style.width="0%";\ndocument.getElementById("mbdTc2").textContent="10";\ndocument.getElementById("mbdTt2").style.display="block";\ndocument.getElementById("mbdUb2").style.display="none";\ndocument.getElementById("mbdS1").className="mbd-step active";document.getElementById("mbdS2").className="mbd-step";document.getElementById("mbdS3").className="mbd-step";document.getElementById("mbdL1").className="mbd-line";document.getElementById("mbdL2").className="mbd-line";\n';
-        }
-        fc += '}\n\n';
-
-        fc += 'function mbdClickAd(step){\n';
-        fc += 'var warnEl=document.getElementById("mbdWarn"+step);\nvar timerTxt=document.getElementById("mbdTt"+step);\nvar timerBar=document.getElementById("mbdTf"+step);\nvar timerCount=document.getElementById("mbdTc"+step);\nvar unlockBtn=document.getElementById("mbdUb"+step);\n';
-        fc += 'warnEl.style.display="none";\ntimerTxt.style.display="block";\ntimerBar.style.width="0%";\ntimerCount.textContent="10";\nunlockBtn.style.display="none";\n';
-        fc += 'if(mbdTimer)clearInterval(mbdTimer);\n';
-        fc += 'var isDone=false;\nmbdTimer=setInterval(function(){\nvar t=parseInt(timerCount.textContent);\nt--;\nif(t<0)t=0;\ntimerCount.textContent=t;\ntimerBar.style.width=((10-t)/10*100)+"%";\n';
-        fc += 'if(t<=0){clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusHandler);timerTxt.style.display="none";unlockBtn.style.display="block";isDone=true;}\n},1000);\n\n';
-        
-        fc += 'window.removeEventListener("focus",mbdFocusHandler);\n';
-        fc += 'mbdFocusHandler=function(){\nif(!isDone){\nclearInterval(mbdTimer);\ntimerTxt.style.display="none";\nwarnEl.style.display="block";\ntimerBar.style.width="0%";\ntimerCount.textContent="10";\nwindow.removeEventListener("focus",mbdFocusHandler);\n}\n};\n';
-        fc += 'window.addEventListener("focus",mbdFocusHandler);\n';
-        fc += '}\n\n';
-
-        fc += 'function mbdGoS2(){\n';
-        if(isSingleAd) {
-            fc += 'mbdGoS3();\n';
-        } else {
-            fc += 'document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdL1").className="mbd-line done";document.getElementById("mbdS2").className="mbd-step active";document.getElementById("mbdStep1").style.display="none";document.getElementById("mbdStep2").style.display="block";\n';
-        }
-        fc += '}\n\n';
-
-        fc += 'function mbdGoS3(){\n';
-        if(!isSingleAd) {
-            fc += 'document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdL1").className="mbd-line done";document.getElementById("mbdS2").className="mbd-step done";document.getElementById("mbdL2").className="mbd-line done";document.getElementById("mbdS3").className="mbd-step done";document.getElementById("mbdStep1").style.display="none";document.getElementById("mbdStep2").style.display="none";\n';
-        } else {
-            fc += 'document.getElementById("mbdStep1").style.display="none";\n';
-        }
-        fc += 'document.getElementById("mbdStep3").style.display="block";\ndocument.getElementById("mbdFdl").href=mbdLink;\n}\n\n';
-
-        fc += 'function mbdCloseV(){document.getElementById("mbdVModal").classList.remove("active");document.body.style.overflow="";if(mbdTimer)clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusHandler);}\n';
-        
-        fc += '<\/script>\n';
-        fc += '</div>\n';
+        /* ভেরিফিকেশন */
+        fc+='var mbdLink="",mbdTimer=null,mbdFocusHandler=null,mbdSingleAd='+(isSingleAd?'true':'false')+';\n';
+        fc+='document.addEventListener("click",function(e){\n';
+        fc+='var dlBtn=e.target.closest(".mbd-trigger-dl");if(dlBtn){e.preventDefault();mbdStartV(dlBtn.getAttribute("data-link"))}\n';
+        fc+='if(e.target.id==="mbdAb1"||e.target.closest("#mbdAb1")){mbdClickAd(1)}\n';
+        fc+='if(e.target.id==="mbdUb1"){mbdGoS2()}\n';
+        fc+='if(!mbdSingleAd){if(e.target.id==="mbdAb2"||e.target.closest("#mbdAb2")){mbdClickAd(2)}if(e.target.id==="mbdUb2"){mbdGoS3()}}\n';
+        fc+='if(e.target.id==="mbdCloseBtn"||e.target.closest("#mbdCloseBtn")){mbdCloseV()}\n';
+        fc+='});\n';
+        fc+='document.getElementById("mbdVModal").addEventListener("click",function(e){if(e.target===this)mbdCloseV()});\n\n';
+        fc+='function mbdStartV(l){mbdLink=l;mbdResetV();document.getElementById("mbdVModal").classList.add("active");document.body.style.overflow="hidden"}\n';
+        fc+='function mbdResetV(){\nif(mbdTimer)clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusHandler);\n';
+        fc+='document.getElementById("mbdStep1").style.display="block";document.getElementById("mbdStep3").style.display="none";\n';
+        fc+='document.getElementById("mbdWarn1").style.display="none";document.getElementById("mbdTf1").style.width="0%";\n';
+        fc+='document.getElementById("mbdTc1").textContent="10";document.getElementById("mbdTt1").style.display="block";\n';
+        fc+='document.getElementById("mbdUb1").style.display="none";\n';
+        if(!isSingleAd){fc+='document.getElementById("mbdStep2").style.display="none";document.getElementById("mbdWarn2").style.display="none";document.getElementById("mbdTf2").style.width="0%";document.getElementById("mbdTc2").textContent="10";document.getElementById("mbdTt2").style.display="block";document.getElementById("mbdUb2").style.display="none";document.getElementById("mbdS1").className="mbd-step active";document.getElementById("mbdS2").className="mbd-step";document.getElementById("mbdS3").className="mbd-step";document.getElementById("mbdL1").className="mbd-line";document.getElementById("mbdL2").className="mbd-line";\n'}
+        fc+='}\n\n';
+        fc+='function mbdClickAd(step){\n';
+        fc+='var warnEl=document.getElementById("mbdWarn"+step);var timerTxt=document.getElementById("mbdTt"+step);var timerBar=document.getElementById("mbdTf"+step);var timerCount=document.getElementById("mbdTc"+step);var unlockBtn=document.getElementById("mbdUb"+step);\n';
+        fc+='warnEl.style.display="none";timerTxt.style.display="block";timerBar.style.width="0%";timerCount.textContent="10";unlockBtn.style.display="none";\n';
+        fc+='if(mbdTimer)clearInterval(mbdTimer);\nvar isDone=false;\n';
+        fc+='mbdTimer=setInterval(function(){var t=parseInt(timerCount.textContent);t--;if(t<0)t=0;timerCount.textContent=t;timerBar.style.width=((10-t)/10*100)+"%";\n';
+        fc+='if(t<=0){clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusHandler);timerTxt.style.display="none";unlockBtn.style.display="block";isDone=true;}\n},1000);\n\n';
+        fc+='window.removeEventListener("focus",mbdFocusHandler);\n';
+        fc+='mbdFocusHandler=function(){if(!isDone){clearInterval(mbdTimer);timerTxt.style.display="none";warnEl.style.display="block";timerBar.style.width="0%";timerCount.textContent="10";window.removeEventListener("focus",mbdFocusHandler);}};\n';
+        fc+='window.addEventListener("focus",mbdFocusHandler);}\n\n';
+        fc+='function mbdGoS2(){\n';
+        if(isSingleAd){fc+='mbdGoS3();\n'}else{fc+='document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdL1").className="mbd-line done";document.getElementById("mbdS2").className="mbd-step active";document.getElementById("mbdStep1").style.display="none";document.getElementById("mbdStep2").style.display="block";\n'}
+        fc+='}\n\n';
+        fc+='function mbdGoS3(){\n';
+        if(!isSingleAd){fc+='document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdL1").className="mbd-line done";document.getElementById("mbdS2").className="mbd-step done";document.getElementById("mbdL2").className="mbd-line done";document.getElementById("mbdS3").className="mbd-step done";document.getElementById("mbdStep1").style.display="none";document.getElementById("mbdStep2").style.display="none";\n'}else{fc+='document.getElementById("mbdStep1").style.display="none";\n'}
+        fc+='document.getElementById("mbdStep3").style.display="block";document.getElementById("mbdFdl").href=mbdLink;}\n\n';
+        fc+='function mbdCloseV(){document.getElementById("mbdVModal").classList.remove("active");document.body.style.overflow="";if(mbdTimer)clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusHandler);}\n';
+        fc+='<\/script>\n';
+        fc+='</div>\n';
 
         document.getElementById('codeOutput').value=fc;
         document.getElementById('codeOutput').classList.remove('hidden');
@@ -473,61 +693,67 @@
         document.getElementById('copyBtn').scrollIntoView({behavior:'smooth'});
     }
 
-    /* ===== SERIES EPISODE UPDATER FUNCTION ===== */
-    function updateSeriesPost() {
+    /* সিরিজ আপডেটার */
+    function updateSeriesPost(){
         var oldHtml=document.getElementById('updateOldHtml').value.trim();
         var newEpNames=document.getElementById('updateEpNames').value.trim();
         var newEpLinks=document.getElementById('updateEpLinks').value.trim();
-
         if(!oldHtml||!newEpNames||!newEpLinks){alert('পুরানো কোড, নতুন এপিসোডের নাম এবং লিংক দিন!');return}
-
-        try{var regex=/var mbdEps=([\s\S]*?);/;var match=oldHtml.match(regex);if(!match||!match[1]){alert('পুরানো কোডে এপিসোড ডেটা পাওয়া যায়নি!');return}
-        var oldJsonStr=match[1];var cleanJsonStr=oldJsonStr.replace(/<\\\//g,'</');var epsArray=JSON.parse(cleanJsonStr);
-        
-        epsArray.forEach(function(ep){ep.isNew=false});
-        
-        var names=newEpNames.split('\n');var links=newEpLinks.split('\n');
-        for(var i=0;i<names.length;i++){
-            if(names[i].trim()){
-                epsArray.push({name:names[i].trim(),link:(links[i]||'').trim()||'#',isNew:true});
+        try{
+            var regex=/var mbdEps=([\s\S]*?);/;
+            var match=oldHtml.match(regex);
+            if(!match||!match[1]){alert('পুরানো কোডে এপিসোড ডেটা পাওয়া যায়নি!');return}
+            var oldJsonStr=match[1];
+            var cleanJsonStr=oldJsonStr.replace(/<\\\//g,'</');
+            var epsArray=JSON.parse(cleanJsonStr);
+            epsArray.forEach(function(ep){ep.isNew=false});
+            var names=newEpNames.split('\n');var links=newEpLinks.split('\n');
+            for(var i=0;i<names.length;i++){
+                if(names[i].trim()){epsArray.push({name:names[i].trim(),link:(links[i]||'').trim()||'#',isNew:true})}
             }
-        }
-        
-        var newJsonStr=JSON.stringify(epsArray).replace(/<\//g,'<\\/');
-        var updatedHtml=oldHtml.replace(oldJsonStr,newJsonStr);
-        
-        document.getElementById('updateOutput').value=updatedHtml;
-        document.getElementById('updateOutput').classList.remove('hidden');
-        document.getElementById('updateCopyBtn').classList.remove('hidden');
-        document.getElementById('updateCopyBtn').scrollIntoView({behavior:'smooth'});
+            var newJsonStr=JSON.stringify(epsArray).replace(/<\//g,'<\\/');
+            var updatedHtml=oldHtml.replace(oldJsonStr,newJsonStr);
+            document.getElementById('updateOutput').value=updatedHtml;
+            document.getElementById('updateOutput').classList.remove('hidden');
+            document.getElementById('updateCopyBtn').classList.remove('hidden');
+            document.getElementById('updateCopyBtn').scrollIntoView({behavior:'smooth'});
         }catch(e){alert('কোড পার্স করতে সমস্যা!');console.error(e)}
     }
 
     function copyCode(tid,bid){
         var ta=document.getElementById(tid);
-        var textToCopy=ta.value;
-        
-        if(navigator.clipboard && navigator.clipboard.writeText){
-            navigator.clipboard.writeText(textToCopy).then(function(){
-                var b=document.getElementById(bid);
-                var originalHtml=b.innerHTML;
+        if(navigator.clipboard&&navigator.clipboard.writeText){
+            navigator.clipboard.writeText(ta.value).then(function(){
+                var b=document.getElementById(bid);var orig=b.innerHTML;
                 b.innerHTML='<i class="fas fa-check"></i> কপি হয়েছে!';
-                setTimeout(function(){b.innerHTML=originalHtml},2000);
-            }).catch(function(){
-                alert('কপি করতে সমস্যা হয়েছে, দয়া করে ম্যানুয়ালি কপি করুন।');
+                b.style.background='linear-gradient(135deg,#4caf50,#2e7d32)';
+                setTimeout(function(){b.innerHTML=orig;b.style.background='';},2000);
             });
-        } else {
-            ta.select();
-            ta.setSelectionRange(0, 99999);
-            document.execCommand('copy');
-            var b=document.getElementById(bid);
-            var originalHtml=b.innerHTML;
+        }else{
+            ta.select();document.execCommand('copy');
+            var b=document.getElementById(bid);var orig=b.innerHTML;
             b.innerHTML='<i class="fas fa-check"></i> কপি হয়েছে!';
-            setTimeout(function(){b.innerHTML=originalHtml},2000);
+            b.style.background='linear-gradient(135deg,#4caf50,#2e7d32)';
+            setTimeout(function(){b.innerHTML=orig;b.style.background='';},2000);
         }
     }
 
-    function previewCode(){var c=document.getElementById('codeOutput').value;var w=window.open('','_blank');w.document.write(c);w.document.close()}
+    function previewCode(){
+        var code=document.getElementById('codeOutput').value;
+        if(!code){alert('আগে কোড জেনারেট করুন!');return}
+        var frame=document.getElementById('previewFrame');
+        frame.innerHTML=code;
+        document.getElementById('previewOverlay').classList.add('active');
+        document.body.style.overflow='hidden';
+    }
+    function closePreview(){
+        document.getElementById('previewOverlay').classList.remove('active');
+        document.body.style.overflow='';
+        document.getElementById('previewFrame').innerHTML='';
+    }
+    document.getElementById('previewOverlay').addEventListener('click',function(e){
+        if(e.target===this)closePreview();
+    });
 </script>
 </body>
 </html>
