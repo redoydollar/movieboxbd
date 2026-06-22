@@ -699,43 +699,53 @@ function generate(){
     fc+='var mbdDlText="'+esc(dlBtnText)+'",mbdWatchText="'+esc(watchBtnText)+'";\n';
 
     if(!isTV){
-        /* মুভি ডাউনলোড রো রেন্ডার */
-        fc+='var mbdDls='+safeJson(movieDlArr)+';\n';
-        fc+='var mbdGrid=document.getElementById("mbd-dl-grid");\n';
-        fc+='if(mbdGrid&&mbdDls.length>0){\n';
-        fc+='for(var i=0;i<mbdDls.length;i++){\n';
-        fc+='var d=mbdDls[i];\n';
-        fc+='var infoText="'+esc(title)+' ('+esc(year)+') ['+esc(movieLang)+'] "+d.quality;\n';
-        fc+='if(d.size) infoText+=" ["+d.size+"]";\n';
-        fc+='var metaText=d.lang+(d.size?" | "+d.size:"");\n';
-        fc+='var row=document.createElement("div");row.className="mbd-dl-row";\n';
-        fc+='var btnsHtml="";\n';
-        fc+='if(d.dlLink&&d.dlLink!=="#") btnsHtml+=\'<button class="mbd-btn-dl mbd-trigger-dl" data-link="\'+d.dlLink+\'" data-action="download"><i class="fas fa-download"></i> \'+mbdDlText+\'</button>\';\n';
-        fc+='if(d.watchLink&&d.watchLink!=="#") btnsHtml+=\'<button class="mbd-btn-watch mbd-trigger-dl" data-link="\'+d.watchLink+\'" data-action="watch"><i class="fas fa-play-circle"></i> \'+mbdWatchText+\'</button>\';\n';
-        fc+='row.innerHTML=\'<div class="mbd-dl-info"><div class="mbd-dl-info-title">\'+infoText+\'</div><div class="mbd-dl-info-meta">\'+metaText+\'</div></div><div class="mbd-dl-btns">\'+btnsHtml+\'</div>\';\n';
-        fc+='mbdGrid.appendChild(row);\n';
-        fc+='}}\n\n';
+        for(var mi=0;mi<movieDlArr.length;mi++){
+            var md=movieDlArr[mi];
+            var mInfoText=esc(title)+' ('+esc(year)+') ['+esc(movieLang)+'] '+esc(md.quality);
+            if(md.size) mInfoText+=' ['+esc(md.size)+']';
+            var mMetaText=esc(md.lang)+(md.size?' | '+esc(md.size):'');
+            var mBtns='';
+            if(md.dlLink&&md.dlLink!=='#') mBtns+='<button class="mbd-btn-dl mbd-trigger-dl" data-link="'+esc(md.dlLink)+'" data-action="download"><i class="fas fa-download"></i> '+esc(dlBtnText)+'</button>';
+            if(md.watchLink&&md.watchLink!=='#') mBtns+='<button class="mbd-btn-watch mbd-trigger-dl" data-link="'+esc(md.watchLink)+'" data-action="watch"><i class="fas fa-play-circle"></i> '+esc(watchBtnText)+'</button>';
+            fc+='<div class="mbd-dl-row"><div class="mbd-dl-info"><div class="mbd-dl-info-title">'+mInfoText+'</div><div class="mbd-dl-info-meta">'+mMetaText+'</div></div><div class="mbd-dl-btns">'+mBtns+'</div></div>\n';
+        }
+        fc+='\n';
     }
 
     if(isTV){
-        /* সিরিজ এপিসোড রেন্ডার */
-        fc+='var mbdEps='+safeJson(epArr)+';\nmbdEps=mbdEps.reverse();\n';
-        fc+='var mbdPerPage='+epsPerPage+',mbdCurrentPage=1;\n\n';
-        fc+='function mbdRenderEps(page){\nmbdCurrentPage=page;\nvar grid=document.getElementById("mbd-ep-grid");grid.innerHTML="";\n';
-        fc+='var start=(page-1)*mbdPerPage,end=start+mbdPerPage,pageEps=mbdEps.slice(start,end);\n';
-        fc+='for(var i=0;i<pageEps.length;i++){var actualIdx=start+i,e=pageEps[i];\n';
-        fc+='var epNum=mbdEps.length-actualIdx,n=epNum.toString();if(n.length<2)n="0"+n;\n';
-        fc+='var newTag=e.isNew?\'<span class="mbd-new-badge">NEW ADDED</span>\':"";\n';
-        fc+='var btnsHtml=\'<button class="mbd-ep-dl mbd-trigger-dl" data-link="\'+e.dlLink+\'" data-action="download"><i class="fas fa-download"></i> \'+mbdDlText+\'</button>\';\n';
-        fc+='if(e.watchLink&&e.watchLink!=="#") btnsHtml+=\'<button class="mbd-ep-watch mbd-trigger-dl" data-link="\'+e.watchLink+\'" data-action="watch"><i class="fas fa-play-circle"></i> \'+mbdWatchText+\'</button>\';\n';
-        fc+='var c=document.createElement("div");c.className="mbd-ep-card";\n';
-        fc+='c.innerHTML=\'<div class="mbd-ep-num">\'+n+\'</div><div class="mbd-ep-info"><div class="mbd-ep-name">\'+e.name+newTag+\'</div></div><div class="mbd-ep-btns">\'+btnsHtml+\'</div>\';\n';
-        fc+='grid.appendChild(c);}\nmbdRenderPag();}\n\n';
-        fc+='function mbdRenderPag(){\nvar pDiv=document.getElementById("mbd-pagination"),totalP=Math.ceil(mbdEps.length/mbdPerPage);\nif(totalP<=1){pDiv.innerHTML="";return;}\nvar h="";\n';
-        fc+='if(mbdCurrentPage>1)h+=\'<button class="mbd-page-btn" onclick="mbdRenderEps(\'+(mbdCurrentPage-1)+\')"><i class="fas fa-chevron-left"></i> আগের</button>\';\n';
-        fc+='h+=\'<span class="mbd-page-info">পেজ \'+mbdCurrentPage+\' / \'+totalP+\'</span>\';\n';
-        fc+='if(mbdCurrentPage<totalP)h+=\'<button class="mbd-page-btn" onclick="mbdRenderEps(\'+(mbdCurrentPage+1)+\')">পরের <i class="fas fa-chevron-right"></i></button>\';\n';
-        fc+='pDiv.innerHTML=h;}\n\nmbdRenderEps(1);\n\n';
+        var revEps=epArr.slice().reverse();
+        var totalEps=revEps.length;
+        var totalP=Math.ceil(totalEps/epsPerPage);
+        fc+='<div id="mbd-ep-pages">\n';
+        for(var pg=1;pg<=totalP;pg++){
+            var pStart=(pg-1)*epsPerPage,pEnd=pStart+epsPerPage,pEps=revEps.slice(pStart,pEnd);
+            fc+='<div class="mbd-ep-page" data-page="'+pg+'" style="'+(pg!==1?'display:none':'')+'">\n';
+            for(var ei=0;ei<pEps.length;ei++){
+                var ep=pEps[ei];
+                var epNum=totalEps-(pStart+ei),epN=epNum.toString();if(epN.length<2)epN="0"+epN;
+                var newTag=ep.isNew?'<span class="mbd-new-badge">NEW ADDED</span>':'';
+                var epBtns='<button class="mbd-ep-dl mbd-trigger-dl" data-link="'+esc(ep.dlLink)+'" data-action="download"><i class="fas fa-download"></i> '+esc(dlBtnText)+'</button>';
+                if(ep.watchLink&&ep.watchLink!=='#') epBtns+='<button class="mbd-ep-watch mbd-trigger-dl" data-link="'+esc(ep.watchLink)+'" data-action="watch"><i class="fas fa-play-circle"></i> '+esc(watchBtnText)+'</button>';
+                fc+='<div class="mbd-ep-card"><div class="mbd-ep-num">'+epN+'</div><div class="mbd-ep-info"><div class="mbd-ep-name">'+esc(ep.name)+newTag+'</div></div><div class="mbd-ep-btns">'+epBtns+'</div></div>\n';
+            }
+            fc+='</div>\n';
+        }
+        fc+='</div>\n';
+        if(totalP>1){
+            fc+='<div class="mbd-pagination" id="mbd-pagination">\n';
+            fc+='<button class="mbd-page-btn" id="mbdPrevBtn"><i class="fas fa-chevron-left"></i> আগের</button>\n';
+            fc+='<span class="mbd-page-info" id="mbdPageInfo">পেজ 1 / '+totalP+'</span>\n';
+            fc+='<button class="mbd-page-btn" id="mbdNextBtn">পরের <i class="fas fa-chevron-right"></i></button>\n';
+            fc+='</div>\n';
+            fc+='<script>\n';
+            fc+='var mbdTP='+totalP+',mbdCP=1;\n';
+            fc+='function mbdGoP(p){document.querySelectorAll(".mbd-ep-page").forEach(function(el){el.style.display=el.getAttribute("data-page")==p?"block":"none"});mbdCP=p;document.getElementById("mbdPageInfo").textContent="পেজ "+p+" / "+mbdTP;document.getElementById("mbdPrevBtn").style.visibility=p>1?"visible":"hidden";document.getElementById("mbdNextBtn").style.visibility=p<mbdTP?"visible":"hidden"}\n';
+            fc+='document.getElementById("mbdPrevBtn").addEventListener("click",function(){if(mbdCP>1)mbdGoP(mbdCP-1)});\n';
+            fc+='document.getElementById("mbdNextBtn").addEventListener("click",function(){if(mbdCP<mbdTP)mbdGoP(mbdCP+1)});\n';
+            fc+='mbdGoP(1);\n';
+            fc+='<\/script>\n';
+        }
+        fc+='\n';
     }
 
     /* মোডাল লজিক */
