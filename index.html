@@ -164,7 +164,7 @@
             </div>
         </div>
         <p style="color:#666;font-size:11px;margin-top:-10px;margin-bottom:15px"><i class="fas fa-info-circle"></i> একবার সেভ করলে ব্রাউজারে মনে রাখবে!</p>
-        <label>অ্যাড লিংক ১ (আবশ্যক)</label><input type="text" id="ad1" placeholder="https://...">
+        <label>অ্যড লিংক ১ (আবশ্যক)</label><input type="text" id="ad1" placeholder="https://...">
         <label>অ্যড লিংক ২ <span class="optional-tag">OPTIONAL</span></label><input type="text" id="ad2" placeholder="খালি রাখলে ২য় ধাপ স্কিপ হবে">
         <div class="section-divider"></div>
         <div class="section-header"><h4 style="color:#e91e63"><i class="fas fa-paint-brush"></i> বাটন টেক্সট কাস্টমাইজ</h4></div>
@@ -214,7 +214,7 @@
     <div class="panel" style="border:1px solid #4caf50">
         <h3 style="margin-bottom:15px;color:#4caf50;font-size:18px"><i class="fas fa-search-plus"></i> ধাপ ৪: SEO Search Description</h3>
         <div class="helper-box" style="border-color:rgba(76,175,80,0.3);background:rgba(76,175,80,0.05)">
-            <i class="fas fa-info-circle" style="color:#4caf50"></i> এই ডেসক্রিপশন ব্লগারের "Search Description" ফিল্ডে পেস্ট করুন। Google এ MovieBoxBD সার্চ করলে আপনার সাইট আগে আসবে!
+            <i class="fas fa-info-circle" style="color:#4caf50"></i> এই ডেসক্রিপশন ব্লগারের "Search Description" ফিল্ডে পেস্ট করুন।
         </div>
         <button class="btn btn-green" onclick="generateSeo()" style="width:100%;justify-content:center;margin-bottom:10px">
             <i class="fas fa-magic"></i> SEO ডেসক্রিপশন তৈরি করুন
@@ -228,7 +228,7 @@
     <div class="panel" style="border:1px solid #9c27b0">
         <h3 style="margin-bottom:15px;color:#9c27b0;font-size:18px"><i class="fas fa-sync-alt"></i> নতুন এপিসোড আপডেট করুন</h3>
         <div class="helper-box" style="border-color:rgba(156,39,176,0.3);background:rgba(156,39,176,0.05)">
-            <i class="fas fa-info-circle" style="color:#9c27b0"></i> একসাথে ১ বা একাধিক এপিসোড যোগ করুন। আগের "NEW ADDED" ট্যাগ অটো চলে যাবে!
+            <i class="fas fa-info-circle" style="color:#9c27b0"></i> একসাথে ১ বা একাধিক এপিসোড যোগ করুন।
         </div>
         <label>১. পুরানো পোস্টের সম্পূর্ণ HTML কোড</label>
         <textarea id="updateOldHtml" class="updater-area" placeholder="ব্লগার পোস্ট এডিটর থেকে সব কোড পেস্ট করুন..."></textarea>
@@ -312,8 +312,8 @@ async function selectItem(idx){
     var ml=langMap[d.original_language]||'';if(ml)setSelectedLang(ml);
     var mbdDirector='',mbdWriter='';
     try{var cr=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'/credits?api_key='+API_KEY);var crd=await cr.json();
-    if(crd.crew){var dirs=crd.crew.filter(function(c){return c.job==='Director'});mbdDirector=dirs.map(function(c){return c.name}).join(', ');
-    var wrts=crd.crew.filter(function(c){return c.job==='Writer'||c.job==='Screenplay'});mbdWriter=wrts.map(function(c){return c.name}).join(', ');}
+    if(crd.crew){mbdDirector=crd.crew.filter(function(c){return c.job==='Director'}).map(function(c){return c.name}).join(', ');
+    mbdWriter=crd.crew.filter(function(c){return c.job==='Writer'||c.job==='Screenplay'}).map(function(c){return c.name}).join(', ');}
     if(!mbdDirector&&crd.crew){mbdDirector=crd.crew.filter(function(c){return c.department==='Directing'}).map(function(c){return c.name}).slice(0,2).join(', ')}
     }catch(e){}
     document.getElementById('m_director').value=mbdDirector;
@@ -353,7 +353,7 @@ function generateSeo(){
 }
 function copySeo(){var text=document.getElementById('seoOutput').textContent;navigator.clipboard.writeText(text).then(function(){var btn=event.target.closest('.btn');var orig=btn.innerHTML;btn.innerHTML='<i class="fas fa-check"></i> কপি হয়েছে!';setTimeout(function(){btn.innerHTML=orig},2000)})}
 
-/* ===== মেইন জেনারেট — ফিক্সড ===== */
+/* ===== মেইন জেনারেট ===== */
 function generate(){
     var type=document.getElementById('m_type').value,isTV=type==='tv';
     var title=document.getElementById('m_title').value.trim()||'Untitled',
@@ -427,14 +427,15 @@ function generate(){
     fc+='.mbd-ss-item{border-radius:10px;overflow:hidden;border:1px solid #222;transition:border-color 0.3s}\n';
     fc+='.mbd-ss-item:hover{border-color:rgba(204,0,0,0.4)}\n';
     fc+='.mbd-ss-item img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}\n';
-    /* ডাউনলোড রো */
+
+    /* ডাউনলোড রো — টাইটেলে শুধু Quality দেখাবে */
     fc+='.mbd-dl-wrap{border-radius:12px;overflow:hidden;border:1px solid #222}\n';
     fc+='.mbd-dl-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#111217;border-bottom:1px solid rgba(255,255,255,0.04);gap:12px;transition:background 0.2s}\n';
     fc+='.mbd-dl-row:last-child{border-bottom:none}\n';
     fc+='.mbd-dl-row:hover{background:rgba(255,255,255,0.03)}\n';
     fc+='.mbd-dl-info{flex:1;min-width:0}\n';
-    fc+='.mbd-dl-info-title{font-size:14px;font-weight:600;color:#f1f5f9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n';
-    fc+='.mbd-dl-info-meta{font-size:11px;color:#666;margin-top:2px}\n';
+    fc+='.mbd-dl-quality{font-size:15px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n';
+    fc+='.mbd-dl-meta{font-size:12px;color:#666;margin-top:3px}\n';
     fc+='.mbd-dl-btns{display:flex;gap:8px;flex-shrink:0}\n';
     fc+='.mbd-btn-dl{background:linear-gradient(135deg,#cc0000,#e60000);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:inline-flex;align-items:center;gap:7px;transition:all 0.25s;box-shadow:0 3px 12px rgba(204,0,0,0.3);white-space:nowrap;-webkit-tap-highlight-color:transparent}\n';
     fc+='.mbd-btn-dl:hover{box-shadow:0 5px 20px rgba(204,0,0,0.5);transform:translateY(-1px)}\n';
@@ -442,6 +443,7 @@ function generate(){
     fc+='.mbd-btn-watch{background:linear-gradient(135deg,#0088cc,#00aaff);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:inline-flex;align-items:center;gap:7px;transition:all 0.25s;box-shadow:0 3px 12px rgba(0,136,204,0.3);white-space:nowrap;-webkit-tap-highlight-color:transparent}\n';
     fc+='.mbd-btn-watch:hover{box-shadow:0 5px 20px rgba(0,136,204,0.5);transform:translateY(-1px)}\n';
     fc+='.mbd-btn-watch:active{transform:scale(0.97)}\n';
+
     /* VLC বক্স */
     fc+='.mbd-vlc-box{background:linear-gradient(135deg,#111217,#0d0e14);border:1px solid #222;border-radius:12px;padding:24px;margin-top:20px;text-align:center;position:relative;overflow:hidden}\n';
     fc+='.mbd-vlc-box::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ff9800,#ff5722,#ff9800)}\n';
@@ -453,6 +455,7 @@ function generate(){
     fc+='.mbd-vlc-btn:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,152,0,0.5)}\n';
     fc+='.mbd-vlc-arrow{color:#fff;font-size:16px;animation:mbdBounce 1.5s infinite}\n';
     fc+='@keyframes mbdBounce{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}\n';
+
     /* সিরিজ */
     fc+='.mbd-ep-box{background:#111217;border-radius:12px;padding:22px;border:1px solid #222}\n';
     fc+='.mbd-ep-card{background:rgba(255,255,255,0.02);border:1px solid #222;border-radius:10px;display:flex;align-items:center;padding:14px;gap:12px;transition:0.3s;position:relative;overflow:hidden;margin-bottom:10px}\n';
@@ -475,25 +478,65 @@ function generate(){
     fc+='.mbd-page-info{color:#888;font-size:13px;font-weight:600}\n';
     fc+='.mbd-season-btn{background:linear-gradient(135deg,#38bdf8,#0ea5e9);color:#000;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:\'Hind Siliguri\',sans-serif;width:100%;margin-top:16px;transition:0.3s}\n';
     fc+='.mbd-season-btn:hover{box-shadow:0 4px 20px rgba(56,189,248,0.4)}\n';
-    /* মোডাল */
-    fc+='.mbd-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,6,10,0.92);backdrop-filter:blur(10px);z-index:99999;align-items:center;justify-content:center;padding:20px}\n';
+
+    /* ===== মোডাল — ডেস্কটপ: সেন্টার, মোবাইল: বটম শিট ===== */
+    fc+='.mbd-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:99999;align-items:center;justify-content:center;padding:0}\n';
     fc+='.mbd-modal.active{display:flex}\n';
-    fc+='.mbd-modal-box{background:#111217;border-radius:16px;width:100%;max-width:420px;border:1px solid #222;overflow:hidden;animation:mbdSlideUp 0.3s ease}\n';
-    fc+='@keyframes mbdSlideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}\n';
-    fc+='.mbd-modal-head{background:linear-gradient(135deg,#cc0000,#e60000);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}\n';
-    fc+='.mbd-modal-head h3{color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}\n';
-    fc+='.mbd-modal-close{background:rgba(255,255,255,0.2);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:0.2s}\n';
+    fc+='.mbd-modal-box{background:#111217;border-radius:16px 16px 0 0;width:100%;max-width:420px;border:1px solid #222;border-bottom:none;overflow:hidden;animation:mbdSlideUp 0.35s ease}\n';
+    fc+='@keyframes mbdSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}\n';
+    /* মোবাইলে বটমে স্টিক */
+    fc+='.mbd-modal-box{position:fixed;bottom:0;left:0;right:0;max-width:100%;border-radius:20px 20px 0 0;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch}\n';
+    /* টপ হ্যান্ডেল বার */
+    fc+='.mbd-modal-handle{width:40px;height:4px;background:#444;border-radius:4px;margin:10px auto 0}\n';
+    fc+='.mbd-modal-head{background:linear-gradient(135deg,#cc0000,#e60000);padding:16px 20px 14px;display:flex;align-items:center;justify-content:space-between}\n';
+    fc+='.mbd-modal-head h3{color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}\n';
+    fc+='.mbd-modal-close{background:rgba(255,255,255,0.2);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:0.2s}\n';
     fc+='.mbd-modal-close:hover{background:rgba(255,255,255,0.3)}\n';
-    fc+='.mbd-modal-body{padding:22px}\n';
-    if(!isSingleAd){fc+='.mbd-steps{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px}\n.mbd-step{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid #333;color:#555;transition:0.3s}\n.mbd-step.active{border-color:#38bdf8;color:#38bdf8;background:rgba(56,189,248,0.1)}\n.mbd-step.done{border-color:#4caf50;color:#fff;background:#4caf50}\n.mbd-line{width:30px;height:2px;background:#333;transition:0.3s}\n.mbd-line.done{background:#4caf50}\n'}
-    fc+='.mbd-vmsg{text-align:center;margin-bottom:16px}\n.mbd-vmsg h4{font-size:15px;color:#f1f5f9;margin-bottom:4px}\n.mbd-vmsg p{font-size:12px;color:#888}\n';
-    fc+='.mbd-warn-box{background:rgba(255,82,82,0.1);border:1px solid rgba(255,82,82,0.3);color:#ff5252;padding:10px 14px;border-radius:8px;font-size:12px;font-weight:600;text-align:center;margin-bottom:14px;display:none}\n';
-    fc+='.mbd-ad-btn{display:flex;width:100%;padding:13px;background:linear-gradient(135deg,#ff9800,#f57c00);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;text-decoration:none;text-align:center;justify-content:center;align-items:center;gap:8px;margin-bottom:14px;transition:0.3s;box-shadow:0 3px 12px rgba(255,152,0,0.3)}\n.mbd-ad-btn:hover{box-shadow:0 5px 20px rgba(255,152,0,0.5);transform:translateY(-1px)}\n';
-    fc+='.mbd-timer-bar{width:100%;height:5px;background:#222;border-radius:3px;overflow:hidden;margin-bottom:8px}\n.mbd-timer-fill{height:100%;width:0%;background:linear-gradient(90deg,#cc0000,#ff9800);border-radius:3px;transition:width 0.1s linear}\n.mbd-timer-txt{font-size:13px;color:#888;text-align:center}\n.mbd-timer-txt span{color:#38bdf8;font-weight:700}\n';
-    fc+='.mbd-unlock-btn{display:none;width:100%;padding:13px;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;margin-top:10px;transition:0.3s;box-shadow:0 3px 12px rgba(76,175,80,0.3)}\n.mbd-unlock-btn:hover{box-shadow:0 5px 20px rgba(76,175,80,0.5)}\n';
-    fc+='.mbd-success{text-align:center;padding:16px 0}\n.mbd-success-icon{width:60px;height:60px;background:linear-gradient(135deg,#4caf50,#2e7d32);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;box-shadow:0 4px 20px rgba(76,175,80,0.4)}\n';
-    fc+='.mbd-final-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 32px;background:linear-gradient(135deg,#0088cc,#00aaff);color:#fff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:700;box-shadow:0 4px 15px rgba(0,136,204,0.4);transition:0.3s}\n.mbd-final-btn:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(0,136,204,0.6)}\n';
-    fc+='@media(max-width:600px){\n.mbd-hero{grid-template-columns:1fr;gap:18px}.mbd-poster{max-width:180px;margin:0 auto}.mbd-title{font-size:20px}.mbd-ss-grid{grid-template-columns:1fr}\n.mbd-dl-row{flex-direction:column;align-items:stretch;gap:10px;padding:14px}.mbd-dl-btns{flex-direction:column;gap:8px}.mbd-btn-dl,.mbd-btn-watch{width:100%;justify-content:center;padding:12px 16px;font-size:14px}\n.mbd-ep-card{flex-wrap:wrap;gap:10px}.mbd-ep-info{width:100%}.mbd-ep-btns{width:100%;flex-direction:column}.mbd-ep-dl,.mbd-ep-watch{width:100%;justify-content:center;padding:10px}\n.mbd-pagination{flex-wrap:wrap;gap:8px}.mbd-page-btn{flex:1;justify-content:center;font-size:12px;padding:8px 10px}\n.mbd-modal-box{max-width:100%;margin:10px;border-radius:14px}.mbd-modal-body{padding:18px}.mbd-vlc-box{padding:20px 16px}\n}\n';
+    fc+='.mbd-modal-body{padding:24px 20px 32px}\n';
+    if(!isSingleAd){fc+='.mbd-steps{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:24px}\n.mbd-step{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid #333;color:#555;transition:0.3s}\n.mbd-step.active{border-color:#38bdf8;color:#38bdf8;background:rgba(56,189,248,0.1)}\n.mbd-step.done{border-color:#4caf50;color:#fff;background:#4caf50}\n.mbd-line{width:36px;height:2px;background:#333;transition:0.3s}\n.mbd-line.done{background:#4caf50}\n'}
+    fc+='.mbd-vmsg{text-align:center;margin-bottom:20px}\n.mbd-vmsg h4{font-size:16px;color:#f1f5f9;margin-bottom:6px}\n.mbd-vmsg p{font-size:13px;color:#888;line-height:1.6}\n';
+    fc+='.mbd-warn-box{background:rgba(255,82,82,0.08);border:1px solid rgba(255,82,82,0.25);color:#ff5252;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;text-align:center;margin-bottom:16px;display:none;line-height:1.5}\n';
+    /* অ্যড বাটন — মোবাইলে বড় */
+    fc+='.mbd-ad-btn{display:flex;width:100%;padding:16px;background:linear-gradient(135deg,#ff9800,#f57c00);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;text-decoration:none;text-align:center;justify-content:center;align-items:center;gap:10px;margin-bottom:16px;transition:0.3s;box-shadow:0 4px 16px rgba(255,152,0,0.3);min-height:52px}\n.mbd-ad-btn:hover{box-shadow:0 6px 24px rgba(255,152,0,0.5);transform:translateY(-1px)}\n';
+    /* টাইমার */
+    fc+='.mbd-timer-bar{width:100%;height:6px;background:#222;border-radius:3px;overflow:hidden;margin-bottom:10px}\n.mbd-timer-fill{height:100%;width:0%;background:linear-gradient(90deg,#cc0000,#ff9800);border-radius:3px;transition:width 0.1s linear}\n.mbd-timer-txt{font-size:14px;color:#888;text-align:center}\n.mbd-timer-txt span{color:#38bdf8;font-weight:700;font-size:16px}\n';
+    /* আনলক বাটন — মোবাইলে বড় */
+    fc+='.mbd-unlock-btn{display:none;width:100%;padding:16px;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;margin-top:12px;transition:0.3s;box-shadow:0 4px 16px rgba(76,175,80,0.3);min-height:52px}\n.mbd-unlock-btn:hover{box-shadow:0 6px 24px rgba(76,175,80,0.5)}\n';
+    /* সাকসেস */
+    fc+='.mbd-success{text-align:center;padding:20px 0}\n.mbd-success-icon{width:64px;height:64px;background:linear-gradient(135deg,#4caf50,#2e7d32);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:26px;color:#fff;box-shadow:0 4px 24px rgba(76,175,80,0.4)}\n';
+    fc+='.mbd-final-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:linear-gradient(135deg,#0088cc,#00aaff);color:#fff;text-decoration:none;border-radius:12px;font-size:15px;font-weight:700;box-shadow:0 4px 16px rgba(0,136,204,0.4);transition:0.3s;min-height:50px}\n.mbd-final-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,136,204,0.6)}\n';
+
+    /* ===== মোবাইল রেসপন্সিভ ===== */
+    fc+='@media(min-width:601px){\n';
+    /* ডেস্কটপে সেন্টার মোডাল */
+    fc+='.mbd-modal{align-items:center;justify-content:center;padding:20px}\n';
+    fc+='.mbd-modal-box{position:relative;bottom:auto;left:auto;right:auto;max-width:420px;max-height:90vh;border-radius:16px;border:1px solid #222;border-bottom:1px solid #222}\n';
+    fc+='.mbd-modal-handle{display:none}\n';
+    fc+='}\n';
+
+    fc+='@media(max-width:600px){\n';
+    fc+='.mbd-hero{grid-template-columns:1fr;gap:18px}.mbd-poster{max-width:180px;margin:0 auto}.mbd-title{font-size:20px}.mbd-ss-grid{grid-template-columns:1fr}\n';
+    /* ডাউনলোড রো মোবাইল */
+    fc+='.mbd-dl-row{flex-direction:column;align-items:stretch;gap:12px;padding:16px}\n';
+    fc+='.mbd-dl-btns{flex-direction:row;gap:8px}\n';
+    fc+='.mbd-btn-dl,.mbd-btn-watch{flex:1;justify-content:center;padding:13px 12px;font-size:14px;min-height:48px}\n';
+    /* এপিসোড মোবাইল */
+    fc+='.mbd-ep-card{flex-wrap:wrap;gap:10px;padding:14px 12px}\n.mbd-ep-info{width:calc(100% - 54px)}\n.mbd-ep-btns{width:100%;flex-direction:row}\n.mbd-ep-dl,.mbd-ep-watch{flex:1;justify-content:center;padding:12px 8px;font-size:13px;min-height:44px}\n';
+    /* পেজিনেশন */
+    fc+='.mbd-pagination{flex-wrap:wrap;gap:8px}\n.mbd-page-btn{flex:1;justify-content:center;font-size:13px;padding:10px 8px;min-height:44px}\n';
+    /* মোডাল মোবাইল — বড় টাচ টার্গেট */
+    fc+='.mbd-modal-head{padding:14px 18px 12px}\n.mbd-modal-head h3{font-size:15px}\n.mbd-modal-close{width:36px;height:36px}\n';
+    fc+='.mbd-modal-body{padding:20px 18px 36px}\n';
+    fc+='.mbd-vmsg h4{font-size:17px}\n.mbd-vmsg p{font-size:14px}\n';
+    fc+='.mbd-warn-box{font-size:14px;padding:14px 16px}\n';
+    fc+='.mbd-ad-btn{padding:16px;font-size:16px;border-radius:14px;min-height:56px}\n';
+    fc+='.mbd-timer-bar{height:7px}\n.mbd-timer-txt{font-size:15px}\n.mbd-timer-txt span{font-size:18px}\n';
+    fc+='.mbd-unlock-btn{padding:16px;font-size:16px;border-radius:14px;min-height:56px}\n';
+    fc+='.mbd-success-icon{width:70px;height:70px;font-size:28px}\n.mbd-final-btn{padding:16px 40px;font-size:16px;min-height:54px;border-radius:14px}\n';
+    /* VLC বক্স */
+    fc+='.mbd-vlc-box{padding:20px 16px}\n.mbd-vlc-btn{padding:14px 24px;font-size:14px}\n';
+    fc+='}\n';
+
     fc+='</style>\n\n';
 
     /* Schema.org */
@@ -501,38 +544,33 @@ function generate(){
     if(rating&&rating!=='0.0') fc+=',"aggregateRating":{"@type":"AggregateRating","ratingValue":"'+esc(rating)+'","bestRating":"10"}';
     fc+='}\n<\/script>\n\n';
 
-    /* ===== HTML শুরু ===== */
+    /* ===== HTML ===== */
     fc+='<div class="mbd-post">\n\n';
     fc+='<div class="info-text" style="display:none">\n  <div>Rating: '+esc(rating)+'/10</div>\n  <div>Language: '+esc(movieLang)+'</div>\n  <div>Genres: '+esc(genres)+'</div>\n  <div>Subtitle: '+esc(movieSub)+'</div>\n  <div>Director: '+esc(director)+'</div>\n  <div>Writer: '+esc(writer)+'</div>\n</div>\n\n';
 
-    /* হিরো */
     fc+='<div class="mbd-hero">\n<div class="mbd-poster">\n<img src="'+esc(poster)+'" alt="'+esc(title)+' ('+esc(year)+') '+esc(movieLang)+' '+esc(typeLabel)+' Poster - MovieBoxBD" loading="lazy">\n<div class="mbd-badge">'+badgeLabel+'</div>\n<div class="mbd-lang-badge">'+esc(movieLang)+'</div>\n<div class="mbd-rating"><i class="fas fa-star"></i> '+esc(rating)+'</div>\n</div>\n<div class="mbd-details">\n<h1 class="mbd-title">'+esc(title)+'</h1>\n<p class="mbd-orig">'+esc(origTitle)+'</p>\n<div class="mbd-metas">\n<span class="mbd-meta red"><i class="fas fa-film"></i> '+typeLabel+'</span>\n<span class="mbd-meta blue"><i class="fas fa-language"></i> '+esc(movieLang)+'</span>\n<span class="mbd-meta gold"><i class="fas fa-closed-captioning"></i> '+esc(movieSub)+'</span>\n';
     if(rating&&rating!=='0.0') fc+='<span class="mbd-meta gold"><i class="fas fa-star"></i> '+esc(rating)+'/10</span>\n';
     fc+='</div>\n<div class="mbd-genre-text">জেনার: '+esc(genres)+'</div>\n<p class="mbd-synopsis">'+esc(overview)+'</p>\n</div>\n</div>\n\n';
 
-    /* স্ক্রিনশট */
     fc+='<div class="mbd-section-title"><i class="fas fa-images"></i> স্ক্রিনশট</div>\n<div class="mbd-ss-grid">'+screens+'</div>\n\n';
 
-    /* ===== ডাউনলোড সেকশন — মূল ফিক্স ===== */
+    /* ===== ডাউনলোড সেকশন ===== */
     if(!isTV){
-        /* wrapper শুরু — কোনো closing tag নেই */
         fc+='<div class="mbd-section-title"><i class="fas fa-download"></i> Download Links</div>\n';
         fc+='<div class="mbd-dl-wrap">\n';
-        /* স্ট্যাটিক HTML রো — wrapper এর ভেতরে */
         for(var mi=0;mi<movieDlArr.length;mi++){
             var md=movieDlArr[mi];
-            var mInfo=esc(title)+' ('+esc(year)+') ['+esc(movieLang)+'] '+esc(md.quality);
-            if(md.size) mInfo+=' ['+esc(md.size)+']';
-            var mMeta=esc(md.lang)+(md.size?' | '+esc(md.size):'');
+            /* ফিক্স: শুধু Quality টাইটেলে, Language+Size মেটায় */
+            var mQuality=esc(md.quality);
+            var mMeta=esc(md.lang);
+            if(md.size) mMeta+=' | '+esc(md.size);
             var mBtns='';
             if(md.dlLink&&md.dlLink!=='#') mBtns+='<button class="mbd-btn-dl mbd-trigger-dl" data-link="'+esc(md.dlLink)+'" data-action="download"><i class="fas fa-download"></i> '+esc(dlBtnText)+'</button>';
             if(md.watchLink&&md.watchLink!=='#') mBtns+='<button class="mbd-btn-watch mbd-trigger-dl" data-link="'+esc(md.watchLink)+'" data-action="watch"><i class="fas fa-play-circle"></i> '+esc(watchBtnText)+'</button>';
-            fc+='<div class="mbd-dl-row"><div class="mbd-dl-info"><div class="mbd-dl-info-title">'+mInfo+'</div><div class="mbd-dl-info-meta">'+mMeta+'</div></div><div class="mbd-dl-btns">'+mBtns+'</div></div>\n';
+            fc+='<div class="mbd-dl-row"><div class="mbd-dl-info"><div class="mbd-dl-quality">'+mQuality+'</div><div class="mbd-dl-meta">'+mMeta+'</div></div><div class="mbd-dl-btns">'+mBtns+'</div></div>\n';
         }
-        /* wrapper বন্ধ */
         fc+='</div>\n\n';
     }else{
-        /* সিরিজ — ep-box শুরু, closing tag নেই */
         fc+='<div class="mbd-section-title"><i class="fas fa-list-ol"></i> এপিসোড তালিকা</div>\n';
         fc+='<div class="mbd-ep-box">\n';
         var revEps=epArr.slice().reverse();
@@ -551,7 +589,6 @@ function generate(){
             }
             fc+='</div>\n';
         }
-        /* পেজিনেশন — ep-box এর ভেতরে */
         if(totalP>1){
             fc+='<div class="mbd-pagination">\n';
             fc+='<button class="mbd-page-btn" id="mbdPrevBtn" style="'+(totalP<=1?'visibility:hidden':'')+'"><i class="fas fa-chevron-left"></i> আগের</button>\n';
@@ -559,9 +596,7 @@ function generate(){
             fc+='<button class="mbd-page-btn" id="mbdNextBtn" style="'+(totalP<=1?'visibility:hidden':'')+'">পরের <i class="fas fa-chevron-right"></i></button>\n';
             fc+='</div>\n';
         }
-        /* ep-box বন্ধ */
         fc+='</div>\n\n';
-        /* পুরো সিজন বাটন */
         if(seasonDlLink||seasonWatchLink){
             fc+='<div style="display:flex;gap:10px;flex-wrap:wrap">\n';
             if(seasonDlLink) fc+='<button class="mbd-season-btn mbd-trigger-dl" data-link="'+esc(seasonDlLink)+'" data-action="download" style="flex:1;min-width:200px"><i class="fas fa-folder-open"></i> '+esc(dlBtnText)+' (পুরো সিজন)</button>\n';
@@ -573,21 +608,24 @@ function generate(){
     /* VLC বক্স */
     fc+='<div class="mbd-vlc-box">\n<div class="mbd-vlc-icon"><i class="fas fa-volume-up"></i></div>\n<div class="mbd-vlc-title">শুনার সমস্যা (Audio Problem)</div>\n<div class="mbd-vlc-desc"><strong>ফাইল</strong> এর ফর্মেট নিশ্চিত করুন, অন্যথায় শুনার সমস্যা হতে পারে | সমাধান: আপনি <strong>VLC Player</strong> ব্যবহার করুন</div>\n<a href="https://play.google.com/store/apps/details?id=org.videolan.vlc" target="_blank" rel="noopener" class="mbd-vlc-btn"><i class="fab fa-android"></i> VLC Player ডাউনলোড করুন <i class="fas fa-arrow-right mbd-vlc-arrow"></i></a>\n</div>\n\n';
 
-    /* মোডাল */
-    fc+='<div class="mbd-modal" id="mbdVModal">\n<div class="mbd-modal-box">\n<div class="mbd-modal-head"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="mbd-modal-close" id="mbdCloseBtn"><i class="fas fa-times"></i></button></div>\n<div class="mbd-modal-body">\n';
-    if(!isSingleAd) fc+='<div class="mbd-steps"><div class="mbd-step active" id="mbdS1">1</div><div class="mbd-line" id="mbdL1"></div><div class="mbd-step" id="mbdS2">2</div><div class="mbd-line" id="mbdL2"></div><div class="mbd-step" id="mbdS3"><i class="fas fa-check" style="font-size:10px"></i></div></div>\n';
-    fc+='<div id="mbdStep1">\n<div class="mbd-vmsg"><h4>ধাপ ১: অ্যড ভিজিট করুন</h4><p>আনলক করতে ক্লিক করুন এবং কমপক্ষে ১০ সেকেন্ড অপেক্ষা করুন</p></div>\n<div class="mbd-warn-box" id="mbdWarn1"><i class="fas fa-exclamation-triangle"></i> আপনি ১০ সেকেন্ড অ্যডে ছিলেন না!</div>\n<a href="'+esc(adLink1)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb1"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট ১</a>\n<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf1"></div></div>\n<p class="mbd-timer-txt" id="mbdTt1">অ্যড পেজে অপেক্ষা করুন... <span id="mbdTc1">10</span> সেকেন্ড</p>\n<button class="mbd-unlock-btn" id="mbdUb1"><i class="fas fa-arrow-right"></i> পরবর্তী ধাপ</button>\n</div>\n';
-    if(!isSingleAd) fc+='<div id="mbdStep2" style="display:none">\n<div class="mbd-vmsg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যড ভিজিট করুন এবং ১০ সেকেন্ড অপেক্ষা করুন</p></div>\n<div class="mbd-warn-box" id="mbdWarn2"><i class="fas fa-exclamation-triangle"></i> আপনি ১০ সেকেন্ড অ্যডে ছিলেন না!</div>\n<a href="'+esc(adLink2)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb2"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট ২</a>\n<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf2"></div></div>\n<p class="mbd-timer-txt" id="mbdTt2">অ্যড পেজে অপেক্ষা করুন... <span id="mbdTc2">10</span> সেকেন্ড</p>\n<button class="mbd-unlock-btn" id="mbdUb2"><i class="fas fa-unlock"></i> আনলক করুন</button>\n</div>\n';
-    fc+='<div id="mbdStep3" style="display:none"><div class="mbd-success"><div class="mbd-success-icon"><i class="fas fa-check"></i></div><h3 style="color:#fff;font-size:16px;margin-bottom:4px">রেডি!</h3><p style="font-size:12px;color:#888;margin-bottom:16px">ভেরিফিকেশন সম্পন্ন ✅</p><a href="#" class="mbd-final-btn" id="mbdFdl" target="_blank" rel="noopener"><i class="fas fa-check-circle"></i> এগিয়ে যান</a></div></div>\n';
+    /* ===== মোডাল — বটম শিট স্টাইল ===== */
+    fc+='<div class="mbd-modal" id="mbdVModal">\n';
+    fc+='<div class="mbd-modal-box">\n';
+    fc+='<div class="mbd-modal-handle"></div>\n';
+    fc+='<div class="mbd-modal-head"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="mbd-modal-close" id="mbdCloseBtn"><i class="fas fa-times"></i></button></div>\n';
+    fc+='<div class="mbd-modal-body">\n';
+    if(!isSingleAd) fc+='<div class="mbd-steps"><div class="mbd-step active" id="mbdS1">1</div><div class="mbd-line" id="mbdL1"></div><div class="mbd-step" id="mbdS2">2</div><div class="mbd-line" id="mbdL2"></div><div class="mbd-step" id="mbdS3"><i class="fas fa-check" style="font-size:11px"></i></div></div>\n';
+    fc+='<div id="mbdStep1">\n<div class="mbd-vmsg"><h4>ধাপ ১: অ্যড ভিজিট করুন</h4><p>আনলক করতে ক্লিক করুন এবং কমপক্ষে ১০ সেকেন্ড অপেক্ষা করুন</p></div>\n<div class="mbd-warn-box" id="mbdWarn1"><i class="fas fa-exclamation-triangle"></i> আপনি ১০ সেকেন্ড অ্যডে ছিলেন না!</div>\n<a href="'+esc(adLink1)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb1"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf1"></div></div>\n<p class="mbd-timer-txt" id="mbdTt1">অপেক্ষা করুন... <span id="mbdTc1">10</span> সেকেন্ড</p>\n<button class="mbd-unlock-btn" id="mbdUb1"><i class="fas fa-arrow-right"></i> পরবর্তী ধাপ</button>\n</div>\n';
+    if(!isSingleAd) fc+='<div id="mbdStep2" style="display:none">\n<div class="mbd-vmsg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যড ভিজিট করুন এবং ১০ সেকেন্ড অপেক্ষা করুন</p></div>\n<div class="mbd-warn-box" id="mbdWarn2"><i class="fas fa-exclamation-triangle"></i> আপনি ১০ সেকেন্ড অ্যডে ছিলেন না!</div>\n<a href="'+esc(adLink2)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb2"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf2"></div></div>\n<p class="mbd-timer-txt" id="mbdTt2">অপেক্ষা করুন... <span id="mbdTc2">10</span> সেকেন্ড</p>\n<button class="mbd-unlock-btn" id="mbdUb2"><i class="fas fa-unlock"></i> আনলক করুন</button>\n</div>\n';
+    fc+='<div id="mbdStep3" style="display:none"><div class="mbd-success"><div class="mbd-success-icon"><i class="fas fa-check"></i></div><h3 style="color:#fff;font-size:17px;margin-bottom:6px">রেডি!</h3><p style="font-size:13px;color:#888;margin-bottom:18px">ভেরিফিকেশন সম্পন্ন ✅</p><a href="#" class="mbd-final-btn" id="mbdFdl" target="_blank" rel="noopener"><i class="fas fa-check-circle"></i> এগিয়ে যান</a></div></div>\n';
     fc+='</div></div></div>\n\n';
     fc+='</div>\n';
 
-    /* ===== JS — মোডাল লজিক ===== */
+    /* ===== JS ===== */
     fc+='<script>\n';
     fc+='var mbdLink="",mbdAction="download",mbdTimer=null,mbdAdTime=0,mbdSingleAd='+(isSingleAd?'true':'false')+';\n';
     fc+='var mbdDlText="'+esc(dlBtnText)+'",mbdWatchText="'+esc(watchBtnText)+'";\n';
 
-    /* সিরিজ পেজিনেশন JS */
     if(isTV&&totalP>1){
         fc+='(function(){\nvar mbdTP='+totalP+',mbdCP=1;\nfunction mbdGoP(p){document.querySelectorAll(".mbd-ep-page").forEach(function(el){el.style.display=el.getAttribute("data-page")==p?"block":"none"});mbdCP=p;var pi=document.getElementById("mbdPageInfo");if(pi)pi.textContent="পেজ "+p+" / "+mbdTP;var pb=document.getElementById("mbdPrevBtn");if(pb)pb.style.visibility=p>1?"visible":"hidden";var nb=document.getElementById("mbdNextBtn");if(nb)nb.style.visibility=p<mbdTP?"visible":"hidden";}\nvar pvb=document.getElementById("mbdPrevBtn");if(pvb)pvb.addEventListener("click",function(){if(mbdCP>1)mbdGoP(mbdCP-1)});\nvar nvb=document.getElementById("mbdNextBtn");if(nvb)nvb.addEventListener("click",function(){if(mbdCP<mbdTP)mbdGoP(mbdCP+1)});\nmbdGoP(1);\n})();\n';
     }
@@ -600,7 +638,8 @@ function generate(){
     if(!isSingleAd){fc+='if(e.target.closest("#mbdAb2")){mbdClickAd(2);return;}\nif(e.target.closest("#mbdUb2")){mbdGoS3();return;}\n'}
     fc+='if(e.target.closest("#mbdCloseBtn")){mbdCloseV();return;}\n';
     fc+='});\n';
-    fc+='document.getElementById("mbdVModal").addEventListener("click",function(e){if(e.target===this)mbdCloseV()});\n\n';
+    /* ব্যাকগ্রাউন্ড ক্লিকে মোবাইলে ক্লোজ না হবে (ভুলে ক্লিক থেকে রক্ষা) */
+    fc+='document.getElementById("mbdVModal").addEventListener("click",function(e){if(e.target===this){var w=window.innerWidth;if(w>600)mbdCloseV();}});\n\n';
     fc+='function mbdStartV(l,action){mbdLink=l;mbdAction=action||"download";mbdResetV();document.getElementById("mbdVModal").classList.add("active");document.body.style.overflow="hidden"}\n';
     fc+='function mbdCloseV(){if(mbdTimer)clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusH);document.getElementById("mbdVModal").classList.remove("active");document.body.style.overflow=""}\n';
     fc+='function mbdResetV(){\nif(mbdTimer)clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusH);mbdAdTime=0;\ndocument.getElementById("mbdStep1").style.display="block";document.getElementById("mbdStep3").style.display="none";\ndocument.getElementById("mbdWarn1").style.display="none";document.getElementById("mbdTf1").style.width="0%";\ndocument.getElementById("mbdTc1").textContent="10";document.getElementById("mbdTt1").style.display="block";\ndocument.getElementById("mbdUb1").style.display="none";\n';
@@ -620,7 +659,6 @@ function generate(){
     fc+='document.getElementById("mbdStep3").style.display="block";\nvar fb=document.getElementById("mbdFdl");fb.href=mbdLink;\nif(mbdAction==="watch"){fb.innerHTML=\'<i class="fas fa-play-circle"></i> \'+mbdWatchText;}else{fb.innerHTML=\'<i class="fas fa-download"></i> \'+mbdDlText;}\n}\n';
     fc+='<\/script>\n';
 
-    /* আউটপুট */
     var out=document.getElementById('codeOutput');
     out.value=fc;out.classList.remove('hidden');
     document.getElementById('copyBtn').classList.remove('hidden');
@@ -628,18 +666,12 @@ function generate(){
     out.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-/* প্রিভিউ — স্ক্রিপ্ট এক্সিকিউট সহ */
 function previewCode(){
     var code=document.getElementById('codeOutput').value;
     var frame=document.getElementById('previewFrame');
     frame.innerHTML=code;
-    /* innerHTML এ স্ক্রিপ্ট রান হয় না, তাই ম্যানুয়ালি এক্সিকিউট */
     var scripts=frame.querySelectorAll('script');
-    scripts.forEach(function(old){
-        var ns=document.createElement('script');
-        ns.textContent=old.textContent;
-        old.parentNode.replaceChild(ns,old);
-    });
+    scripts.forEach(function(old){var ns=document.createElement('script');ns.textContent=old.textContent;old.parentNode.replaceChild(ns,old)});
     document.getElementById('previewOverlay').classList.add('active');
     document.body.style.overflow='hidden';
 }
@@ -656,7 +688,6 @@ function copyCode(id,btnId){
     setTimeout(function(){btn.innerHTML=orig;btn.style.background=''},2000);
 }
 
-/* আপডেটার */
 function updateSeriesPost(){
     var oldHtml=document.getElementById('updateOldHtml').value.trim();
     var names=document.getElementById('updateEpNames').value.trim().split('\n').filter(function(n){return n.trim()});
