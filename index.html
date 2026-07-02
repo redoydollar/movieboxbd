@@ -598,18 +598,18 @@ function generate(){
     /* ধাপ ১ — নরমাল কন্টেন্ট + ওয়ার্নিং ভিউ */
     fc+='<div id="mbdStep1">\n';
     fc+='<div class="mbd-step-normal" id="mbdNormal1">\n';
-    fc+='<div class="mbd-vmsg"><h4>ধাপ ১: অ্যড ভিজিট করুন</h4><p>নিচের বাটনে ক্লিক করুন এবং অ্যড পেজে কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকুন</p></div>\n';
+    fc+='<div class="mbd-vmsg"><h4>ধাপ ১: অ্যড ভিজিট করুন</h4><p>নিচের বাটনে ক্লিক করুন এবং অ্যড পেজে কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকুন</p></div>\n';
     fc+='<a href="'+esc(adLink1)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb1"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n';
     fc+='<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf1"></div></div>\n';
-    fc+='<p class="mbd-timer-txt" id="mbdTt1">অপেক্ষা করুন... <span id="mbdTc1">10</span> সেকেন্ড</p>\n';
+    fc+='<p class="mbd-timer-txt" id="mbdTt1">অপেক্ষা করুন... <span id="mbdTc1">5</span> সেকেন্ড</p>\n';
     fc+='<button class="mbd-unlock-btn" id="mbdUb1"><i class="fas fa-arrow-right"></i> পরবর্তী ধাপ</button>\n';
     fc+='</div>\n';
     /* ওয়ার্নিং ভিউ ১ */
     fc+='<div class="mbd-warn-view" id="mbdWarnView1" style="display:none">\n';
     fc+='<div class="mbd-warn-icon"><i class="fas fa-redo-alt"></i></div>\n';
     fc+='<h4>দুঃখিত! পুনরায় চেষ্টা করুন</h4>\n';
-    fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকেননি।</p>\n';
-    fc+='<p class="mbd-warn-sub">কোনো সমস্যা নেই! অনুগ্রহ করে আবার নিচের বাটনে ক্লিক করুন। অ্যড পেজটি খুলবে — সেখানে কমপক্ষে ১০ সেকেন্ড থাকলেই পরবর্তী ধাপে যেতে পারবেন।</p>\n';
+    fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকেননি</p>\n';
+    fc+='<p class="mbd-warn-sub">কোনো সমস্যা নেই! অনুগ্রহ করে আবার নিচের বাটনে ক্লিক করুন। অ্যড পেজটি খুলবে — সেখানে কমপক্ষে ৫ সেকেন্ড থাকলেই পরবর্তী ধাপে যেতে পারবেন।</p>\n';
     fc+='<button class="mbd-retry-btn" id="mbdRetry1"><i class="fas fa-redo-alt"></i> আবার চেষ্টা করুন</button>\n';
     fc+='</div>\n';
     fc+='</div>\n';
@@ -618,16 +618,16 @@ function generate(){
     if(!isSingleAd){
         fc+='<div id="mbdStep2" style="display:none">\n';
         fc+='<div class="mbd-step-normal" id="mbdNormal2">\n';
-        fc+='<div class="mbd-vmsg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যড ভিজিট করুন এবং কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকুন</p></div>\n';
+        fc+='<div class="mbd-vmsg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যড ভিজিট করুন এবং কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকুন</p></div>\n';
         fc+='<a href="'+esc(adLink2)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb2"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n';
         fc+='<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf2"></div></div>\n';
-        fc+='<p class="mbd-timer-txt" id="mbdTt2">অপেক্ষা করুন... <span id="mbdTc2">10</span> সেকেন্ড</p>\n';
+        fc+='<p class="mbd-timer-txt" id="mbdTt2">অপেক্ষা করুন... <span id="mbdTc2">5</span> সেকেন্ড</p>\n';
         fc+='<button class="mbd-unlock-btn" id="mbdUb2"><i class="fas fa-unlock"></i> আনলক করুন</button>\n';
         fc+='</div>\n';
         fc+='<div class="mbd-warn-view" id="mbdWarnView2" style="display:none">\n';
         fc+='<div class="mbd-warn-icon"><i class="fas fa-redo-alt"></i></div>\n';
         fc+='<h4>দুঃখিত! পুনরায় চেষ্টা করুন</h4>\n';
-        fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকেননি।</p>\n';
+        fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকেননি।</p>\n';
         fc+='<p class="mbd-warn-sub">কোনো সমস্যা নেই! অনুগ্রহ করে আবার নিচের বাটনে ক্লিক করুন। এটি শেষ ধাপ — এইবার সফল হলে আপনার ডাউনলোড রেডি হয়ে যাবে!</p>\n';
         fc+='<button class="mbd-retry-btn" id="mbdRetry2"><i class="fas fa-redo-alt"></i> আবার চেষ্টা করুন</button>\n';
         fc+='</div>\n';
@@ -672,11 +672,11 @@ function generate(){
     fc+='function mbdResetV(){\nif(mbdTimer)clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusH);mbdAdTime=0;\n';
     fc+='document.getElementById("mbdStep1").style.display="block";document.getElementById("mbdStep3").style.display="none";\n';
     fc+='document.getElementById("mbdNormal1").style.display="block";document.getElementById("mbdWarnView1").style.display="none";\n';
-    fc+='document.getElementById("mbdTf1").style.width="0%";document.getElementById("mbdTc1").textContent="10";document.getElementById("mbdTt1").style.display="block";document.getElementById("mbdUb1").style.display="none";\n';
+    fc+='document.getElementById("mbdTf1").style.width="0%";document.getElementById("mbdTc1").textContent="5";document.getElementById("mbdTt1").style.display="block";document.getElementById("mbdUb1").style.display="none";\n';
     if(!isSingleAd){
         fc+='document.getElementById("mbdStep2").style.display="none";\n';
         fc+='document.getElementById("mbdNormal2").style.display="block";document.getElementById("mbdWarnView2").style.display="none";\n';
-        fc+='document.getElementById("mbdTf2").style.width="0%";document.getElementById("mbdTc2").textContent="10";document.getElementById("mbdTt2").style.display="block";document.getElementById("mbdUb2").style.display="none";\n';
+        fc+='document.getElementById("mbdTf2").style.width="0%";document.getElementById("mbdTc2").textContent="5";document.getElementById("mbdTt2").style.display="block";document.getElementById("mbdUb2").style.display="none";\n';
         fc+='document.getElementById("mbdS1").className="mbd-step active";document.getElementById("mbdS2").className="mbd-step";document.getElementById("mbdS3").className="mbd-step";document.getElementById("mbdL1").className="mbd-line";document.getElementById("mbdL2").className="mbd-line";\n';
     }
     fc+='}\n\n';
@@ -685,15 +685,15 @@ function generate(){
     fc+='function mbdClickAd(step){\n';
     fc+='document.getElementById("mbdNormal"+step).style.display="block";document.getElementById("mbdWarnView"+step).style.display="none";\n';
     fc+='var tf=document.getElementById("mbdTf"+step),tc=document.getElementById("mbdTc"+step),tt=document.getElementById("mbdTt"+step),ub=document.getElementById("mbdUb"+step);\n';
-    fc+='tf.style.width="0%";tc.textContent="10";tt.style.display="block";ub.style.display="none";mbdAdTime=0;\n';
+    fc+='tf.style.width="0%";tc.textContent="5";tt.style.display="block";ub.style.display="none";mbdAdTime=0;\n';
     fc+='if(mbdTimer)clearInterval(mbdTimer);\n';
-    fc+='mbdTimer=setInterval(function(){mbdAdTime++;var t=parseInt(tc.textContent);t--;if(t<0)t=0;tc.textContent=t;tf.style.width=((10-t)/10*100)+"%";if(t<=0){clearInterval(mbdTimer);tt.style.display="none";ub.style.display="block";}},1000);\n';
+    fc+='mbdTimer=setInterval(function(){mbdAdTime++;var t=parseInt(tc.textContent);t--;if(t<0)t=0;tc.textContent=t;tf.style.width=((5-t)/5*100)+"%";if(t<=0){clearInterval(mbdTimer);tt.style.display="none";ub.style.display="block";}},1000);\n';
     fc+='window.addEventListener("focus",mbdFocusH);\n';
     fc+='}\n\n';
 
     /* ফোকাস হ্যান্ডলার — ১০ সেকেন্ড হলে না হলে ওয়ার্নিং ভিউ */
     fc+='function mbdFocusH(){\n';
-    fc+='if(mbdAdTime<10){\n';
+    fc+='if(mbdAdTime<5){\n';
     fc+='var step=document.getElementById("mbdStep1").style.display!=="none"?1:2;\n';
     fc+='if(mbdTimer)clearInterval(mbdTimer);\n';
     fc+='window.removeEventListener("focus",mbdFocusH);\n';
@@ -708,7 +708,7 @@ function generate(){
     fc+='document.getElementById("mbdWarnView"+step).style.display="none";\n';
     fc+='document.getElementById("mbdNormal"+step).style.display="block";\n';
     fc+='document.getElementById("mbdTf"+step).style.width="0%";\n';
-    fc+='document.getElementById("mbdTc"+step).textContent="10";\n';
+    fc+='document.getElementById("mbdTc"+step).textContent="5";\n';
     fc+='document.getElementById("mbdTt"+step).style.display="block";\n';
     fc+='document.getElementById("mbdUb"+step).style.display="none";\n';
     fc+='mbdAdTime=0;\n';
@@ -718,7 +718,7 @@ function generate(){
     fc+='function mbdGoS2(){\n';
     if(isSingleAd){fc+='mbdShowFinal();\n'}
     else{
-        fc+='if(mbdAdTime<10){document.getElementById("mbdNormal1").style.display="none";document.getElementById("mbdWarnView1").style.display="block";return;}\n';
+        fc+='if(mbdAdTime<5){document.getElementById("mbdNormal1").style.display="none";document.getElementById("mbdWarnView1").style.display="block";return;}\n';
         fc+='window.removeEventListener("focus",mbdFocusH);\n';
         fc+='document.getElementById("mbdStep1").style.display="none";document.getElementById("mbdStep2").style.display="block";\n';
         fc+='document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdL1").className="mbd-line done";document.getElementById("mbdS2").className="mbd-step active";\n';
@@ -727,7 +727,7 @@ function generate(){
 
     if(!isSingleAd){
         fc+='function mbdGoS3(){\n';
-        fc+='if(mbdAdTime<10){document.getElementById("mbdNormal2").style.display="none";document.getElementById("mbdWarnView2").style.display="block";return;}\n';
+        fc+='if(mbdAdTime<5){document.getElementById("mbdNormal2").style.display="none";document.getElementById("mbdWarnView2").style.display="block";return;}\n';
         fc+='mbdShowFinal();\n';
         fc+='}\n';
     }
