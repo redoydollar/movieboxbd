@@ -14,7 +14,7 @@
         .subtitle{text-align:center;color:#666;margin-bottom:25px;font-size:14px}
         .panel{background:#111217;border:1px solid #222;border-radius:12px;padding:20px;margin-bottom:20px}
         label{display:block;margin-bottom:8px;font-weight:600;color:#f1f5f9;font-size:14px}
-        input[type="text"],input[type="number"],select,textarea{width:100%;padding:12px;background:#05060a;border:1px solid #222;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:14px;margin-bottom:15px}
+        input[type="text"],select,textarea{width:100%;padding:12px;background:#05060a;border:1px solid #222;border-radius:8px;color:#f1f5f9;font-family:inherit;font-size:14px;margin-bottom:15px}
         input:focus,select:focus,textarea:focus{outline:none;border-color:#38bdf8}
         .btn{background:linear-gradient(135deg,#cc0000,#ff1a1a);color:#fff;border:none;padding:12px 20px;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:0.3s}
         .btn:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(204,0,0,0.4)}
@@ -37,6 +37,7 @@
         .section-header{display:flex;align-items:center;gap:10px;margin-bottom:15px}
         .section-header h4{font-size:16px;font-weight:600}
         .output-area{width:100%;height:250px;background:#05060a;color:#0f0;border:1px solid #222;border-radius:8px;padding:15px;font-family:monospace;margin-top:15px;font-size:12px;resize:vertical}
+        .warn{color:#ff9800;font-size:12px;margin-top:-10px;margin-bottom:15px}
         .hidden{display:none!important}
         .success-msg{background:rgba(76,175,80,0.1);border:1px solid #4caf50;color:#4caf50;padding:10px;border-radius:8px;text-align:center;margin-bottom:15px;display:none}
         .btn-row{display:flex;gap:10px;margin-top:10px}
@@ -61,18 +62,10 @@
         .dl-card-bottom .link-group input{margin-bottom:0;padding:9px 10px;font-size:12px}
         .dl-card-top input{margin-bottom:0;padding:9px 10px;font-size:13px}
         .dl-card-top .size-input{text-align:center}
-        .ep-card{background:rgba(255,255,255,0.02);border:1px solid #222;border-radius:10px;padding:14px;margin-bottom:10px;transition:all 0.3s;position:relative}
+        .ep-card{background:rgba(255,255,255,0.02);border:1px solid #222;border-radius:10px;padding:14px;margin-bottom:10px;transition:border-color 0.3s}
         .ep-card:hover{border-color:rgba(56,189,248,0.4)}
-        .ep-card.ep-new-active{border-color:rgba(204,0,0,0.5);background:rgba(204,0,0,0.04)}
-        .ep-card-top-row{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-        .ep-card-top-row input{flex:1;margin:0;padding:9px 10px}
-        .ep-new-toggle{display:flex;align-items:center;gap:8px;background:rgba(204,0,0,0.08);border:1px solid rgba(204,0,0,0.2);border-radius:8px;padding:6px 12px;cursor:pointer;transition:0.3s;white-space:nowrap;user-select:none;flex-shrink:0}
-        .ep-new-toggle:hover{background:rgba(204,0,0,0.15);border-color:rgba(204,0,0,0.4)}
-        .ep-new-toggle.active{background:rgba(204,0,0,0.2);border-color:#cc0000;box-shadow:0 0 12px rgba(204,0,0,0.3)}
-        .ep-new-toggle .toggle-dot{width:14px;height:14px;border-radius:4px;border:2px solid #555;transition:0.3s;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent}
-        .ep-new-toggle.active .toggle-dot{border-color:#cc0000;background:#cc0000;color:#fff}
-        .ep-new-toggle .toggle-label{font-size:11px;font-weight:700;color:#888;transition:0.3s}
-        .ep-new-toggle.active .toggle-label{color:#ff4d4d}
+        .ep-card-name{margin-bottom:10px}
+        .ep-card-name input{margin-bottom:0;width:100%;padding:9px 10px}
         .ep-card-links{display:grid;grid-template-columns:1fr 1fr 34px;gap:8px;align-items:end}
         .ep-card-links .link-group label{font-size:11px;color:#666;margin-bottom:4px;display:block;font-weight:500}
         .ep-card-links .link-group input{margin-bottom:0;padding:9px 10px;font-size:12px}
@@ -83,37 +76,11 @@
         .ss-row input{flex:1;margin:0}
         .btn-text-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
         .btn-text-row input{margin-bottom:0;padding:10px}
+        .seo-output{background:#0a0b10;border:1px solid #222;border-radius:8px;padding:15px;color:#38bdf8;font-size:13px;line-height:1.8;min-height:120px;margin-top:10px;white-space:pre-wrap;word-wrap:break-word}
         .preview-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,6,10,0.95);z-index:999999;overflow-y:auto;padding:20px}
         .preview-overlay.active{display:block}
         .preview-close{position:fixed;top:20px;right:20px;z-index:1000000;background:#cc0000;border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(204,0,0,0.5)}
-        .preview-frame{max-width:700px;margin:30px auto;background:#0a0b10;border-radius:16px;border:1px solid #222;overflow:hidden;padding:20px}
-        .ep-order-hint{font-size:12px;color:#666;margin-top:-10px;margin-bottom:15px;padding:8px 12px;background:rgba(56,189,248,0.05);border:1px dashed rgba(56,189,248,0.2);border-radius:8px;line-height:1.7}
-        .ep-order-hint i{color:#38bdf8}
-        .quick-new-box{background:rgba(204,0,0,0.05);border:1px solid rgba(204,0,0,0.2);border-radius:10px;padding:14px;margin-bottom:15px}
-        .quick-new-box label{color:#ff4d4d;font-size:13px;margin-bottom:8px}
-        .quick-new-row{display:flex;gap:8px;align-items:end}
-        .quick-new-row input{margin:0;flex:1;padding:10px}
-        .quick-new-row .btn{flex-shrink:0}
-        .parsed-ep-list{max-height:200px;overflow-y:auto;margin-bottom:15px;border:1px solid #222;border-radius:10px;background:rgba(0,0,0,0.2)}
-        .parsed-ep-item{display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);gap:10px;transition:background 0.2s;cursor:pointer}
-        .parsed-ep-item:last-child{border-bottom:none}
-        .parsed-ep-item:hover{background:rgba(255,255,255,0.03)}
-        .parsed-ep-item.marked{background:rgba(204,0,0,0.08);border-left:3px solid #cc0000}
-        .parsed-ep-num{width:32px;height:32px;min-width:32px;border-radius:6px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#888}
-        .parsed-ep-item.marked .parsed-ep-num{background:rgba(204,0,0,0.2);color:#ff4d4d}
-        .parsed-ep-name{flex:1;font-size:13px;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        .parsed-ep-item.marked .parsed-ep-name{color:#fff}
-        .parsed-ep-badge{font-size:9px;padding:3px 8px;border-radius:4px;font-weight:700;letter-spacing:0.5px;opacity:0;transition:0.3s}
-        .parsed-ep-item.marked .parsed-ep-badge{opacity:1;background:linear-gradient(135deg,#cc0000,#ff1a1a);color:#fff}
-        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;padding:12px 28px;border-radius:12px;font-weight:700;font-size:14px;z-index:9999999;box-shadow:0 8px 30px rgba(76,175,80,0.5);transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);display:flex;align-items:center;gap:8px;font-family:'Hind Siliguri',sans-serif}
-        .toast.show{transform:translateX(-50%) translateY(0)}
-        .toast.error{background:linear-gradient(135deg,#ff5252,#d32f2f);box-shadow:0 8px 30px rgba(255,82,82,0.5)}
-        .parsed-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,0.02);border-bottom:1px solid #222;position:sticky;top:0;z-index:2}
-        .parsed-header span{font-size:12px;color:#888;font-weight:600}
-        .parsed-header .parsed-count{background:rgba(204,0,0,0.15);color:#ff4d4d;padding:2px 8px;border-radius:4px;font-size:11px}
-        .format-detected{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700;margin-left:8px}
-        .format-detected.ok{background:rgba(76,175,80,0.15);color:#4caf50}
-        .format-detected.warn{background:rgba(255,152,0,0.15);color:#ff9800}
+        .preview-frame{max-width:700px;margin:30px auto;background:#0a0b10;border-radius:16px;border:1px solid #222;overflow:hidden}
         @media(max-width:600px){
             .dl-card-top{grid-template-columns:1fr 1fr}
             .dl-card-bottom{grid-template-columns:1fr}
@@ -126,10 +93,6 @@
             .search-box select{width:100%;margin-bottom:10px}
             .search-box input{flex:1}
             .search-box .btn{width:100%;justify-content:center}
-            .ep-card-top-row{flex-wrap:wrap}
-            .ep-new-toggle{width:100%;justify-content:center}
-            .quick-new-row{flex-direction:column}
-            .quick-new-row .btn{width:100%;justify-content:center}
         }
     </style>
 </head>
@@ -217,16 +180,12 @@
         </div>
         <div id="seriesDlSection" style="display:none">
             <div class="section-header"><h4 style="color:#38bdf8"><i class="fas fa-list-ol"></i> এপিসোড তালিকা</h4></div>
-            <p class="ep-order-hint"><i class="fas fa-info-circle"></i> এপিসোড লিস্ট নিচ থেকে উপরে (1,2,3...) লিখুন। আউটপুটে অটো উল্টা হবে (নতুনটা সবার উপরে)।</p>
-            <div class="quick-new-box">
-                <label><i class="fas fa-bolt"></i> দ্রুত NEW ADDED: এপিসোড নম্বর লিখুন</label>
-                <div class="quick-new-row">
-                    <input type="text" id="quickNewNums" placeholder="যেমন: 5, 4, 3">
-                    <button class="btn btn-sm" onclick="quickApplyNew()" style="background:linear-gradient(135deg,#cc0000,#ff1a1a)"><i class="fas fa-check"></i> Apply</button>
-                </div>
-            </div>
             <div id="epList"></div>
             <button class="btn btn-blue btn-sm" onclick="addEp()" style="margin-top:5px"><i class="fas fa-plus"></i> নতুন এপিসোড</button>
+            <div class="section-divider"></div>
+            <label><i class="fas fa-star"></i> সর্বশেষ কয়টি এপিসোডে "NEW ADDED" ট্যাগ?</label>
+            <input type="text" id="m_newTagCount" value="3" placeholder="3">
+            <p class="warn">⚠️ সর্বশেষ এপিসোডগুলো সবার উপরে শো করবে।</p>
             <div class="section-divider"></div>
             <label><i class="fas fa-file-alt"></i> প্রতি পেজে কয়টি এপিসোড?</label>
             <input type="text" id="m_epsPerPage" value="10" placeholder="10">
@@ -246,34 +205,33 @@
         </div>
     </div>
 
-    <!-- আপডেট সেকশন -->
+    <div class="panel" style="border:1px solid #4caf50">
+        <h3 style="margin-bottom:15px;color:#4caf50;font-size:18px"><i class="fas fa-search-plus"></i> ধাপ ৪: SEO Search Description</h3>
+        <div class="helper-box" style="border-color:rgba(76,175,80,0.3);background:rgba(76,175,80,0.05)">
+            <i class="fas fa-info-circle" style="color:#4caf50"></i> এই ডেসক্রিপশন ব্লগারের "Search Description" ফিল্ডে পেস্ট করুন।
+        </div>
+        <button class="btn btn-green" onclick="generateSeo()" style="width:100%;justify-content:center;margin-bottom:10px">
+            <i class="fas fa-magic"></i> SEO ডেসক্রিপশন তৈরি করুন
+        </button>
+        <div class="seo-output" id="seoOutput">উপরের বাটনে ক্লিক করুন...</div>
+        <div class="btn-row" style="margin-top:10px">
+            <button class="btn btn-green btn-sm" onclick="copySeo()"><i class="fas fa-copy"></i> SEO কপি করুন</button>
+        </div>
+    </div>
+
     <div class="panel" style="border:1px solid #9c27b0">
         <h3 style="margin-bottom:15px;color:#9c27b0;font-size:18px"><i class="fas fa-sync-alt"></i> নতুন এপিসোড আপডেট করুন</h3>
         <div class="helper-box" style="border-color:rgba(156,39,176,0.3);background:rgba(156,39,176,0.05)">
-            <i class="fas fa-info-circle" style="color:#9c27b0"></i> পুরানো কোড পেস্ট করুন → এপিসোড লিস্ট দেখুন → NEW ADDED সিলেক্ট করুন → নতুন এপিসোড দিন → আপডেট করুন।
+            <i class="fas fa-info-circle" style="color:#9c27b0"></i> একসাথে ১ বা একাধিক এপিসোড যোগ করুন।
         </div>
-        <label>১. পুরানো পোস্টের সম্পূর্ণ HTML কোড <span id="formatBadge"></span></label>
-        <textarea id="updateOldHtml" class="updater-area" placeholder="ব্লগার পোস্ট এডিটর থেকে সব কোড পেস্ট করুন..." oninput="parseOldEps()"></textarea>
-
-        <div id="parsedEpSection" class="hidden">
-            <label><i class="fas fa-list"></i> পাওয়া যাওয়া এপিসোডগুলো (<span id="parsedTotal">0</span>টি) — <span style="color:#ff4d4d">ক্লিক করে NEW ADDED দিন</span></label>
-            <div class="parsed-ep-list" id="parsedEpList"></div>
-        </div>
-
+        <label>১. পুরানো পোস্টের সম্পূর্ণ HTML কোড</label>
+        <textarea id="updateOldHtml" class="updater-area" placeholder="ব্লগার পোস্ট এডিটর থেকে সব কোড পেস্ট করুন..."></textarea>
         <label>২. নতুন এপিসোডের নাম</label>
-        <textarea id="updateEpNames" rows="3" placeholder="EP 105&#10;EP 106" style="margin-bottom:15px" oninput="autoFillNewNums()"></textarea>
+        <textarea id="updateEpNames" rows="3" placeholder="Episode 48&#10;Episode 49&#10;Episode 50" style="margin-bottom:15px"></textarea>
         <label>৩. নতুন এপিসোডের ডাউনলোড লিংক</label>
-        <textarea id="updateEpLinks" rows="3" placeholder="https://t.me/...105&#10;https://t.me/...106" style="margin-bottom:15px"></textarea>
+        <textarea id="updateEpLinks" rows="3" placeholder="https://t.me/...48&#10;https://t.me/...49" style="margin-bottom:15px"></textarea>
         <label>৪. নতুন এপিসোডের Watch Online লিংক <span class="optional-tag">OPTIONAL</span></label>
-        <textarea id="updateEpWatch" rows="3" placeholder="https://...105&#10;https://...106" style="margin-bottom:15px"></textarea>
-
-        <div class="quick-new-box" style="border-color:rgba(204,0,0,0.3);background:rgba(204,0,0,0.06)">
-            <label><i class="fas fa-bolt"></i> NEW ADDED ট্যাগ: এপিসোড নম্বর লিখুন</label>
-            <p style="font-size:11px;color:#888;margin:-6px 0 10px">নতুন এপিসোডের নম্বর অটো আসবে। পুরানো কোনো এপিসোডেও চাইলে নম্বর যোগ করুন।</p>
-            <input type="text" id="updateNewNums" placeholder="যেমন: 105, 106" style="margin-bottom:0">
-        </div>
-
-        <div style="height:15px"></div>
+        <textarea id="updateEpWatch" rows="3" placeholder="https://...48&#10;https://...49" style="margin-bottom:15px"></textarea>
         <button class="btn btn-purple" onclick="updateSeriesPost()" style="width:100%;justify-content:center;font-size:16px;padding:15px">
             <i class="fas fa-plus-circle"></i> আপডেটেড কোড তৈরি করুন
         </button>
@@ -289,37 +247,12 @@
     <div class="preview-frame" id="previewFrame"></div>
 </div>
 
-<div class="toast" id="toast"></div>
-
 <script>
 var API_KEY='c0d37f0558b975f73bd73328e07324eb',IMG='https://image.tmdb.org/t/p/w780',IMG_HD='https://image.tmdb.org/t/p/original',searchData=[];
 var langMap={'hi':'Hindi','bn':'Bangla','ta':'Tamil','te':'Telugu','ml':'Malayalam','kn':'Kannada','en':'English','ko':'Korean','ja':'Japanese'};
-var parsedOldEps=[];
-var detectedFormat=''; // 'datalink' বা 'modal'
 
-function showToast(msg,isError){
-    var t=document.getElementById('toast');
-    t.innerHTML='<i class="fas '+(isError?'fa-exclamation-circle':'fa-check-circle')+'"></i> '+msg;
-    t.className='toast'+(isError?' error':'')+' show';
-    setTimeout(function(){t.classList.remove('show')},2500);
-}
-
-function extractEpNum(name){
-    if(!name)return null;
-    var clean=name.replace(/<[^>]*>/g,'').trim();
-    var m=clean.match(/(\d+)/g);
-    return m?parseInt(m[m.length-1]):null;
-}
-
-function setupChips(id){
-    document.getElementById(id).addEventListener('click',function(e){
-        var chip=e.target.closest('.lang-chip,.sub-chip');if(!chip)return;
-        this.querySelectorAll('.lang-chip,.sub-chip').forEach(function(x){x.classList.remove('active')});
-        chip.classList.add('active');
-    });
-}
+function setupChips(id){document.getElementById(id).addEventListener('click',function(e){var chip=e.target.closest('.lang-chip,.sub-chip');if(!chip)return;this.querySelectorAll('.lang-chip,.sub-chip').forEach(function(x){x.classList.remove('active')});chip.classList.add('active')})}
 setupChips('langChips');setupChips('subChips');
-
 function getSelectedLang(){var a=document.querySelector('#langChips .lang-chip.active');var c=document.getElementById('m_langCustom').value.trim();return c||(a?a.getAttribute('data-lang'):'Hindi')}
 function getSelectedSub(){var a=document.querySelector('#subChips .sub-chip.active');return a?a.getAttribute('data-sub'):'বাংলা সাব'}
 function setSelectedLang(l){var f=false;document.querySelectorAll('#langChips .lang-chip').forEach(function(c){c.classList.remove('active');if(c.getAttribute('data-lang')===l){c.classList.add('active');f=true}});if(!f)document.getElementById('m_langCustom').value=l}
@@ -336,430 +269,78 @@ addMovieDl('1080p WEB-DL','Dual Audio','1.7 GB','','');
 addMovieDl('720p WEB-DL','Dual Audio','850 MB','','');
 addMovieDl('480p HDRip','Dual Audio','470 MB','','');
 
-function addEp(n,dl,wt,isNew){
-    var list=document.getElementById('epList'),div=document.createElement('div');
-    div.className='ep-card'+(isNew?' ep-new-active':'');
-    div.innerHTML='<div class="ep-card-top-row"><input type="text" class="ep-name" placeholder="এপিসোডের নাম" value="'+(n||'')+'"><div class="ep-new-toggle'+(isNew?' active':'')+'" onclick="toggleNew(this)"><div class="toggle-dot"><i class="fas fa-check"></i></div><span class="toggle-label">NEW ADDED</span></div></div><div class="ep-card-links"><div class="link-group"><label>Download Link</label><input type="text" class="ep-dl-link" placeholder="https://t.me/..." value="'+(dl||'')+'"></div><div class="link-group"><label>Watch Link <span class="optional-tag">OPT</span></label><input type="text" class="ep-watch-link" placeholder="https://..." value="'+(wt||'')+'"></div><button class="remove-btn" onclick="this.closest(\'.ep-card\').remove()"><i class="fas fa-times"></i></button></div>';
+function addEp(n,dl,wt){
+    var list=document.getElementById('epList'),div=document.createElement('div');div.className='ep-card';
+    div.innerHTML='<div class="ep-card-name"><input type="text" class="ep-name" placeholder="এপিসোডের নাম" value="'+(n||'')+'"></div><div class="ep-card-links"><div class="link-group"><label>Download Link</label><input type="text" class="ep-dl-link" placeholder="https://t.me/..." value="'+(dl||'')+'"></div><div class="link-group"><label>Watch Link <span class="optional-tag">OPT</span></label><input type="text" class="ep-watch-link" placeholder="https://..." value="'+(wt||'')+'"></div><button class="remove-btn" onclick="this.closest(\'.ep-card\').remove()"><i class="fas fa-times"></i></button></div>';
     list.appendChild(div);
 }
 
-function toggleNew(el){el.classList.toggle('active');el.closest('.ep-card').classList.toggle('ep-new-active')}
-
-function quickApplyNew(){
-    var input=document.getElementById('quickNewNums').value.trim();
-    if(!input){showToast('এপিসোড নম্বর লিখুন!',true);return;}
-    var nums=input.split(',').map(function(s){return parseInt(s.trim())}).filter(function(n){return !isNaN(n)});
-    if(nums.length===0){showToast('সঠিক নম্বর লিখুন!',true);return;}
-    document.querySelectorAll('#epList .ep-new-toggle').forEach(function(t){t.classList.remove('active');t.closest('.ep-card').classList.remove('ep-new-active')});
-    var count=0;
-    document.querySelectorAll('#epList .ep-card').forEach(function(card){
-        var name=card.querySelector('.ep-name').value.trim();
-        var num=extractEpNum(name);
-        if(num!==null&&nums.indexOf(num)!==-1){
-            card.querySelector('.ep-new-toggle').classList.add('active');
-            card.classList.add('ep-new-active');count++;
-        }
-    });
-    showToast(count+'টি এপিসোডে NEW ADDED সেট হয়েছে!');
-}
-
-function esc(s){if(s===null||s===undefined)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 document.getElementById('searchInput').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch()});
+function esc(s){if(s===null||s===undefined)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function safeJson(o){return JSON.stringify(o).replace(/<\//g,'<\\/')}
 
-function saveAds(){
-    var a1=document.getElementById('ad1').value.trim(),a2=document.getElementById('ad2').value.trim();
-    localStorage.setItem('mbd_ad1',a1);localStorage.setItem('mbd_ad2',a2);
-    document.getElementById('saveAdsBtn').innerHTML='<i class="fas fa-check"></i> Saved!';
-    document.getElementById('adsSavedBadge').style.display='inline-block';
-    showToast('অ্যড লিংক সেভ হয়েছে!');
-    setTimeout(function(){document.getElementById('saveAdsBtn').innerHTML='<i class="fas fa-save"></i> Save Ads'},2000);
-}
+function saveAds(){var a1=document.getElementById('ad1').value.trim(),a2=document.getElementById('ad2').value.trim();localStorage.setItem('mbd_ad1',a1);localStorage.setItem('mbd_ad2',a2);var b=document.getElementById('saveAdsBtn'),bd=document.getElementById('adsSavedBadge');b.innerHTML='<i class="fas fa-check"></i> Saved!';bd.style.display='inline-block';setTimeout(function(){b.innerHTML='<i class="fas fa-save"></i> Save Ads'},2000)}
 function loadAds(){var s1=localStorage.getItem('mbd_ad1'),s2=localStorage.getItem('mbd_ad2');if(s1)document.getElementById('ad1').value=s1;if(s2)document.getElementById('ad2').value=s2;if(s1||s2)document.getElementById('adsSavedBadge').style.display='inline-block'}
 loadAds();
 
-/* ===== ফরম্যাট ডিটেক্ট ===== */
-function detectFormat(html){
-    if(html.indexOf('data-link=')!==-1&&html.indexOf('mbd-trigger-dl')!==-1) return 'datalink';
-    if(html.indexOf('mbdOpenModal')!==-1) return 'modal';
-    return '';
-}
-
-/* ===== পুরানো HTML পার্স — দুইটো ফরম্যাট সাপোর্ট ===== */
-function parseOldEps(){
-    var oldHtml=document.getElementById('updateOldHtml').value.trim();
-    var section=document.getElementById('parsedEpSection');
-    var listEl=document.getElementById('parsedEpList');
-    var badge=document.getElementById('formatBadge');
-    parsedOldEps=[];
-    detectedFormat='';
-
-    if(!oldHtml){section.classList.add('hidden');badge.innerHTML='';return;}
-
-    detectedFormat=detectFormat(oldHtml);
-
-    /* ফরম্যাট ব্যাজ দেখানো */
-    if(detectedFormat==='datalink'){
-        badge.innerHTML='<span class="format-detected ok"><i class="fas fa-check-circle"></i> data-link ফরম্যাট পাওয়া গেছে</span>';
-    } else if(detectedFormat==='modal'){
-        badge.innerHTML='<span class="format-detected ok"><i class="fas fa-check-circle"></i> mbdOpenModal ফরম্যাট পাওয়া গেছে</span>';
-    } else {
-        badge.innerHTML='<span class="format-detected warn"><i class="fas fa-exclamation-triangle"></i> এপিসোড পাওয়া যায়নি</span>';
-    }
-
-    var match;
-
-    if(detectedFormat==='datalink'){
-        /* data-link ফরম্যাট পার্স */
-        var regex=/class="mbd-ep-card"[^>]*>[\s\S]*?<div class="mbd-ep-num">(\d+)<\/div>[\s\S]*?<div class="mbd-ep-name">(.*?)<\/div>[\s\S]*?data-link="([^"]*)"/g;
-        while((match=regex.exec(oldHtml))!==null){
-            var rawName=match[2];
-            var cleanName=rawName.replace(/<span class="mbd-new-badge">[\s\S]*?<\/span>/g,'').trim();
-            var dlLink=match[3];
-            /* watch link আছে কিনা চেক */
-            var cardHtml=match[0];
-            var watchLink='';
-            var watchM=cardHtml.match(/data-link="([^"]*)"[^>]*data-action="watch"/);
-            if(watchM) watchLink=watchM[1];
-            parsedOldEps.push({name:cleanName,dlLink:dlLink,watchLink:watchLink,isNew:false});
-        }
-    } else {
-        /* mbdOpenModal ফরম্যাট পার্স */
-        var regex2=/class="mbd-ep-card"[\s\S]*?<div class="mbd-ep-name">(.*?)<\/div>[\s\S]*?mbdOpenModal\('([^']*)'/g;
-        while((match=regex2.exec(oldHtml))!==null){
-            var cn=match[1].replace(/<span class="mbd-new-badge">[\s\S]*?<\/span>/g,'').trim();
-            var wtM2=match[0].match(/window\.open\('([^']*)'/);
-            parsedOldEps.push({name:cn,dlLink:match[2],watchLink:wtM2?wtM2[1]:'',isNew:false});
-        }
-        if(parsedOldEps.length===0){
-            var alt=/mbd-ep-name">(.*?)<\/div>[\s\S]*?mbdOpenModal\('([^']*)'/g;
-            while((match=alt.exec(oldHtml))!==null){
-                var wtM3=match[0].match(/window\.open\('([^']*)'/);
-                parsedOldEps.push({name:match[1],dlLink:match[2],watchLink:wtM3?wtM3[1]:'',isNew:false});
-            }
-        }
-    }
-
-    if(parsedOldEps.length===0){section.classList.add('hidden');return;}
-
-    section.classList.remove('hidden');
-    document.getElementById('parsedTotal').textContent=parsedOldEps.length;
-
-    var html='<div class="parsed-header"><span>এপিসোড লিস্ট</span><span class="parsed-count" id="markedCount">0টি NEW ADDED</span></div>';
-    parsedOldEps.forEach(function(ep,i){
-        var num=extractEpNum(ep.name);
-        var numText=num!==null?num:'?';
-        html+='<div class="parsed-ep-item" data-idx="'+i+'" onclick="toggleParsedEp(this,'+i+')">';
-        html+='<div class="parsed-ep-num">'+numText+'</div>';
-        html+='<div class="parsed-ep-name">'+esc(ep.name)+'</div>';
-        html+='<span class="parsed-ep-badge">NEW</span>';
-        html+='</div>';
-    });
-    listEl.innerHTML=html;
-}
-
-function toggleParsedEp(el,idx){
-    el.classList.toggle('marked');
-    parsedOldEps[idx].isNew=el.classList.contains('marked');
-    updateMarkedCount();
-    syncNewNumsFromParsed();
-}
-
-function updateMarkedCount(){
-    var c=parsedOldEps.filter(function(e){return e.isNew}).length;
-    var el=document.getElementById('markedCount');
-    if(el)el.textContent=c+'টি NEW ADDED';
-}
-
-function syncNewNumsFromParsed(){
-    var nums=[];
-    parsedOldEps.forEach(function(ep){
-        if(ep.isNew){var n=extractEpNum(ep.name);if(n!==null)nums.push(n);}
-    });
-    var newNames=document.getElementById('updateEpNames').value.trim().split('\n').filter(function(s){return s.trim()});
-    newNames.forEach(function(nm){var n=extractEpNum(nm);if(n!==null&&nums.indexOf(n)===-1)nums.push(n);});
-    document.getElementById('updateNewNums').value=nums.join(', ');
-}
-
-function autoFillNewNums(){
-    var names=document.getElementById('updateEpNames').value.trim().split('\n').filter(function(s){return s.trim()});
-    var nums=[];
-    names.forEach(function(nm){var n=extractEpNum(nm);if(n!==null)nums.push(n);});
-    parsedOldEps.forEach(function(ep){
-        if(ep.isNew){var n=extractEpNum(ep.name);if(n!==null&&nums.indexOf(n)===-1)nums.push(n);}
-    });
-    document.getElementById('updateNewNums').value=nums.join(', ');
-}
-
-/* ===== DIV রিপ্লেসমেন্ট — নেস্টেড ডিভ কাউন্ট করে নির্ভুল ম্যাচ ===== */
-function replaceEpBox(oldHtml,newInnerHtml){
-    var marker='<div class="mbd-ep-box">';
-    var startIdx=oldHtml.indexOf(marker);
-    if(startIdx===-1) return oldHtml;
-
-    var depth=0,pos=startIdx,endIdx=-1;
-    while(pos<oldHtml.length){
-        var nextOpen=oldHtml.indexOf('<div',pos);
-        var nextClose=oldHtml.indexOf('</div>',pos);
-        if(nextClose===-1) break;
-        if(nextOpen!==-1&&nextOpen<nextClose){
-            depth++;pos=nextOpen+4;
-        } else {
-            depth--;
-            if(depth===0){endIdx=nextClose+6;break;}
-            pos=nextClose+6;
-        }
-    }
-    if(endIdx===-1) return oldHtml;
-    return oldHtml.substring(0,startIdx)+'<div class="mbd-ep-box">\n'+newInnerHtml+'\n</div>'+oldHtml.substring(endIdx);
-}
-
-/* ===== data-link ফরম্যাটে এপিসোড HTML তৈরি ===== */
-function buildDataLinkEps(epArr,dlBtnText,watchBtnText){
-    var html='<div class="mbd-ep-page" data-page="1" style="">\n';
-    epArr.forEach(function(ep,i){
-        var num=i+1;
-        var numDisplay=String(num).padStart(2,'0');
-        var newBadge=ep.isNew?'<span class="mbd-new-badge">NEW ADDED</span>':'';
-        var cardStyle=ep.isNew?'border-color:rgba(204,0,0,0.5);':'';
-        html+='<div class="mbd-ep-card" style="'+cardStyle+'">';
-        html+='<div class="mbd-ep-num">'+numDisplay+'</div>';
-        html+='<div class="mbd-ep-info"><div class="mbd-ep-name">'+esc(ep.name)+newBadge+'</div></div>';
-        html+='<div class="mbd-ep-btns">';
-        html+='<button class="mbd-ep-dl mbd-trigger-dl" data-link="'+esc(ep.dlLink)+'" data-action="download"><i class="fas fa-download"></i> '+esc(dlBtnText)+'</button>';
-        if(ep.watchLink&&ep.watchLink!=='#'&&ep.watchLink!==''){
-            html+='<button class="mbd-ep-watch mbd-trigger-dl" data-link="'+esc(ep.watchLink)+'" data-action="watch"><i class="fas fa-play"></i> '+esc(watchBtnText)+'</button>';
-        }
-        html+='</div></div>\n';
-    });
-    html+='</div>';
-    return html;
-}
-
-/* ===== mbdOpenModal ফরম্যাটে এপিসোড HTML তৈরি ===== */
-function buildModalEps(epArr,epsPerPage,adLink1,adLink2,dlBtnText,watchBtnText){
-    var html='';
-    epArr.forEach(function(ep,i){
-        var num=i+1;var numDisplay=String(num).padStart(2,'0');
-        var newBadge=ep.isNew?'<span class="mbd-new-badge"><i class="fas fa-bolt"></i> NEW ADDED</span>':'';
-        var cardStyle=ep.isNew?'border-color:rgba(204,0,0,0.5);background:rgba(204,0,0,0.04);':'';
-        html+='<div class="mbd-ep-card" style="'+cardStyle+'" data-page="'+Math.ceil(num/epsPerPage)+'">';
-        html+='<div class="mbd-ep-num">'+numDisplay+'</div>';
-        html+='<div class="mbd-ep-info"><div class="mbd-ep-name">'+esc(ep.name)+'</div></div>';
-        html+='<div class="mbd-ep-btns">';
-        html+='<button class="mbd-ep-dl" onclick="mbdOpenModal(\''+esc(ep.dlLink)+'\',\''+esc(adLink1)+'\',\''+esc(adLink2)+'\')"><i class="fas fa-download"></i> '+esc(dlBtnText)+'</button>';
-        if(ep.watchLink&&ep.watchLink!=='#'&&ep.watchLink!=='') html+='<button class="mbd-ep-watch" onclick="window.open(\''+esc(ep.watchLink)+'\',\'_blank\')"><i class="fas fa-play"></i> '+esc(watchBtnText)+'</button>';
-        html+='</div>'+newBadge+'</div>';
-    });
-    var totalPages=Math.ceil(epArr.length/epsPerPage)||1;
-    if(totalPages>1){
-        html+='<div class="mbd-pagination" id="mbdPagination">';
-        html+='<button class="mbd-page-btn" onclick="mbdPrevPage()"><i class="fas fa-chevron-left"></i> আগে</button>';
-        html+='<span class="mbd-page-info" id="mbdPageInfo">পেজ ১ / '+totalPages+'</span>';
-        html+='<button class="mbd-page-btn" onclick="mbdNextPage()">পরে <i class="fas fa-chevron-right"></i></button>';
-        html+='</div>';
-    }
-    return html;
-}
-
-/* ===== বাটন টেক্সট বের করা ===== */
-function extractBtnTexts(oldHtml){
-    var dlText='Download Links',watchText='Watch Online';
-    if(detectedFormat==='datalink'){
-        var dlM=oldHtml.match(/class="mbd-ep-dl[^>]*><i class="[^"]*"><\/i>\s*([^<]+)/);
-        if(dlM) dlText=dlM[1].trim();
-        var wtM=oldHtml.match(/class="mbd-ep-watch[^>]*><i class="[^"]*"><\/i>\s*([^<]+)/);
-        if(wtM) watchText=wtM[1].trim();
-    } else {
-        var dlM2=oldHtml.match(/mbd-ep-dl[^>]*>[\s\S]*?([\u0980-\u09FF\s]{5,20})\s*<\/button>/);
-        if(dlM2) dlText=dlM2[1].trim();
-        var wtM2=oldHtml.match(/mbd-ep-watch[^>]*>[\s\S]*?([\u0980-\u09FF\s]{5,20})\s*<\/button>/);
-        if(wtM2) watchText=wtM2[1].trim();
-    }
-    return {dlText:dlText,watchText:watchText};
-}
-
-/* ===== মূল আপডেট ফাংশন ===== */
-function updateSeriesPost(){
-    var oldHtml=document.getElementById('updateOldHtml').value.trim();
-    var namesRaw=document.getElementById('updateEpNames').value.trim();
-    var linksRaw=document.getElementById('updateEpLinks').value.trim();
-    var watchRaw=document.getElementById('updateEpWatch').value.trim();
-    var newNumsInput=document.getElementById('updateNewNums').value.trim();
-
-    if(!oldHtml){showToast('পুরানো HTML কোড পেস্ট করুন!',true);return;}
-    if(!namesRaw){showToast('নতুন এপিসোডের নাম লিখুন!',true);return;}
-    if(!linksRaw){showToast('নতুন এপিসোডের ডাউনলোড লিংক লিখুন!',true);return;}
-
-    /* ফরম্যাট ডিটেক্ট (আবার, নিশ্চিত করার জন্য) */
-    detectedFormat=detectFormat(oldHtml);
-    if(!detectedFormat){showToast('এপিসোড পাওয়া যায়নি! সঠিক HTML পেস্ট করুন।',true);return;}
-
-    var newNames=namesRaw.split('\n').map(function(s){return s.trim()}).filter(function(s){return s});
-    var newLinks=linksRaw.split('\n').map(function(s){return s.trim()}).filter(function(s){return s});
-    var newWatch=watchRaw?watchRaw.split('\n').map(function(s){return s.trim()}):[];
-
-    if(newNames.length!==newLinks.length){showToast('নাম ও লিংকের সংখ্যা মিলছে না! ('+newNames.length+' vs '+newLinks.length+')',true);return;}
-
-    /* NEW ADDED নম্বর পার্স */
-    var newNums=[];
-    if(newNumsInput){
-        newNums=newNumsInput.split(',').map(function(s){return parseInt(s.trim())}).filter(function(n){return !isNaN(n)});
-    }
-
-    /* পুরানো এপিসোড পার্স (আবার করা হচ্ছে) */
-    var oldEps=[];
-    var match;
-
-    if(detectedFormat==='datalink'){
-        var regex=/class="mbd-ep-card"[^>]*>[\s\S]*?<div class="mbd-ep-num">(\d+)<\/div>[\s\S]*?<div class="mbd-ep-name">(.*?)<\/div>[\s\S]*?data-link="([^"]*)"/g;
-        while((match=regex.exec(oldHtml))!==null){
-            var rawName=match[2];
-            var cleanName=rawName.replace(/<span class="mbd-new-badge">[\s\S]*?<\/span>/g,'').trim();
-            var dlLink=match[3];
-            var watchLink='';
-            var watchM=match[0].match(/data-link="([^"]*)"[^>]*data-action="watch"/);
-            if(watchM) watchLink=watchM[1];
-            oldEps.push({name:cleanName,dlLink:dlLink,watchLink:watchLink,isNew:false});
-        }
-    } else {
-        var regex2=/class="mbd-ep-card"[\s\S]*?<div class="mbd-ep-name">(.*?)<\/div>[\s\S]*?mbdOpenModal\('([^']*)'/g;
-        while((match=regex2.exec(oldHtml))!==null){
-            var cn=match[1].replace(/<span class="mbd-new-badge">[\s\S]*?<\/span>/g,'').trim();
-            var wtM2=match[0].match(/window\.open\('([^']*)'/);
-            oldEps.push({name:cn,dlLink:match[2],watchLink:wtM2?wtM2[1]:'',isNew:false});
-        }
-        if(oldEps.length===0){
-            var alt=/mbd-ep-name">(.*?)<\/div>[\s\S]*?mbdOpenModal\('([^']*)'/g;
-            while((match=alt.exec(oldHtml))!==null){
-                var wtM3=match[0].match(/window\.open\('([^']*)'/);
-                oldEps.push({name:match[1],dlLink:match[2],watchLink:wtM3?wtM3[1]:'',isNew:false});
-            }
-        }
-    }
-
-    /* পার্সড লিস্ট থেকেও NEW ADDED নিতে হবে */
-    parsedOldEps.forEach(function(parsedEp){
-        for(var i=0;i<oldEps.length;i++){
-            if(oldEps[i].name===parsedEp.name){
-                oldEps[i].isNew=parsedEp.isNew;
-                break;
-            }
-        }
-    });
-
-    /* নম্বর দিয়েও NEW ADDED সেট */
-    oldEps.forEach(function(ep){
-        if(!ep.isNew){
-            var num=extractEpNum(ep.name);
-            if(num!==null&&newNums.indexOf(num)!==-1) ep.isNew=true;
-        }
-    });
-
-    /* নতুন এপিসোড — সবগুলো NEW ADDED */
-    var addedEps=[];
-    for(var i=0;i<newNames.length;i++){
-        addedEps.push({name:newNames[i],dlLink:newLinks[i]||'#',watchLink:(newWatch[i])||'',isNew:true});
-    }
-
-    /* মিলিয়ে নতুন অ্যারে — নতুনগুলো প্রথমে */
-    var allEps=addedEps.concat(oldEps);
-
-    /* বাটন টেক্সট বের করা */
-    var btnTexts=extractBtnTexts(oldHtml);
-
-    /* ফরম্যাট অনুযায়ী HTML তৈরি */
-    var newEpHtml;
-    if(detectedFormat==='datalink'){
-        newEpHtml=buildDataLinkEps(allEps,btnTexts.dlText,btnTexts.watchText);
-    } else {
-        var eppM=oldHtml.match(/mbdEpp=(\d+)/);
-        var epsPerPage=eppM?parseInt(eppM[1]):10;
-        var adM=oldHtml.match(/mbdOpenModal\('([^']*)','([^']*)'(?:,'([^']*)')?/);
-        var adLink1=adM?adM[2]:'#';
-        var adLink2=adM&&adM[3]?adM[3]:'';
-        newEpHtml=buildModalEps(allEps,epsPerPage,adLink1,adLink2,btnTexts.dlText,btnTexts.watchText);
-    }
-
-    /* নির্ভুল DIV রিপ্লেসমেন্ট */
-    var updatedHtml=replaceEpBox(oldHtml,newEpHtml);
-
-    if(updatedHtml===oldHtml){
-        showToast('আপডেট ব্যর্থ! mbd-ep-box পাওয়া যায়নি।',true);
-        return;
-    }
-
-    document.getElementById('updateOutput').value=updatedHtml;
-    document.getElementById('updateOutput').classList.remove('hidden');
-    document.getElementById('updateCopyBtn').classList.remove('hidden');
-    document.getElementById('updateOutput').scrollIntoView({behavior:'smooth',block:'start'});
-    var newCount=allEps.filter(function(e){return e.isNew}).length;
-    showToast('আপডেট সম্পন্ন! '+allEps.length+'টি এপিসোড, '+newCount+'টিতে NEW ADDED');
-}
-
-/* ===== TMDB সার্চ ===== */
 async function doSearch(){
     var q=document.getElementById('searchInput').value.trim(),t=document.getElementById('typeSelect').value,a=document.getElementById('resultsArea');
-    if(!q){showToast('নাম লিখুন!',true);return;}
-    a.innerHTML='<div class="status-msg loading"><i class="fas fa-spinner fa-spin"></i> খুঁজছি...</div>';
-    try{
-        var r=await fetch('https://api.themoviedb.org/3/search/'+t+'?api_key='+API_KEY+'&query='+encodeURIComponent(q)+'&language=en-US');
-        var d=await r.json();
-        if(!d.results||d.results.length===0){a.innerHTML='<div class="status-msg error">কিছু পাওয়া যায়নি!</div>';return;}
-        searchData=d.results.filter(function(i){return i.poster_path});
-        var h='<div class="results-grid">';
-        for(var i=0;i<searchData.length&&i<10;i++){
-            var item=searchData[i],title=item.title||item.name||item.original_title||'Unknown',
-            year=(item.release_date||item.first_air_date||'').substring(0,4),
-            lang=langMap[item.original_language]||'';
-            h+='<div class="result-card" data-idx="'+i+'"><img src="'+IMG+item.poster_path+'" alt=""><p>'+esc(title)+'</p><p style="color:#cc0000">'+year+'</p>'+(lang?'<span style="font-size:9px;background:rgba(56,189,248,0.2);color:#38bdf8;padding:1px 6px;border-radius:4px;display:inline-block;margin-top:3px">'+esc(lang)+'</span>':'')+'</div>';
-        }
-        a.innerHTML=h+'</div>';
-        a.querySelectorAll('.result-card').forEach(function(c){c.addEventListener('click',function(){selectItem(parseInt(this.getAttribute('data-idx')))})});
-    }catch(e){a.innerHTML='<div class="status-msg error">সার্চ ব্যর্থ!</div>';}
+    if(!q)return;a.innerHTML='<div class="status-msg loading"><i class="fas fa-spinner fa-spin"></i> খুঁজছি...</div>';
+    try{var r=await fetch('https://api.themoviedb.org/3/search/'+t+'?api_key='+API_KEY+'&query='+encodeURIComponent(q)+'&language=en-US');var d=await r.json();
+    if(!d.results||d.results.length===0){a.innerHTML='<div class="status-msg error">পাওয়া যায়নি!</div>';return}
+    searchData=d.results.filter(function(i){return i.poster_path});var h='<div class="results-grid">';
+    for(var i=0;i<searchData.length&&i<10;i++){var item=searchData[i],title=item.title||item.name||item.original_title||'Unknown',year=(item.release_date||item.first_air_date||'').substring(0,4),lang=langMap[item.original_language]||'';h+='<div class="result-card" data-idx="'+i+'"><img src="'+IMG+item.poster_path+'" alt=""><p>'+esc(title)+'</p><p style="color:#cc0000">'+year+'</p>'+(lang?'<span style="font-size:9px;background:rgba(56,189,248,0.2);color:#38bdf8;padding:1px 6px;border-radius:4px;display:inline-block;margin-top:3px">'+esc(lang)+'</span>':'')+'</div>'}
+    a.innerHTML=h+'</div>';a.querySelectorAll('.result-card').forEach(function(c){c.addEventListener('click',function(){selectItem(parseInt(this.getAttribute('data-idx')))})})}catch(e){a.innerHTML='<div class="status-msg error">সার্চ ব্যর্থ!</div>'}
 }
 
 async function selectItem(idx){
-    var item=searchData[idx];if(!item)return;
-    var id=item.id,type=document.getElementById('typeSelect').value,year=(item.release_date||item.first_air_date||'').substring(0,4);
-    try{
-        var r=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'?api_key='+API_KEY+'&language=en-US');
-        var d=await r.json();
-        var t=d.title||d.name||d.original_title||d.original_name||'Unknown';
-        document.getElementById('m_type').value=type;document.getElementById('m_title').value=t;
-        document.getElementById('m_origTitle').value=year?t+' ('+year+')':t;
-        document.getElementById('m_genres').value=(d.genres||[]).map(function(g){return g.name}).join(', ');
-        document.getElementById('m_rating').value=d.vote_average?d.vote_average.toFixed(1):'0.0';
-        document.getElementById('m_poster').value=d.poster_path?IMG+d.poster_path:'';
-        document.getElementById('m_synopsis').value=d.overview||'';
-        var ml=langMap[d.original_language]||'';if(ml)setSelectedLang(ml);
-        var mbdDirector='',mbdWriter='';
-        try{var cr=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'/credits?api_key='+API_KEY);var crd=await cr.json();
-        if(crd.crew){mbdDirector=crd.crew.filter(function(c){return c.job==='Director'}).map(function(c){return c.name}).join(', ');mbdWriter=crd.crew.filter(function(c){return c.job==='Writer'||c.job==='Screenplay'}).map(function(c){return c.name}).join(', ');}
-        if(!mbdDirector&&crd.crew){mbdDirector=crd.crew.filter(function(c){return c.department==='Directing'}).map(function(c){return c.name}).slice(0,2).join(', ')}
-        }catch(e){}
-        document.getElementById('m_director').value=mbdDirector;document.getElementById('m_writer').value=mbdWriter;
-        var ssListEl=document.getElementById('ssList');ssListEl.innerHTML='';
-        var ir=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'/images?api_key='+API_KEY+'&include_image_language=en,null');var id2=await ir.json();
-        if(id2.backdrops&&id2.backdrops.length>0){for(var si=0;si<id2.backdrops.length&&si<8;si++){addSs(IMG_HD+id2.backdrops[si].file_path)}}
-        toggleDlSections();document.getElementById('autoFillMsg').style.display='block';
-        window.scrollTo({top:document.getElementById('autoFillMsg').offsetTop-20,behavior:'smooth'});
-        showToast('তথ্য লোড সম্পন্ন!');
-    }catch(e){showToast('তথ্য আনতে সমস্যা!',true);}
+    var item=searchData[idx];if(!item)return;var id=item.id,type=document.getElementById('typeSelect').value,year=(item.release_date||item.first_air_date||'').substring(0,4);
+    try{var r=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'?api_key='+API_KEY+'&language=en-US');var d=await r.json();
+    var t=d.title||d.name||d.original_title||d.original_name||'Unknown';
+    document.getElementById('m_type').value=type;document.getElementById('m_title').value=t;
+    document.getElementById('m_origTitle').value=year?t+' ('+year+')':t;
+    document.getElementById('m_genres').value=(d.genres||[]).map(function(g){return g.name}).join(', ');
+    document.getElementById('m_rating').value=d.vote_average?d.vote_average.toFixed(1):'0.0';
+    document.getElementById('m_poster').value=d.poster_path?IMG+d.poster_path:'';
+    document.getElementById('m_synopsis').value=d.overview||'';
+    var ml=langMap[d.original_language]||'';if(ml)setSelectedLang(ml);
+    var mbdDirector='',mbdWriter='';
+    try{var cr=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'/credits?api_key='+API_KEY);var crd=await cr.json();
+    if(crd.crew){mbdDirector=crd.crew.filter(function(c){return c.job==='Director'}).map(function(c){return c.name}).join(', ');mbdWriter=crd.crew.filter(function(c){return c.job==='Writer'||c.job==='Screenplay'}).map(function(c){return c.name}).join(', ');}
+    if(!mbdDirector&&crd.crew){mbdDirector=crd.crew.filter(function(c){return c.department==='Directing'}).map(function(c){return c.name}).slice(0,2).join(', ')}
+    }catch(e){}
+    document.getElementById('m_director').value=mbdDirector;document.getElementById('m_writer').value=mbdWriter;
+    var ssListEl=document.getElementById('ssList');ssListEl.innerHTML='';
+    var ir=await fetch('https://api.themoviedb.org/3/'+type+'/'+id+'/images?api_key='+API_KEY+'&include_image_language=en,null');var id2=await ir.json();
+    if(id2.backdrops&&id2.backdrops.length>0){for(var si=0;si<id2.backdrops.length&&si<8;si++){addSs(IMG_HD+id2.backdrops[si].file_path)}}
+    toggleDlSections();document.getElementById('autoFillMsg').style.display='block';window.scrollTo({top:document.getElementById('autoFillMsg').offsetTop-20,behavior:'smooth'})}catch(e){alert('তথ্য আনতে সমস্যা!')}
 }
 
-function copyCode(id,btnId){
-    var el=document.getElementById(id);if(!el.value){showToast('কপি করার মতো কোড নেই!',true);return;}
-    navigator.clipboard.writeText(el.value).then(function(){
-        var btn=document.getElementById(btnId);var orig=btn.innerHTML;btn.innerHTML='<i class="fas fa-check"></i> কপি হয়েছে!';showToast('কোড কপি হয়েছে!');setTimeout(function(){btn.innerHTML=orig},2000);
-    }).catch(function(){el.select();document.execCommand('copy');showToast('কোড কপি হয়েছে!');});
+function generateSeo(){
+    var title=document.getElementById('m_title').value.trim()||'Movie';var origTitle=document.getElementById('m_origTitle').value.trim()||title;
+    var type=document.getElementById('m_type').value;var typeLabel=type==='tv'?'Web Series':'Movie';
+    var lang=getSelectedLang(),sub=getSelectedSub(),genres=document.getElementById('m_genres').value.trim()||'';
+    var yearMatch=origTitle.match(/\((\d{4})\)/);var year=yearMatch?yearMatch[1]:'';
+    var rating=document.getElementById('m_rating').value.trim()||'';
+    var gArr=genres.split(',').map(function(g){return g.trim()}).filter(function(g){return g});
+    var seo=esc(title);if(year) seo+=' ('+year+')';
+    seo+=' '+typeLabel+' '+esc(lang)+' '+esc(sub)+' Download & Watch Online Free on MovieBoxBD. ';
+    seo+=esc(title);if(year) seo+=' ('+year+')';seo+=' Full '+typeLabel+' '+esc(lang)+' '+esc(sub)+' Direct Download Link. ';
+    seo+='Watch '+esc(title);if(year) seo+=' ('+year+')';seo+=' Online in HD Quality. ';
+    seo+='MovieBoxBD is the best website to download and watch '+esc(lang)+' '+typeLabel.toLowerCase()+' in high quality. ';
+    if(gArr.length>0) seo+=esc(title)+' ('+year+') '+esc(gArr.join(', '))+' '+typeLabel+' Free Download. ';
+    seo+=esc(title)+' ('+year+') '+esc(lang)+' '+esc(sub)+' '+typeLabel+' Watch Online Free. ';
+    seo+='Download '+esc(title)+' ('+year+') Full '+typeLabel+' on MovieBoxBD. ';
+    if(rating) seo+=esc(title)+' ('+year+') Rating: '+esc(rating)+'/10. ';
+    seo+=esc(title)+' ('+year+') '+esc(lang)+' '+esc(sub)+' '+typeLabel+' Telegram Link. ';
+    seo+='MovieBoxBD provides '+esc(lang)+' '+typeLabel.toLowerCase()+' download with '+esc(sub)+'. ';
+    seo+='Watch '+esc(title)+' ('+year+') '+esc(lang)+' '+typeLabel+' Online Free on MovieBoxBD. ';
+    seo+='MovieBoxBD - Your trusted source for '+esc(lang)+' '+typeLabel.toLowerCase()+' download & watch online.';
+    document.getElementById('seoOutput').textContent=seo;
 }
-function previewCode(){
-    var code=document.getElementById('codeOutput').value;if(!code){showToast('প্রিভিউ করার মতো কোড নেই!',true);return;}
-    document.getElementById('previewFrame').innerHTML=code;document.getElementById('previewOverlay').classList.add('active');document.body.style.overflow='hidden';
-}
-function closePreview(){document.getElementById('previewOverlay').classList.remove('active');document.body.style.overflow='';}
+function copySeo(){var text=document.getElementById('seoOutput').textContent;navigator.clipboard.writeText(text).then(function(){var btn=event.target.closest('.btn');var orig=btn.innerHTML;btn.innerHTML='<i class="fas fa-check"></i> কপি হয়েছে!';setTimeout(function(){btn.innerHTML=orig},2000)})}
 
-/* ===== মেইন জেনারেট (পুরানো মেথড, কাজ করে) ===== */
+/* ===== মেইন জেনারেট ===== */
 function generate(){
     var type=document.getElementById('m_type').value,isTV=type==='tv';
     var title=document.getElementById('m_title').value.trim()||'Untitled',
@@ -775,7 +356,6 @@ function generate(){
     watchBtnText=document.getElementById('watchBtnText').value.trim()||'Watch Online';
     var yearMatch=origTitle.match(/\((\d{4})\)/),year=yearMatch?yearMatch[1]:'N/A';
     var typeLabel=isTV?'ওয়েব সিরিজ':'মুভি',badgeLabel=isTV?'SERIES':'MOVIE';
-    if(!title||title==='Untitled'){showToast('নাম লিখুন!',true);return;}
 
     var screens='';
     document.querySelectorAll('#ssList .ss-link').forEach(function(inp){var v=inp.value.trim();if(v)screens+='<div class="mbd-ss-item"><img src="'+esc(v)+'" alt="'+esc(title)+' Screenshot" loading="lazy"></div>'});
@@ -793,121 +373,422 @@ function generate(){
         if(q)movieDlArr.push({quality:q,lang:lang,size:sz,dlLink:dl,watchLink:wt});
     });
 
-    var epArr=[];
-    document.querySelectorAll('#epList .ep-card').forEach(function(c){
+    var epArr=[],epCount=document.querySelectorAll('#epList .ep-card').length;
+    var newTagCount=parseInt(document.getElementById('m_newTagCount').value)||0;
+    document.querySelectorAll('#epList .ep-card').forEach(function(c,idx){
         var n=c.querySelector('.ep-name').value.trim();var dl=c.querySelector('.ep-dl-link').value.trim()||'#';
         var wt=c.querySelector('.ep-watch-link').value.trim();
-        var toggle=c.querySelector('.ep-new-toggle');
-        var isNew=toggle?toggle.classList.contains('active'):false;
-        if(n)epArr.push({name:n,dlLink:dl,watchLink:wt,isNew:isNew});
+        if(n){var isNew=(idx>=epCount-newTagCount);epArr.push({name:n,dlLink:dl,watchLink:wt,isNew:isNew})}
     });
-    epArr.reverse();
-
     var seasonDlLink=document.getElementById('seasonDl').value.trim();
+    var seasonWatchLink=document.getElementById('seasonWatch').value.trim();
     var epsPerPage=parseInt(document.getElementById('m_epsPerPage').value)||10;
 
-    /* CSS */
+    /* ===== CSS ===== */
     var fc='<style>\n';
     fc+='.mbd-post{font-family:\'Hind Siliguri\',sans-serif;color:#f1f5f9;max-width:100%;line-height:1.6}\n';
     fc+='.mbd-hero{display:grid;grid-template-columns:220px 1fr;gap:20px;background:linear-gradient(135deg,#111217,#0d0e14);border-radius:14px;padding:20px;border:1px solid #222;position:relative;overflow:hidden}\n';
     fc+='.mbd-hero::before{content:"";position:absolute;top:-50%;right:-30%;width:300px;height:300px;background:radial-gradient(circle,rgba(204,0,0,0.06) 0%,transparent 70%);pointer-events:none}\n';
-    fc+='.mbd-poster{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.6);aspect-ratio:2/3}\n.mbd-poster img{width:100%;height:100%;object-fit:cover;display:block}\n';
+    fc+='.mbd-poster{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.6);aspect-ratio:2/3}\n';
+    fc+='.mbd-poster img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s}\n';
     fc+='.mbd-badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#cc0000,#ff1a1a);color:#fff;padding:4px 12px;border-radius:6px;font-size:10px;font-weight:800;letter-spacing:1px}\n';
     fc+='.mbd-lang-badge{position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#38bdf8,#0ea5e9);color:#000;padding:4px 12px;border-radius:6px;font-size:10px;font-weight:800}\n';
     fc+='.mbd-rating{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.9);color:#f5c518;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:700;border:1px solid rgba(245,197,24,0.3);display:flex;align-items:center;gap:5px}\n';
-    fc+='.mbd-details{display:flex;flex-direction:column;gap:10px}\n.mbd-title{font-size:22px;font-weight:700;color:#fff;line-height:1.3}\n.mbd-orig{font-size:13px;color:#888}\n';
-    fc+='.mbd-metas{display:flex;flex-wrap:wrap;gap:8px}\n.mbd-meta{background:rgba(255,255,255,0.05);border:1px solid #222;border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;color:#bbb}\n';
-    fc+='.mbd-meta.red{background:rgba(204,0,0,0.12);border-color:rgba(204,0,0,0.25);color:#ff4d4d}\n.mbd-meta.blue{background:rgba(56,189,248,0.1);border-color:rgba(56,189,248,0.2);color:#38bdf8}\n.mbd-meta.gold{background:rgba(245,197,24,0.1);border-color:rgba(245,197,24,0.2);color:#f5c518}\n';
-    fc+='.mbd-synopsis{font-size:13px;line-height:1.8;color:#999;border-left:3px solid #cc0000;padding-left:14px;margin-top:4px}\n.mbd-genre-text{font-size:13px;color:#888}\n';
-    fc+='.mbd-section-title{font-size:18px;font-weight:700;color:#f1f5f9;margin:28px 0 14px;display:flex;align-items:center;gap:10px}\n.mbd-section-title i{color:#cc0000}\n';
-    fc+='.mbd-ss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}\n.mbd-ss-item{border-radius:10px;overflow:hidden;border:1px solid #222;transition:border-color 0.3s}\n.mbd-ss-item:hover{border-color:rgba(204,0,0,0.4)}\n.mbd-ss-item img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}\n';
-    fc+='.mbd-dl-wrap{border-radius:12px;overflow:hidden;border:1px solid #222}\n.mbd-dl-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#111217;border-bottom:1px solid rgba(255,255,255,0.04);gap:12px;transition:background 0.2s}\n.mbd-dl-row:last-child{border-bottom:none}\n.mbd-dl-row:hover{background:rgba(255,255,255,0.03)}\n';
-    fc+='.mbd-dl-info{flex:1;min-width:0}\n.mbd-dl-quality{font-size:15px;font-weight:700;color:#fff}\n.mbd-dl-meta{font-size:12px;color:#666;margin-top:3px}\n.mbd-dl-btns{display:flex;gap:8px;flex-shrink:0}\n';
-    fc+='.mbd-btn-dl{background:linear-gradient(135deg,#cc0000,#e60000);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:inline-flex;align-items:center;gap:7px;transition:all 0.25s;box-shadow:0 3px 12px rgba(204,0,0,0.3);white-space:nowrap}\n.mbd-btn-dl:hover{box-shadow:0 5px 20px rgba(204,0,0,0.5);transform:translateY(-1px)}\n';
-    fc+='.mbd-btn-watch{background:linear-gradient(135deg,#0088cc,#00aaff);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:inline-flex;align-items:center;gap:7px;transition:all 0.25s;box-shadow:0 3px 12px rgba(0,136,204,0.3);white-space:nowrap}\n.mbd-btn-watch:hover{box-shadow:0 5px 20px rgba(0,136,204,0.5);transform:translateY(-1px)}\n';
-    fc+='.mbd-vlc-box{background:linear-gradient(135deg,#111217,#0d0e14);border:1px solid #222;border-radius:12px;padding:24px;margin-top:20px;text-align:center;position:relative;overflow:hidden}\n.mbd-vlc-box::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ff9800,#ff5722,#ff9800)}\n';
-    fc+='.mbd-vlc-icon{width:50px;height:50px;background:rgba(255,152,0,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;color:#ff9800}\n.mbd-vlc-title{font-size:16px;font-weight:700;color:#ff9800;margin-bottom:8px}\n.mbd-vlc-desc{font-size:13px;color:#999;line-height:1.8;margin-bottom:18px;max-width:450px;margin-left:auto;margin-right:auto}\n.mbd-vlc-desc strong{color:#ff9800}\n';
-    fc+='.mbd-vlc-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#ff9800,#f57c00);color:#fff;padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 15px rgba(255,152,0,0.35);transition:all 0.3s}\n.mbd-vlc-btn:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,152,0,0.5)}\n.mbd-vlc-arrow{color:#fff;font-size:16px;animation:mbdBounce 1.5s infinite}\n@keyframes mbdBounce{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}\n';
-    fc+='.mbd-ep-box{background:#111217;border-radius:12px;padding:20px;border:1px solid #222}\n.mbd-ep-card{background:rgba(255,255,255,0.02);border:1px solid #222;border-radius:10px;display:flex;align-items:center;padding:12px;gap:12px;transition:all 0.3s;position:relative;overflow:hidden;margin-bottom:10px}\n.mbd-ep-card:last-child{margin-bottom:0}\n.mbd-ep-card:hover{border-color:#cc0000;transform:translateX(4px)}\n';
-    fc+='.mbd-ep-num{width:40px;height:40px;min-width:40px;border-radius:8px;background:linear-gradient(135deg,#cc0000,#e60000);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}\n.mbd-ep-info{flex:1;min-width:0}\n.mbd-ep-name{font-weight:600;font-size:14px;color:#f1f5f9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n';
-    fc+='.mbd-ep-btns{display:flex;gap:6px;flex-shrink:0}\n.mbd-ep-dl{background:#cc0000;border:none;color:#fff;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:flex;align-items:center;gap:5px;transition:0.2s;white-space:nowrap}\n.mbd-ep-dl:hover{background:#e60000;box-shadow:0 0 12px rgba(204,0,0,0.4)}\n';
-    fc+='.mbd-ep-watch{background:#0088cc;border:none;color:#fff;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:flex;align-items:center;gap:5px;transition:0.2s;white-space:nowrap}\n.mbd-ep-watch:hover{background:#00aaff;box-shadow:0 0 12px rgba(0,170,255,0.4)}\n';
-    fc+='.mbd-new-badge{position:absolute;top:0;right:0;background:linear-gradient(135deg,#cc0000,#ff1a1a);color:#fff;font-size:9px;padding:4px 12px 4px 10px;border-radius:0 10px 0 10px;font-weight:800;letter-spacing:0.8px;display:flex;align-items:center;gap:4px;animation:mbdNewPulse 2s ease-in-out infinite,mbdNewGlow 3s ease-in-out infinite;z-index:2;text-shadow:0 1px 2px rgba(0,0,0,0.5);overflow:hidden}\n';
-    fc+='.mbd-new-badge::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:mbdNewShine 2.5s ease-in-out infinite}\n';
-    fc+='@keyframes mbdNewPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.75;transform:scale(1.03)}}\n@keyframes mbdNewGlow{0%,100%{box-shadow:0 0 8px rgba(204,0,0,0.5),inset 0 0 4px rgba(255,255,255,0.1)}50%{box-shadow:0 0 20px rgba(255,0,0,0.7),inset 0 0 8px rgba(255,255,255,0.2)}}\n@keyframes mbdNewShine{0%{left:-100%}50%{left:100%}100%{left:100%}}\n';
-    fc+='.mbd-pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:18px;padding-top:14px;border-top:1px solid #222}\n.mbd-page-btn{background:#1a1b23;color:#f1f5f9;border:1px solid #333;padding:10px 18px;border-radius:8px;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;transition:0.2s}\n.mbd-page-btn:hover{background:#cc0000;border-color:#cc0000;color:#fff}\n.mbd-page-info{color:#888;font-size:13px;font-weight:600}\n';
-    fc+='.mbd-season-btn{background:linear-gradient(135deg,#38bdf8,#0ea5e9);color:#000;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:\'Hind Siliguri\',sans-serif;width:100%;margin-top:14px;transition:0.3s}\n.mbd-season-btn:hover{box-shadow:0 4px 20px rgba(56,189,248,0.4)}\n';
-    fc+='.mbd-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:99999}\n.mbd-modal.active{display:flex}\n.mbd-modal-box{background:#0e0f15;width:100%;max-width:420px;border:1px solid #1a1b23;overflow:hidden;animation:mbdSlideUp 0.35s cubic-bezier(0.32,0.72,0,1);position:fixed;bottom:0;left:0;right:0;max-width:100%;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch}\n';
-    fc+='@keyframes mbdSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}\n.mbd-modal-handle{width:36px;height:4px;background:#333;border-radius:4px;margin:10px auto 0}\n';
-    fc+='.mbd-modal-head{background:linear-gradient(135deg,#cc0000,#b30000);padding:16px 20px 14px;display:flex;align-items:center;justify-content:space-between}\n.mbd-modal-head h3{color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}\n.mbd-modal-close{background:rgba(255,255,255,0.15);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}\n.mbd-modal-body{padding:24px 20px 36px}\n';
+    fc+='.mbd-details{display:flex;flex-direction:column;gap:10px}\n';
+    fc+='.mbd-title{font-size:22px;font-weight:700;color:#fff;line-height:1.3}\n';
+    fc+='.mbd-orig{font-size:13px;color:#888}\n';
+    fc+='.mbd-metas{display:flex;flex-wrap:wrap;gap:8px}\n';
+    fc+='.mbd-meta{background:rgba(255,255,255,0.05);border:1px solid #222;border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;color:#bbb}\n';
+    fc+='.mbd-meta.red{background:rgba(204,0,0,0.12);border-color:rgba(204,0,0,0.25);color:#ff4d4d}\n';
+    fc+='.mbd-meta.blue{background:rgba(56,189,248,0.1);border-color:rgba(56,189,248,0.2);color:#38bdf8}\n';
+    fc+='.mbd-meta.gold{background:rgba(245,197,24,0.1);border-color:rgba(245,197,24,0.2);color:#f5c518}\n';
+    fc+='.mbd-synopsis{font-size:13px;line-height:1.8;color:#999;border-left:3px solid #cc0000;padding-left:14px;margin-top:4px}\n';
+    fc+='.mbd-genre-text{font-size:13px;color:#888}\n';
+    fc+='.mbd-section-title{font-size:18px;font-weight:700;color:#f1f5f9;margin:28px 0 14px;display:flex;align-items:center;gap:10px}\n';
+    fc+='.mbd-section-title i{color:#cc0000}\n';
+    fc+='.mbd-ss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}\n';
+    fc+='.mbd-ss-item{border-radius:10px;overflow:hidden;border:1px solid #222;transition:border-color 0.3s}\n';
+    fc+='.mbd-ss-item:hover{border-color:rgba(204,0,0,0.4)}\n';
+    fc+='.mbd-ss-item img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}\n';
+
+    /* ডাউনলোড রো */
+    fc+='.mbd-dl-wrap{border-radius:12px;overflow:hidden;border:1px solid #222}\n';
+    fc+='.mbd-dl-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#111217;border-bottom:1px solid rgba(255,255,255,0.04);gap:12px;transition:background 0.2s}\n';
+    fc+='.mbd-dl-row:last-child{border-bottom:none}\n';
+    fc+='.mbd-dl-row:hover{background:rgba(255,255,255,0.03)}\n';
+    fc+='.mbd-dl-info{flex:1;min-width:0}\n';
+    fc+='.mbd-dl-quality{font-size:15px;font-weight:700;color:#fff}\n';
+    fc+='.mbd-dl-meta{font-size:12px;color:#666;margin-top:3px}\n';
+    fc+='.mbd-dl-btns{display:flex;gap:8px;flex-shrink:0}\n';
+    fc+='.mbd-btn-dl{background:linear-gradient(135deg,#cc0000,#e60000);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:inline-flex;align-items:center;gap:7px;transition:all 0.25s;box-shadow:0 3px 12px rgba(204,0,0,0.3);white-space:nowrap;-webkit-tap-highlight-color:transparent}\n';
+    fc+='.mbd-btn-dl:hover{box-shadow:0 5px 20px rgba(204,0,0,0.5);transform:translateY(-1px)}\n';
+    fc+='.mbd-btn-dl:active{transform:scale(0.97)}\n';
+    fc+='.mbd-btn-watch{background:linear-gradient(135deg,#0088cc,#00aaff);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:inline-flex;align-items:center;gap:7px;transition:all 0.25s;box-shadow:0 3px 12px rgba(0,136,204,0.3);white-space:nowrap;-webkit-tap-highlight-color:transparent}\n';
+    fc+='.mbd-btn-watch:hover{box-shadow:0 5px 20px rgba(0,136,204,0.5);transform:translateY(-1px)}\n';
+    fc+='.mbd-btn-watch:active{transform:scale(0.97)}\n';
+
+    /* VLC বক্স */
+    fc+='.mbd-vlc-box{background:linear-gradient(135deg,#111217,#0d0e14);border:1px solid #222;border-radius:12px;padding:24px;margin-top:20px;text-align:center;position:relative;overflow:hidden}\n';
+    fc+='.mbd-vlc-box::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ff9800,#ff5722,#ff9800)}\n';
+    fc+='.mbd-vlc-icon{width:50px;height:50px;background:rgba(255,152,0,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;color:#ff9800}\n';
+    fc+='.mbd-vlc-title{font-size:16px;font-weight:700;color:#ff9800;margin-bottom:8px}\n';
+    fc+='.mbd-vlc-desc{font-size:13px;color:#999;line-height:1.8;margin-bottom:18px;max-width:450px;margin-left:auto;margin-right:auto}\n';
+    fc+='.mbd-vlc-desc strong{color:#ff9800}\n';
+    fc+='.mbd-vlc-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#ff9800,#f57c00);color:#fff;padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 15px rgba(255,152,0,0.35);transition:all 0.3s}\n';
+    fc+='.mbd-vlc-btn:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,152,0,0.5)}\n';
+    fc+='.mbd-vlc-arrow{color:#fff;font-size:16px;animation:mbdBounce 1.5s infinite}\n';
+    fc+='@keyframes mbdBounce{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}\n';
+
+    /* সিরিজ */
+    fc+='.mbd-ep-box{background:#111217;border-radius:12px;padding:20px;border:1px solid #222}\n';
+    fc+='.mbd-ep-card{background:rgba(255,255,255,0.02);border:1px solid #222;border-radius:10px;display:flex;align-items:center;padding:12px;gap:12px;transition:0.3s;position:relative;overflow:hidden;margin-bottom:10px}\n';
+    fc+='.mbd-ep-card:last-child{margin-bottom:0}\n';
+    fc+='.mbd-ep-card:hover{border-color:#cc0000}\n';
+    fc+='.mbd-ep-num{width:40px;height:40px;min-width:40px;border-radius:8px;background:linear-gradient(135deg,#cc0000,#e60000);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}\n';
+    fc+='.mbd-ep-info{flex:1;min-width:0}\n';
+    fc+='.mbd-ep-name{font-weight:600;font-size:14px;color:#f1f5f9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n';
+    fc+='.mbd-ep-btns{display:flex;gap:6px;flex-shrink:0}\n';
+    fc+='.mbd-ep-dl{background:#cc0000;border:none;color:#fff;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:flex;align-items:center;gap:5px;transition:0.2s;white-space:nowrap}\n';
+    fc+='.mbd-ep-dl:hover{background:#e60000}\n';
+    fc+='.mbd-ep-watch{background:#0088cc;border:none;color:#fff;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;display:flex;align-items:center;gap:5px;transition:0.2s;white-space:nowrap}\n';
+    fc+='.mbd-ep-watch:hover{background:#00aaff}\n';
+    fc+='.mbd-new-badge{position:absolute;top:0;right:0;background:linear-gradient(135deg,#cc0000,#ff1a1a);color:#fff;font-size:9px;padding:3px 10px;border-radius:0 10px 0 8px;font-weight:800;letter-spacing:0.5px;animation:mbdPulse 2s infinite}\n';
+    fc+='@keyframes mbdPulse{0%,100%{opacity:1}50%{opacity:0.6}}\n';
+    fc+='.mbd-pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:18px;padding-top:14px;border-top:1px solid #222}\n';
+    fc+='.mbd-page-btn{background:#1a1b23;color:#f1f5f9;border:1px solid #333;padding:10px 18px;border-radius:8px;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;transition:0.2s}\n';
+    fc+='.mbd-page-btn:hover{background:#cc0000;border-color:#cc0000;color:#fff}\n';
+    fc+='.mbd-page-info{color:#888;font-size:13px;font-weight:600}\n';
+    fc+='.mbd-season-btn{background:linear-gradient(135deg,#38bdf8,#0ea5e9);color:#000;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:\'Hind Siliguri\',sans-serif;width:100%;margin-top:14px;transition:0.3s}\n';
+    fc+='.mbd-season-btn:hover{box-shadow:0 4px 20px rgba(56,189,248,0.4)}\n';
+
+    /* ===== মোডাল — বটম শিট ===== */
+    fc+='.mbd-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:99999;padding:0}\n';
+    fc+='.mbd-modal.active{display:flex}\n';
+    fc+='.mbd-modal-box{background:#0e0f15;width:100%;max-width:420px;border:1px solid #1a1b23;border-bottom:none;overflow:hidden;animation:mbdSlideUp 0.35s cubic-bezier(0.32,0.72,0,1)}\n';
+    fc+='@keyframes mbdSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}\n';
+    fc+='.mbd-modal-box{position:fixed;bottom:0;left:0;right:0;max-width:100%;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch}\n';
+    fc+='.mbd-modal-handle{width:36px;height:4px;background:#333;border-radius:4px;margin:10px auto 0}\n';
+    fc+='.mbd-modal-head{background:linear-gradient(135deg,#cc0000,#b30000);padding:16px 20px 14px;display:flex;align-items:center;justify-content:space-between}\n';
+    fc+='.mbd-modal-head h3{color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}\n';
+    fc+='.mbd-modal-close{background:rgba(255,255,255,0.15);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}\n';
+    fc+='.mbd-modal-body{padding:24px 20px 36px}\n';
     if(!isSingleAd){fc+='.mbd-steps{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:22px}\n.mbd-step{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid #333;color:#555;transition:0.3s}\n.mbd-step.active{border-color:#38bdf8;color:#38bdf8;background:rgba(56,189,248,0.1)}\n.mbd-step.done{border-color:#4caf50;color:#fff;background:#4caf50}\n.mbd-line{width:32px;height:2px;background:#333;transition:0.3s}\n.mbd-line.done{background:#4caf50}\n'}
-    fc+='.mbd-step-normal{text-align:center}\n.mbd-vmsg{margin-bottom:20px}\n.mbd-vmsg h4{font-size:16px;color:#f1f5f9;margin-bottom:6px}\n.mbd-vmsg p{font-size:13px;color:#888;line-height:1.6}\n';
+
+    /* স্টেপ নরমাল কন্টেন্ট */
+    fc+='.mbd-step-normal{text-align:center}\n';
+    fc+='.mbd-vmsg{margin-bottom:20px}\n.mbd-vmsg h4{font-size:16px;color:#f1f5f9;margin-bottom:6px}\n.mbd-vmsg p{font-size:13px;color:#888;line-height:1.6}\n';
+
+    /* অ্যড বাটন */
     fc+='.mbd-ad-btn{display:flex;width:100%;padding:15px;background:linear-gradient(135deg,#ff9800,#f57c00);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;text-decoration:none;text-align:center;justify-content:center;align-items:center;gap:10px;margin-bottom:16px;transition:0.3s;box-shadow:0 4px 16px rgba(255,152,0,0.3)}\n.mbd-ad-btn:hover{box-shadow:0 6px 24px rgba(255,152,0,0.5);transform:translateY(-1px)}\n';
+
+    /* টাইমার */
     fc+='.mbd-timer-bar{width:100%;height:6px;background:#1a1b23;border-radius:3px;overflow:hidden;margin-bottom:10px}\n.mbd-timer-fill{height:100%;width:0%;background:linear-gradient(90deg,#cc0000,#ff9800);border-radius:3px;transition:width 0.1s linear}\n.mbd-timer-txt{font-size:13px;color:#666;text-align:center}\n.mbd-timer-txt span{color:#38bdf8;font-weight:700;font-size:15px}\n';
+
+    /* আনলক বাটন */
     fc+='.mbd-unlock-btn{display:none;width:100%;padding:15px;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;margin-top:12px;transition:0.3s;box-shadow:0 4px 16px rgba(76,175,80,0.3)}\n.mbd-unlock-btn:hover{box-shadow:0 6px 24px rgba(76,175,80,0.5)}\n';
+
+    /* ===== ওয়ার্নিং ভিউ — "আবার চেষ্টা করুন" ===== */
+    fc+='.mbd-warn-view{text-align:center;padding:8px 0}\n';
+    fc+='.mbd-warn-icon{width:72px;height:72px;background:rgba(255,152,0,0.1);border:2px solid rgba(255,152,0,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;color:#ff9800;animation:mbdWarnBreathe 2.5s ease-in-out infinite}\n';
+    fc+='@keyframes mbdWarnBreathe{0%,100%{transform:scale(1);border-color:rgba(255,152,0,0.25)}50%{transform:scale(1.06);border-color:rgba(255,152,0,0.5)}}\n';
+    fc+='.mbd-warn-view h4{font-size:18px;color:#ff9800;margin-bottom:14px;font-weight:700;line-height:1.4}\n';
+    fc+='.mbd-warn-view .mbd-warn-main{font-size:14px;color:#ddd;line-height:1.8;margin-bottom:8px}\n';
+    fc+='.mbd-warn-view .mbd-warn-main strong{color:#ff9800}\n';
+    fc+='.mbd-warn-view .mbd-warn-sub{font-size:13px;color:#777;line-height:1.8;margin-bottom:24px;padding:0 8px}\n';
+    fc+='.mbd-retry-btn{display:inline-flex;align-items:center;gap:10px;padding:15px 40px;background:linear-gradient(135deg,#ff9800,#f57c00);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:\'Hind Siliguri\',sans-serif;box-shadow:0 4px 20px rgba(255,152,0,0.35);transition:0.3s;-webkit-tap-highlight-color:transparent}\n';
+    fc+='.mbd-retry-btn:hover{box-shadow:0 6px 28px rgba(255,152,0,0.5);transform:translateY(-2px)}\n';
+    fc+='.mbd-retry-btn:active{transform:scale(0.97)}\n';
+
+    /* সাকসেস */
     fc+='.mbd-success{text-align:center;padding:16px 0}\n.mbd-success-icon{width:64px;height:64px;background:linear-gradient(135deg,#4caf50,#2e7d32);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:26px;color:#fff;box-shadow:0 4px 24px rgba(76,175,80,0.4)}\n';
     fc+='.mbd-final-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:linear-gradient(135deg,#0088cc,#00aaff);color:#fff;text-decoration:none;border-radius:12px;font-size:15px;font-weight:700;box-shadow:0 4px 16px rgba(0,136,204,0.4);transition:0.3s}\n.mbd-final-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,136,204,0.6)}\n';
-    fc+='@media(min-width:601px){.mbd-modal{align-items:center;justify-content:center;padding:20px}.mbd-modal-box{position:relative;bottom:auto;left:auto;right:auto;max-width:420px;max-height:90vh;border-radius:16px;border:1px solid #222;border-bottom:1px solid #222}.mbd-modal-handle{display:none}}\n';
-    fc+='@media(max-width:600px){\n.mbd-hero{grid-template-columns:1fr;gap:16px;padding:16px}.mbd-poster{max-width:170px;margin:0 auto}.mbd-title{font-size:19px}.mbd-ss-grid{grid-template-columns:1fr}\n.mbd-dl-row{flex-direction:column;align-items:stretch;gap:10px;padding:14px 12px}.mbd-dl-btns{flex-direction:row;gap:8px}.mbd-btn-dl,.mbd-btn-watch{flex:1;justify-content:center;padding:12px 10px;font-size:14px}\n';
-    fc+='.mbd-ep-card{flex-wrap:wrap;gap:8px;padding:12px 10px}.mbd-ep-info{width:calc(100% - 52px)}.mbd-ep-btns{width:100%;flex-direction:row}.mbd-ep-dl,.mbd-ep-watch{flex:1;justify-content:center;padding:11px 8px;font-size:13px}\n.mbd-pagination{flex-wrap:wrap;gap:8px}.mbd-page-btn{flex:1;justify-content:center;padding:10px 8px}\n';
-    fc+='.mbd-modal-head{padding:14px 16px 12px}.mbd-modal-head h3{font-size:14px}.mbd-modal-close{width:34px;height:34px}\n.mbd-modal-body{padding:20px 16px 32px}\n.mbd-vmsg h4{font-size:17px}.mbd-vmsg p{font-size:14px}\n.mbd-ad-btn{padding:16px;font-size:16px;border-radius:14px}\n.mbd-timer-bar{height:7px}.mbd-timer-txt{font-size:14px}.mbd-timer-txt span{font-size:17px}\n.mbd-unlock-btn{padding:16px;font-size:16px;border-radius:14px}\n.mbd-new-badge{font-size:8px;padding:3px 8px 3px 7px}\n}\n';
-    fc+='</style>\n';
 
-    /* HTML body */
-    var body='<div class="mbd-post">\n';
-    body+='<div class="mbd-hero">\n<div class="mbd-poster"><img src="'+esc(poster)+'" alt="'+esc(title)+'"><span class="mbd-badge">'+badgeLabel+'</span><span class="mbd-lang-badge">'+esc(movieLang)+'</span><div class="mbd-rating"><i class="fas fa-star"></i> '+esc(rating)+'</div></div>\n';
-    body+='<div class="mbd-details">\n<div class="mbd-title">'+esc(title)+'</div>\n<div class="mbd-orig">'+esc(origTitle)+'</div>\n';
-    body+='<div class="mbd-metas">\n<span class="mbd-meta red"><i class="fas fa-calendar"></i> '+esc(year)+'</span>\n<span class="mbd-meta blue"><i class="fas fa-globe"></i> '+esc(movieLang)+'</span>\n<span class="mbd-meta gold"><i class="fas fa-star"></i> '+esc(rating)+'/10</span>\n<span class="mbd-meta"><i class="fas fa-closed-captioning"></i> '+esc(movieSub)+'</span>\n</div>\n';
-    if(director!=='N/A') body+='<div style="font-size:13px;color:#888"><strong style="color:#bbb">পরিচালক:</strong> '+esc(director)+'</div>\n';
-    if(writer!=='N/A') body+='<div style="font-size:13px;color:#888"><strong style="color:#bbb">লেখক:</strong> '+esc(writer)+'</div>\n';
-    body+='<div class="mbd-genre-text"><strong style="color:#bbb">জেনার:</strong> '+esc(genres)+'</div>\n<div class="mbd-synopsis">'+esc(overview)+'</div>\n</div></div>\n';
-    body+='<div class="mbd-section-title"><i class="fas fa-images"></i> স্ক্রিনশট</div>\n<div class="mbd-ss-grid">'+screens+'</div>\n';
+    /* ডেস্কটপ ওভাররাইড */
+    fc+='@media(min-width:601px){\n.mbd-modal{align-items:center;justify-content:center;padding:20px}\n.mbd-modal-box{position:relative;bottom:auto;left:auto;right:auto;max-width:420px;max-height:90vh;border-radius:16px;border:1px solid #222;border-bottom:1px solid #222}\n.mbd-modal-handle{display:none}\n}\n';
 
-    if(isTV){
-        body+='<div class="mbd-section-title"><i class="fas fa-download"></i> এপিসোড ডাউনলোড</div>\n<div class="mbd-ep-box" id="mbdEpBox">\n';
-        body+=buildModalEps(epArr,epsPerPage,adLink1,adLink2,dlBtnText,watchBtnText);
-        body+='</div>\n';
-        if(seasonDlLink) body+='<button class="mbd-season-btn" onclick="mbdOpenModal(\''+esc(seasonDlLink)+'\',\''+esc(adLink1)+'\',\''+esc(adLink2)+'\')"><i class="fas fa-download"></i> পুরো সিজন ডাউনলোড</button>\n';
-    } else {
-        body+='<div class="mbd-section-title"><i class="fas fa-download"></i> ডাউনলোড লিংক</div>\n<div class="mbd-dl-wrap">\n';
-        movieDlArr.forEach(function(m){
-            body+='<div class="mbd-dl-row"><div class="mbd-dl-info"><div class="mbd-dl-quality">'+esc(m.quality)+'</div><div class="mbd-dl-meta">'+esc(m.lang)+(m.size?' &bull; '+esc(m.size):'')+'</div></div><div class="mbd-dl-btns"><button class="mbd-btn-dl" onclick="mbdOpenModal(\''+esc(m.dlLink)+'\',\''+esc(adLink1)+'\',\''+esc(adLink2)+'\')"><i class="fas fa-download"></i> '+esc(dlBtnText)+'</button>';
-            if(m.watchLink&&m.watchLink!=='#') body+='<button class="mbd-btn-watch" onclick="window.open(\''+esc(m.watchLink)+'\',\'_blank\')"><i class="fas fa-play"></i> '+esc(watchBtnText)+'</button>';
-            body+='</div></div>\n';
-        });
-        body+='</div>\n';
+    /* মোবাইল রেসপন্সিভ */
+    fc+='@media(max-width:600px){\n';
+    fc+='.mbd-hero{grid-template-columns:1fr;gap:16px;padding:16px}.mbd-poster{max-width:170px;margin:0 auto}.mbd-title{font-size:19px}.mbd-ss-grid{grid-template-columns:1fr}\n';
+    fc+='.mbd-dl-row{flex-direction:column;align-items:stretch;gap:10px;padding:14px 12px}\n';
+    fc+='.mbd-dl-btns{flex-direction:row;gap:8px}\n';
+    fc+='.mbd-btn-dl,.mbd-btn-watch{flex:1;justify-content:center;padding:12px 10px;font-size:14px}\n';
+    fc+='.mbd-ep-card{flex-wrap:wrap;gap:8px;padding:12px 10px}\n.mbd-ep-info{width:calc(100% - 52px)}\n.mbd-ep-btns{width:100%;flex-direction:row}\n.mbd-ep-dl,.mbd-ep-watch{flex:1;justify-content:center;padding:11px 8px;font-size:13px}\n';
+    fc+='.mbd-pagination{flex-wrap:wrap;gap:8px}\n.mbd-page-btn{flex:1;justify-content:center;font-size:13px;padding:10px 8px}\n';
+    /* মোডাল মোবাইল */
+    fc+='.mbd-modal-head{padding:14px 16px 12px}\n.mbd-modal-head h3{font-size:14px}\n.mbd-modal-close{width:34px;height:34px}\n';
+    fc+='.mbd-modal-body{padding:20px 16px 32px}\n';
+    fc+='.mbd-vmsg h4{font-size:17px}\n.mbd-vmsg p{font-size:14px}\n';
+    fc+='.mbd-ad-btn{padding:16px;font-size:16px;border-radius:14px}\n';
+    fc+='.mbd-timer-bar{height:7px}\n.mbd-timer-txt{font-size:14px}\n.mbd-timer-txt span{font-size:17px}\n';
+    fc+='.mbd-unlock-btn{padding:16px;font-size:16px;border-radius:14px}\n';
+    /* ওয়ার্নিং ভিউ মোবাইল */
+    fc+='.mbd-warn-icon{width:68px;height:68px;font-size:26px;margin-bottom:18px}\n';
+    fc+='.mbd-warn-view h4{font-size:17px;margin-bottom:12px}\n';
+    fc+='.mbd-warn-view .mbd-warn-main{font-size:15px;margin-bottom:6px}\n';
+    fc+='.mbd-warn-view .mbd-warn-sub{font-size:13px;margin-bottom:20px}\n';
+    fc+='.mbd-retry-btn{padding:16px 36px;font-size:16px;border-radius:14px}\n';
+    /* সাকসেস মোবাইল */
+    fc+='.mbd-success-icon{width:60px;height:60px;font-size:24px}\n.mbd-final-btn{padding:16px 32px;font-size:16px;border-radius:14px}\n';
+    /* VLC */
+    fc+='.mbd-vlc-box{padding:20px 14px}\n.mbd-vlc-btn{padding:12px 22px;font-size:14px}\n';
+    fc+='}\n';
+    fc+='</style>\n\n';
+
+    /* Schema.org */
+    fc+='<script type="application/ld+json">\n{"@context":"https://schema.org","@type":"'+(isTV?'TVSeries':'Movie')+'","name":"'+esc(title)+'","image":"'+esc(poster)+'","description":"'+esc(overview.substring(0,200))+'","datePublished":"'+esc(year)+'","genre":"'+esc(genres)+'","inLanguage":"'+esc(movieLang)+'"';
+    if(rating&&rating!=='0.0') fc+=',"aggregateRating":{"@type":"AggregateRating","ratingValue":"'+esc(rating)+'","bestRating":"10"}';
+    fc+='}\n<\/script>\n\n';
+
+    /* ===== HTML ===== */
+    fc+='<div class="mbd-post">\n\n';
+    fc+='<div class="info-text" style="display:none">\n  <div>Rating: '+esc(rating)+'/10</div>\n  <div>Language: '+esc(movieLang)+'</div>\n  <div>Genres: '+esc(genres)+'</div>\n  <div>Subtitle: '+esc(movieSub)+'</div>\n  <div>Director: '+esc(director)+'</div>\n  <div>Writer: '+esc(writer)+'</div>\n</div>\n\n';
+
+    fc+='<div class="mbd-hero">\n<div class="mbd-poster">\n<img src="'+esc(poster)+'" alt="'+esc(title)+' ('+esc(year)+') '+esc(movieLang)+' '+esc(typeLabel)+' Poster - MovieBoxBD" loading="lazy">\n<div class="mbd-badge">'+badgeLabel+'</div>\n<div class="mbd-lang-badge">'+esc(movieLang)+'</div>\n<div class="mbd-rating"><i class="fas fa-star"></i> '+esc(rating)+'</div>\n</div>\n<div class="mbd-details">\n<h1 class="mbd-title">'+esc(title)+'</h1>\n<p class="mbd-orig">'+esc(origTitle)+'</p>\n<div class="mbd-metas">\n<span class="mbd-meta red"><i class="fas fa-film"></i> '+typeLabel+'</span>\n<span class="mbd-meta blue"><i class="fas fa-language"></i> '+esc(movieLang)+'</span>\n<span class="mbd-meta gold"><i class="fas fa-closed-captioning"></i> '+esc(movieSub)+'</span>\n';
+    if(rating&&rating!=='0.0') fc+='<span class="mbd-meta gold"><i class="fas fa-star"></i> '+esc(rating)+'/10</span>\n';
+    fc+='</div>\n<div class="mbd-genre-text">জেনার: '+esc(genres)+'</div>\n<p class="mbd-synopsis">'+esc(overview)+'</p>\n</div>\n</div>\n\n';
+
+    fc+='<div class="mbd-section-title"><i class="fas fa-images"></i> স্ক্রিনশট</div>\n<div class="mbd-ss-grid">'+screens+'</div>\n\n';
+
+    /* ডাউনলোড সেকশন */
+    if(!isTV){
+        fc+='<div class="mbd-section-title"><i class="fas fa-download"></i> Download Links</div>\n<div class="mbd-dl-wrap">\n';
+        for(var mi=0;mi<movieDlArr.length;mi++){
+            var md=movieDlArr[mi];
+            var mQuality=esc(md.quality);var mMeta=esc(md.lang);if(md.size) mMeta+=' | '+esc(md.size);
+            var mBtns='';
+            if(md.dlLink&&md.dlLink!=='#') mBtns+='<button class="mbd-btn-dl mbd-trigger-dl" data-link="'+esc(md.dlLink)+'" data-action="download"><i class="fas fa-download"></i> '+esc(dlBtnText)+'</button>';
+            if(md.watchLink&&md.watchLink!=='#') mBtns+='<button class="mbd-btn-watch mbd-trigger-dl" data-link="'+esc(md.watchLink)+'" data-action="watch"><i class="fas fa-play-circle"></i> '+esc(watchBtnText)+'</button>';
+            fc+='<div class="mbd-dl-row"><div class="mbd-dl-info"><div class="mbd-dl-quality">'+mQuality+'</div><div class="mbd-dl-meta">'+mMeta+'</div></div><div class="mbd-dl-btns">'+mBtns+'</div></div>\n';
+        }
+        fc+='</div>\n\n';
+    }else{
+        fc+='<div class="mbd-section-title"><i class="fas fa-list-ol"></i> এপিসোড তালিকা</div>\n<div class="mbd-ep-box">\n';
+        var revEps=epArr.slice().reverse();var totalEps=revEps.length;var totalP=Math.ceil(totalEps/epsPerPage);
+        for(var pg=1;pg<=totalP;pg++){
+            var pStart=(pg-1)*epsPerPage,pEnd=pStart+epsPerPage,pEps=revEps.slice(pStart,pEnd);
+            fc+='<div class="mbd-ep-page" data-page="'+pg+'" style="'+(pg!==1?'display:none':'')+'">\n';
+            for(var ei=0;ei<pEps.length;ei++){
+                var ep=pEps[ei];var epNum=totalEps-(pStart+ei),epN=epNum.toString();if(epN.length<2)epN="0"+epN;
+                var newTag=ep.isNew?'<span class="mbd-new-badge">NEW ADDED</span>':'';
+                var epBtns='<button class="mbd-ep-dl mbd-trigger-dl" data-link="'+esc(ep.dlLink)+'" data-action="download"><i class="fas fa-download"></i> '+esc(dlBtnText)+'</button>';
+                if(ep.watchLink&&ep.watchLink!=='#') epBtns+='<button class="mbd-ep-watch mbd-trigger-dl" data-link="'+esc(ep.watchLink)+'" data-action="watch"><i class="fas fa-play-circle"></i> '+esc(watchBtnText)+'</button>';
+                fc+='<div class="mbd-ep-card"><div class="mbd-ep-num">'+epN+'</div><div class="mbd-ep-info"><div class="mbd-ep-name">'+esc(ep.name)+newTag+'</div></div><div class="mbd-ep-btns">'+epBtns+'</div></div>\n';
+            }
+            fc+='</div>\n';
+        }
+        if(totalP>1){fc+='<div class="mbd-pagination">\n<button class="mbd-page-btn" id="mbdPrevBtn" style="visibility:'+(totalP>1?'visible':'hidden')+'"><i class="fas fa-chevron-left"></i> আগের</button>\n<span class="mbd-page-info" id="mbdPageInfo">পেজ 1 / '+totalP+'</span>\n<button class="mbd-page-btn" id="mbdNextBtn" style="visibility:'+(totalP>1?'visible':'hidden')+'">পরের <i class="fas fa-chevron-right"></i></button>\n</div>\n';}
+        fc+='</div>\n\n';
+        if(seasonDlLink||seasonWatchLink){
+            fc+='<div style="display:flex;gap:10px;flex-wrap:wrap">\n';
+            if(seasonDlLink) fc+='<button class="mbd-season-btn mbd-trigger-dl" data-link="'+esc(seasonDlLink)+'" data-action="download" style="flex:1;min-width:200px"><i class="fas fa-folder-open"></i> '+esc(dlBtnText)+' (পুরো সিজন)</button>\n';
+            if(seasonWatchLink) fc+='<button class="mbd-season-btn mbd-trigger-dl" data-link="'+esc(seasonWatchLink)+'" data-action="watch" style="flex:1;min-width:200px;background:linear-gradient(135deg,#0088cc,#00aaff);color:#fff"><i class="fas fa-play-circle"></i> '+esc(watchBtnText)+' (পুরো সিজন)</button>\n';
+            fc+='</div>\n\n';
+        }
     }
-    body+='<div class="mbd-vlc-box"><div class="mbd-vlc-icon"><i class="fas fa-play-circle"></i></div><div class="mbd-vlc-title">VLC প্লেয়ারে দেখুন</div><div class="mbd-vlc-desc">ডাউনলোড করা ফাইল <strong>VLC Media Player</strong> দিয়ে খুলুন।</div><a class="mbd-vlc-btn" href="https://www.videolan.org/" target="_blank"><i class="fas fa-external-link-alt"></i> VLC ডাউনলোড করুন <span class="mbd-vlc-arrow"><i class="fas fa-arrow-right"></i></span></a></div>\n';
-    body+='</div>\n';
 
-    /* Modal */
-    body+='<div class="mbd-modal" id="mbdModal" onclick="if(event.target===this)mbdCloseModal()"><div class="mbd-modal-box"><div class="mbd-modal-handle"></div><div class="mbd-modal-head"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="mbd-modal-close" onclick="mbdCloseModal()"><i class="fas fa-times"></i></button></div><div class="mbd-modal-body" id="mbdModalBody"></div></div></div>\n';
+    /* VLC বক্স */
+    fc+='<div class="mbd-vlc-box">\n<div class="mbd-vlc-icon"><i class="fas fa-volume-up"></i></div>\n<div class="mbd-vlc-title">সাউন্ড সমস্যা (Audio Problem)</div>\n<div class="mbd-vlc-desc"><strong>👉</strong>  মুভি প্লে করলে যদি **সাউন্ড না আসে**, তবে এটি কোডেক সমস্যার কারণে হয়। | ✅ সমাধান: এই সমস্যা এড়াতে আমরা VLC Player দিয়ে প্লে করার পরামর্শ দিচ্ছি। <strong>VLC Player</strong> ব্যবহার করুন</div>\n<a href="https://play.google.com/store/apps/details?id=org.videolan.vlc" target="_blank" rel="noopener" class="mbd-vlc-btn"><i class="fab fa-android"></i> VLC Player ডাউনলোড করুন <i class="fas fa-arrow-right mbd-vlc-arrow"></i></a>\n</div>\n\n';
 
-    /* JS */
-    var js='<scr'+'ipt>\nvar mbdCurPage=1,mbdEpp='+epsPerPage+',mbdTimer=null;\n';
-    js+='function mbdInitPages(){var c=document.querySelectorAll("#mbdEpBox .mbd-ep-card");if(!c.length)return;mbdCurPage=1;mbdShowPage(1)}\n';
-    js+='function mbdShowPage(p){var c=document.querySelectorAll("#mbdEpBox .mbd-ep-card");var t=Math.ceil(c.length/mbdEpp);if(p<1)p=1;if(p>t)p=t;mbdCurPage=p;for(var i=0;i<c.length;i++){c[i].style.display=parseInt(c[i].getAttribute("data-page"))===p?"flex":"none"}var info=document.getElementById("mbdPageInfo");if(info)info.textContent="পেজ "+p+" / "+t}\n';
-    js+='function mbdPrevPage(){mbdShowPage(mbdCurPage-1)}\nfunction mbdNextPage(){mbdShowPage(mbdCurPage+1)}\n';
-    js+='document.addEventListener("DOMContentLoaded",function(){if(document.getElementById("mbdEpBox"))mbdInitPages()});\n';
-    js+='function mbdOpenModal(dlLink,ad1,ad2){var modal=document.getElementById("mbdModal");var body=document.getElementById("mbdModalBody");modal.classList.add("active");document.body.style.overflow="hidden";\n';
+    /* ===== মোডাল — নরমাল + ওয়ার্নিং ভিউ ===== */
+    fc+='<div class="mbd-modal" id="mbdVModal">\n<div class="mbd-modal-box">\n<div class="mbd-modal-handle"></div>\n';
+    fc+='<div class="mbd-modal-head"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="mbd-modal-close" id="mbdCloseBtn"><i class="fas fa-times"></i></button></div>\n';
+    fc+='<div class="mbd-modal-body">\n';
+    if(!isSingleAd) fc+='<div class="mbd-steps"><div class="mbd-step active" id="mbdS1">1</div><div class="mbd-line" id="mbdL1"></div><div class="mbd-step" id="mbdS2">2</div><div class="mbd-line" id="mbdL2"></div><div class="mbd-step" id="mbdS3"><i class="fas fa-check" style="font-size:11px"></i></div></div>\n';
+
+    /* ধাপ ১ — নরমাল কন্টেন্ট + ওয়ার্নিং ভিউ */
+    fc+='<div id="mbdStep1">\n';
+    fc+='<div class="mbd-step-normal" id="mbdNormal1">\n';
+    fc+='<div class="mbd-vmsg"><h4>ধাপ ১: অ্যড ভিজিট করুন</h4><p>নিচের বাটনে ক্লিক করুন এবং অ্যড পেজে কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকুন</p></div>\n';
+    fc+='<a href="'+esc(adLink1)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb1"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n';
+    fc+='<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf1"></div></div>\n';
+    fc+='<p class="mbd-timer-txt" id="mbdTt1">অপেক্ষা করুন... <span id="mbdTc1">5</span> সেকেন্ড</p>\n';
+    fc+='<button class="mbd-unlock-btn" id="mbdUb1"><i class="fas fa-arrow-right"></i> পরবর্তী ধাপ</button>\n';
+    fc+='</div>\n';
+    /* ওয়ার্নিং ভিউ ১ */
+    fc+='<div class="mbd-warn-view" id="mbdWarnView1" style="display:none">\n';
+    fc+='<div class="mbd-warn-icon"><i class="fas fa-redo-alt"></i></div>\n';
+    fc+='<h4>দুঃখিত! পুনরায় চেষ্টা করুন</h4>\n';
+    fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকেননি</p>\n';
+    fc+='<p class="mbd-warn-sub">কোনো সমস্যা নেই! অনুগ্রহ করে আবার নিচের বাটনে ক্লিক করুন। অ্যড পেজটি খুলবে — সেখানে কমপক্ষে ৫ সেকেন্ড থাকলেই পরবর্তী ধাপে যেতে পারবেন।</p>\n';
+    fc+='<button class="mbd-retry-btn" id="mbdRetry1"><i class="fas fa-redo-alt"></i> আবার চেষ্টা করুন</button>\n';
+    fc+='</div>\n';
+    fc+='</div>\n';
+
+    /* ধাপ ২ — নরমাল + ওয়ার্নিং */
     if(!isSingleAd){
-        js+='body.innerHTML=\'<div class="mbd-steps"><div class="mbd-step active" id="mbdS1">1</div><div class="mbd-line" id="mbdL1"></div><div class="mbd-step" id="mbdS2">2</div><div class="mbd-line" id="mbdL2"></div><div class="mbd-step" id="mbdS3">3</div></div><div class="mbd-step-normal" id="mbdStepContent"><div class="mbd-vmsg"><h4>ধাপ ১</h4><p>নিচের বাটনে ক্লিক করুন</p></div><a class="mbd-ad-btn" href="'+esc(adLink1)+'" target="_blank" rel="nofollow" onclick="setTimeout(function(){mbdStep2("'+esc(adLink2)+'","'+esc(dlLink)+'")},1500)"><i class="fas fa-external-link-alt"></i> Verify</a></div>\';\n';
-    } else {
-        js+='body.innerHTML=\'<div class="mbd-step-normal" id="mbdStepContent"><div class="mbd-vmsg"><h4>ভেরিফিকেশন</h4><p>নিচের বাটনে ক্লিক করুন</p></div><a class="mbd-ad-btn" href="'+esc(adLink1)+'" target="_blank" rel="nofollow" onclick="setTimeout(function(){mbdStartTimer("'+esc(dlLink)+'")},1500)"><i class="fas fa-external-link-alt"></i> Verify</a></div>\';\n';
+        fc+='<div id="mbdStep2" style="display:none">\n';
+        fc+='<div class="mbd-step-normal" id="mbdNormal2">\n';
+        fc+='<div class="mbd-vmsg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যড ভিজিট করুন এবং কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকুন</p></div>\n';
+        fc+='<a href="'+esc(adLink2)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb2"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n';
+        fc+='<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf2"></div></div>\n';
+        fc+='<p class="mbd-timer-txt" id="mbdTt2">অপেক্ষা করুন... <span id="mbdTc2">5</span> সেকেন্ড</p>\n';
+        fc+='<button class="mbd-unlock-btn" id="mbdUb2"><i class="fas fa-unlock"></i> আনলক করুন</button>\n';
+        fc+='</div>\n';
+        fc+='<div class="mbd-warn-view" id="mbdWarnView2" style="display:none">\n';
+        fc+='<div class="mbd-warn-icon"><i class="fas fa-redo-alt"></i></div>\n';
+        fc+='<h4>দুঃখিত! পুনরায় চেষ্টা করুন</h4>\n';
+        fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকেননি।</p>\n';
+        fc+='<p class="mbd-warn-sub">কোনো সমস্যা নেই! অনুগ্রহ করে আবার নিচের বাটনে ক্লিক করুন। এটি শেষ ধাপ — এইবার সফল হলে আপনার ডাউনলোড রেডি হয়ে যাবে!</p>\n';
+        fc+='<button class="mbd-retry-btn" id="mbdRetry2"><i class="fas fa-redo-alt"></i> আবার চেষ্টা করুন</button>\n';
+        fc+='</div>\n';
+        fc+='</div>\n';
     }
-    js+='}\n';
-    if(!isSingleAd){js+='function mbdStep2(ad2,dlLink){document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdL1").className="mbd-line done";document.getElementById("mbdS2").className="mbd-step active";var sc=document.getElementById("mbdStepContent");sc.innerHTML=\'<div class="mbd-vmsg"><h4>ধাপ ২</h4></div><a class="mbd-ad-btn" href="\'+ad2+\'" target="_blank" rel="nofollow" onclick="setTimeout(function(){mbdStartTimer("\'+dlLink+\'")},1500)"><i class="fas fa-external-link-alt"></i> Continue</a>\';}\n';}
-    js+='function mbdStartTimer(dlLink){var t=8;var sc=document.getElementById("mbdStepContent");if(!sc)return;sc.innerHTML=\'<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTimerFill"></div></div><div class="mbd-timer-txt">অপেক্ষা... <span id="mbdTimerNum">8</span>s</div><button class="mbd-unlock-btn" id="mbdUnlockBtn" onclick="mbdFinalLink(\\\'\'+dlLink+\'\\\')"><i class="fas fa-unlock"></i> ডাউনলোড লিংক</button>\';if(mbdTimer)clearInterval(mbdTimer);mbdTimer=setInterval(function(){t--;var n=document.getElementById("mbdTimerNum");var f=document.getElementById("mbdTimerFill");var b=document.getElementById("mbdUnlockBtn");if(n)n.textContent=t;if(f)f.style.width=((8-t)/8*100)+"%";if(t<=0){clearInterval(mbdTimer);if(b)b.style.display="block";var tx=document.querySelector(".mbd-timer-txt");if(tx)tx.innerHTML=\'<span style="color:#4caf50;font-weight:700">সম্পন্ন!</span>\'}},1000)}\n';
-    js+='function mbdFinalLink(link){document.getElementById("mbdModalBody").innerHTML=\'<div class="mbd-success"><div class="mbd-success-icon"><i class="fas fa-check"></i></div><h3 style="color:#4caf50;margin-bottom:16px">রেডি!</h3><a class="mbd-final-btn" href="\'+link+\'" target="_blank" rel="nofollow"><i class="fas fa-download"></i> ডাউনলোড করুন</a></div>\'}\n';
-    js+='function mbdCloseModal(){document.getElementById("mbdModal").classList.remove("active");document.body.style.overflow="";if(mbdTimer)clearInterval(mbdTimer)}\n';
-    js+='</scr'+'ipt>\n';
 
-    document.getElementById('codeOutput').value=fc+body+js;
-    document.getElementById('codeOutput').classList.remove('hidden');
+    /* সাকসেস */
+    fc+='<div id="mbdStep3" style="display:none"><div class="mbd-success"><div class="mbd-success-icon"><i class="fas fa-check"></i></div><h3 style="color:#fff;font-size:17px;margin-bottom:6px">রেডি!</h3><p style="font-size:13px;color:#888;margin-bottom:18px">ভেরিফিকেশন সম্পন্ন ✅</p><a href="#" class="mbd-final-btn" id="mbdFdl" target="_blank" rel="noopener"><i class="fas fa-check-circle"></i> এগিয়ে যান</a></div></div>\n';
+
+    fc+='</div></div></div>\n\n';
+    fc+='</div>\n';
+
+    /* ===== JS ===== */
+    fc+='<script>\n';
+    fc+='var mbdLink="",mbdAction="download",mbdTimer=null,mbdAdTime=0,mbdSingleAd='+(isSingleAd?'true':'false')+';\n';
+    fc+='var mbdDlText="'+esc(dlBtnText)+'",mbdWatchText="'+esc(watchBtnText)+'";\n';
+
+    if(isTV&&totalP>1){
+        fc+='(function(){var mbdTP='+totalP+',mbdCP=1;function mbdGoP(p){document.querySelectorAll(".mbd-ep-page").forEach(function(el){el.style.display=el.getAttribute("data-page")==p?"block":"none"});mbdCP=p;var pi=document.getElementById("mbdPageInfo");if(pi)pi.textContent="পেজ "+p+" / "+mbdTP;var pb=document.getElementById("mbdPrevBtn");if(pb)pb.style.visibility=p>1?"visible":"hidden";var nb=document.getElementById("mbdNextBtn");if(nb)nb.style.visibility=p<mbdTP?"visible":"hidden";}var pvb=document.getElementById("mbdPrevBtn");if(pvb)pvb.addEventListener("click",function(){if(mbdCP>1)mbdGoP(mbdCP-1)});var nvb=document.getElementById("mbdNextBtn");if(nvb)nvb.addEventListener("click",function(){if(mbdCP<mbdTP)mbdGoP(mbdCP+1)});mbdGoP(1);})();\n';
+    }
+
+    /* ইভেন্ট লিসেনার */
+    fc+='document.addEventListener("click",function(e){\n';
+    fc+='var dlBtn=e.target.closest(".mbd-trigger-dl");if(dlBtn){e.preventDefault();mbdStartV(dlBtn.getAttribute("data-link"),dlBtn.getAttribute("data-action")||"download");return;}\n';
+    fc+='if(e.target.closest("#mbdAb1")){mbdClickAd(1);return;}\n';
+    fc+='if(e.target.closest("#mbdUb1")){mbdGoS2();return;}\n';
+    fc+='if(e.target.closest("#mbdRetry1")){mbdRetry(1);return;}\n';
+    if(!isSingleAd){
+        fc+='if(e.target.closest("#mbdAb2")){mbdClickAd(2);return;}\n';
+        fc+='if(e.target.closest("#mbdUb2")){mbdGoS3();return;}\n';
+        fc+='if(e.target.closest("#mbdRetry2")){mbdRetry(2);return;}\n';
+    }
+    fc+='if(e.target.closest("#mbdCloseBtn")){mbdCloseV();return;}\n';
+    fc+='});\n';
+    fc+='document.getElementById("mbdVModal").addEventListener("click",function(e){if(e.target===this){var w=window.innerWidth;if(w>600)mbdCloseV();}});\n\n';
+
+    /* ওপেন / ক্লোজ */
+    fc+='function mbdStartV(l,action){mbdLink=l;mbdAction=action||"download";mbdResetV();document.getElementById("mbdVModal").classList.add("active");document.body.style.overflow="hidden"}\n';
+    fc+='function mbdCloseV(){if(mbdTimer)clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusH);document.getElementById("mbdVModal").classList.remove("active");document.body.style.overflow=""}\n';
+
+    /* রিসেট */
+    fc+='function mbdResetV(){\nif(mbdTimer)clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusH);mbdAdTime=0;\n';
+    fc+='document.getElementById("mbdStep1").style.display="block";document.getElementById("mbdStep3").style.display="none";\n';
+    fc+='document.getElementById("mbdNormal1").style.display="block";document.getElementById("mbdWarnView1").style.display="none";\n';
+    fc+='document.getElementById("mbdTf1").style.width="0%";document.getElementById("mbdTc1").textContent="5";document.getElementById("mbdTt1").style.display="block";document.getElementById("mbdUb1").style.display="none";\n';
+    if(!isSingleAd){
+        fc+='document.getElementById("mbdStep2").style.display="none";\n';
+        fc+='document.getElementById("mbdNormal2").style.display="block";document.getElementById("mbdWarnView2").style.display="none";\n';
+        fc+='document.getElementById("mbdTf2").style.width="0%";document.getElementById("mbdTc2").textContent="5";document.getElementById("mbdTt2").style.display="block";document.getElementById("mbdUb2").style.display="none";\n';
+        fc+='document.getElementById("mbdS1").className="mbd-step active";document.getElementById("mbdS2").className="mbd-step";document.getElementById("mbdS3").className="mbd-step";document.getElementById("mbdL1").className="mbd-line";document.getElementById("mbdL2").className="mbd-line";\n';
+    }
+    fc+='}\n\n';
+
+    /* অ্যড ক্লিক — টাইমার শুরু */
+    fc+='function mbdClickAd(step){\n';
+    fc+='document.getElementById("mbdNormal"+step).style.display="block";document.getElementById("mbdWarnView"+step).style.display="none";\n';
+    fc+='var tf=document.getElementById("mbdTf"+step),tc=document.getElementById("mbdTc"+step),tt=document.getElementById("mbdTt"+step),ub=document.getElementById("mbdUb"+step);\n';
+    fc+='tf.style.width="0%";tc.textContent="5";tt.style.display="block";ub.style.display="none";mbdAdTime=0;\n';
+    fc+='if(mbdTimer)clearInterval(mbdTimer);\n';
+    fc+='mbdTimer=setInterval(function(){mbdAdTime++;var t=parseInt(tc.textContent);t--;if(t<0)t=0;tc.textContent=t;tf.style.width=((5-t)/5*100)+"%";if(t<=0){clearInterval(mbdTimer);tt.style.display="none";ub.style.display="block";}},1000);\n';
+    fc+='window.addEventListener("focus",mbdFocusH);\n';
+    fc+='}\n\n';
+
+    /* ফোকাস হ্যান্ডলার — ১০ সেকেন্ড হলে না হলে ওয়ার্নিং ভিউ */
+    fc+='function mbdFocusH(){\n';
+    fc+='if(mbdAdTime<5){\n';
+    fc+='var step=document.getElementById("mbdStep1").style.display!=="none"?1:2;\n';
+    fc+='if(mbdTimer)clearInterval(mbdTimer);\n';
+    fc+='window.removeEventListener("focus",mbdFocusH);\n';
+    /* নরমাল লুকাও, ওয়ার্নিং দেখাও */
+    fc+='document.getElementById("mbdNormal"+step).style.display="none";\n';
+    fc+='document.getElementById("mbdWarnView"+step).style.display="block";\n';
+    fc+='}\n';
+    fc+='}\n\n';
+
+    /* রিট্রি — ওয়ার্নিং থেকে আবার চেষ্টা */
+    fc+='function mbdRetry(step){\n';
+    fc+='document.getElementById("mbdWarnView"+step).style.display="none";\n';
+    fc+='document.getElementById("mbdNormal"+step).style.display="block";\n';
+    fc+='document.getElementById("mbdTf"+step).style.width="0%";\n';
+    fc+='document.getElementById("mbdTc"+step).textContent="5";\n';
+    fc+='document.getElementById("mbdTt"+step).style.display="block";\n';
+    fc+='document.getElementById("mbdUb"+step).style.display="none";\n';
+    fc+='mbdAdTime=0;\n';
+    fc+='}\n\n';
+
+    /* ধাপ ১ → ধাপ ২ */
+    fc+='function mbdGoS2(){\n';
+    if(isSingleAd){fc+='mbdShowFinal();\n'}
+    else{
+        fc+='if(mbdAdTime<5){document.getElementById("mbdNormal1").style.display="none";document.getElementById("mbdWarnView1").style.display="block";return;}\n';
+        fc+='window.removeEventListener("focus",mbdFocusH);\n';
+        fc+='document.getElementById("mbdStep1").style.display="none";document.getElementById("mbdStep2").style.display="block";\n';
+        fc+='document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdL1").className="mbd-line done";document.getElementById("mbdS2").className="mbd-step active";\n';
+    }
+    fc+='}\n';
+
+    if(!isSingleAd){
+        fc+='function mbdGoS3(){\n';
+        fc+='if(mbdAdTime<5){document.getElementById("mbdNormal2").style.display="none";document.getElementById("mbdWarnView2").style.display="block";return;}\n';
+        fc+='mbdShowFinal();\n';
+        fc+='}\n';
+    }
+
+    /* ফাইনাল */
+    fc+='function mbdShowFinal(){\nwindow.removeEventListener("focus",mbdFocusH);\n';
+    if(!isSingleAd) fc+='document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdS2").className="mbd-step done";document.getElementById("mbdL2").className="mbd-line done";document.getElementById("mbdS3").className="mbd-step done";\n';
+    fc+='document.getElementById("mbdStep1").style.display="none";\n';
+    if(!isSingleAd) fc+='document.getElementById("mbdStep2").style.display="none";\n';
+    fc+='document.getElementById("mbdStep3").style.display="block";\n';
+    fc+='var fb=document.getElementById("mbdFdl");fb.href=mbdLink;\n';
+    fc+='if(mbdAction==="watch"){fb.innerHTML=\'<i class="fas fa-play-circle"></i> \'+mbdWatchText;}else{fb.innerHTML=\'<i class="fas fa-download"></i> \'+mbdDlText;}\n';
+    fc+='}\n';
+    fc+='<\/script>\n';
+
+    var out=document.getElementById('codeOutput');
+    out.value=fc;out.classList.remove('hidden');
     document.getElementById('copyBtn').classList.remove('hidden');
     document.getElementById('previewBtn').classList.remove('hidden');
-    document.getElementById('codeOutput').scrollIntoView({behavior:'smooth',block:'start'});
-    showToast('কোড জেনারেট সম্পন্ন!');
+    out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function previewCode(){
+    var code=document.getElementById('codeOutput').value;
+    var frame=document.getElementById('previewFrame');frame.innerHTML=code;
+    var scripts=frame.querySelectorAll('script');
+    scripts.forEach(function(old){var ns=document.createElement('script');ns.textContent=old.textContent;old.parentNode.replaceChild(ns,old)});
+    document.getElementById('previewOverlay').classList.add('active');document.body.style.overflow='hidden';
+}
+function closePreview(){document.getElementById('previewOverlay').classList.remove('active');document.getElementById('previewFrame').innerHTML='';document.body.style.overflow=''}
+
+function copyCode(id,btnId){
+    var el=document.getElementById(id);el.select();document.execCommand('copy');
+    var btn=document.getElementById(btnId);var orig=btn.innerHTML;
+    btn.innerHTML='<i class="fas fa-check"></i> কপি হয়েছে!';btn.style.background='linear-gradient(135deg,#4caf50,#2e7d32)';
+    setTimeout(function(){btn.innerHTML=orig;btn.style.background=''},2000);
+}
+
+function updateSeriesPost(){
+    var oldHtml=document.getElementById('updateOldHtml').value.trim();
+    var names=document.getElementById('updateEpNames').value.trim().split('\n').filter(function(n){return n.trim()});
+    var dlLinks=document.getElementById('updateEpLinks').value.trim().split('\n').filter(function(l){return l.trim()});
+    var wtLinks=document.getElementById('updateEpWatch').value.trim().split('\n').filter(function(l){return l.trim()});
+    if(!oldHtml||!names.length){alert('পুরানো কোড ও নতুন এপিসোড নাম দিন!');return}
+    var dlBtnText=document.getElementById('dlBtnText').value.trim()||'Download Links';
+    var watchBtnText=document.getElementById('watchBtnText').value.trim()||'Watch Online';
+    oldHtml=oldHtml.replace(/<span class="mbd-new-badge">NEW ADDED<\/span>/g,'');
+    var epsMatch=oldHtml.match(/var mbdEps=(\[[\s\S]*?\]);/);
+    if(!epsMatch){alert('পুরানো কোডে এপিসোড ডাটা পাওয়া যায়নি!');return}
+    var oldEps=JSON.parse(epsMatch[1]);
+    var newEps=[];
+    for(var i=0;i<names.length;i++){newEps.push({name:names[i].trim(),dlLink:dlLinks[i]?dlLinks[i].trim():'#',watchLink:wtLinks[i]?wtLinks[i].trim():'',isNew:true})}
+    var allEps=newEps.concat(oldEps);
+    var newEpsJson=JSON.stringify(allEps).replace(/<\//g,'<\\/');
+    var updated=oldHtml.replace(/var mbdEps=(\[[\s\S]*?\]);/,'var mbdEps='+newEpsJson+';');
+    updated=updated.replace(/var mbdDlText="[^"]*"/,'var mbdDlText="'+dlBtnText.replace(/"/g,'\\"')+'"');
+    updated=updated.replace(/var mbdWatchText="[^"]*"/,'var mbdWatchText="'+watchBtnText.replace(/"/g,'\\"')+'"');
+    document.getElementById('updateOutput').value=updated;
+    document.getElementById('updateOutput').classList.remove('hidden');
+    document.getElementById('updateCopyBtn').classList.remove('hidden');
+    document.getElementById('updateOutput').scrollIntoView({behavior:'smooth'});
 }
 </script>
 </body>
