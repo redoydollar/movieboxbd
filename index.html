@@ -161,15 +161,29 @@
     <div class="panel">
         <h3 style="margin-bottom:15px;color:#cc0000;font-size:18px"><i class="fas fa-download"></i> ধাপ ৩: ডাউনলোড সেটআপ</h3>
         <div class="ads-header">
-            <h4><i class="fas fa-ad"></i> Adsterra লিংক</h4>
+            <h4><i class="fas fa-ad"></i> অ্যাড লিংক পুল (র‍্যান্ডম)</h4>
             <div style="display:flex;gap:8px;align-items:center">
                 <span class="ads-saved-badge" id="adsSavedBadge"><i class="fas fa-check-circle"></i> Saved</span>
                 <button class="btn btn-blue btn-sm" id="saveAdsBtn" onclick="saveAds()"><i class="fas fa-save"></i> Save Ads</button>
             </div>
         </div>
-        <p style="color:#666;font-size:11px;margin-top:-10px;margin-bottom:15px"><i class="fas fa-info-circle"></i> একবার সেভ করলে ব্রাউজারে মনে রাখবে!</p>
-        <label>অ্যড লিংক ১ (আবশ্যক)</label><input type="text" id="ad1" placeholder="https://...">
-        <label>অ্যড লিংক ২ <span class="optional-tag">OPTIONAL</span></label><input type="text" id="ad2" placeholder="খালি রাখলে ২য় ধাপ স্কিপ হবে">
+        <p style="color:#666;font-size:11px;margin-top:-10px;margin-bottom:12px"><i class="fas fa-info-circle"></i> একবার সেভ করলে ব্রাউজারে মনে রাখবে! পোস্টে প্রতিবার ক্লিকে পুল থেকে <b style="color:#38bdf8">র‍্যান্ডম অ্যাড</b> খুলবে (সেইম লিংক পরপর দুইবার যাবে না)। টাইটেলে <b style="color:#ff4d4d">"18+"</b> থাকলে অ্যাডাল্ট পুল, নাহলে নরমাল পুল চলবে।</p>
+        <div class="lang-chips" id="adsPoolChips" style="margin-bottom:12px">
+            <span class="lang-chip active" data-pool="norm"><i class="fas fa-link"></i> নরমাল অ্যাডস</span>
+            <span class="lang-chip" data-pool="adult"><i class="fas fa-fire" style="color:#ff4d4d"></i> অ্যাডাল্ট অ্যাডস (18+)</span>
+        </div>
+        <div id="normAdsBox">
+            <label>নরমাল অ্যাড লিংক ১</label><input type="text" id="nad1" placeholder="https://...">
+            <label>নরমাল অ্যাড লিংক ২</label><input type="text" id="nad2" placeholder="https://...">
+            <label>নরমাল অ্যাড লিংক ৩</label><input type="text" id="nad3" placeholder="https://...">
+            <label>নরমাল অ্যাড লিংক ৪</label><input type="text" id="nad4" placeholder="https://...">
+            <label>নরমাল অ্যাড লিংক ৫</label><input type="text" id="nad5" placeholder="https://...">
+        </div>
+        <div id="adultAdsBox" style="display:none">
+            <label>অ্যাডাল্ট অ্যাড লিংক ১</label><input type="text" id="aad1" placeholder="https://...">
+            <label>অ্যাডাল্ট অ্যাড লিংক ২</label><input type="text" id="aad2" placeholder="https://...">
+            <label>অ্যাডাল্ট অ্যাড লিংক ৩</label><input type="text" id="aad3" placeholder="https://...">
+        </div>
         <div class="section-divider"></div>
         <div class="section-header"><h4 style="color:#e91e63"><i class="fas fa-paint-brush"></i> বাটন টেক্সট কাস্টমাইজ</h4></div>
         <div class="btn-text-row">
@@ -185,7 +199,7 @@
         <div id="seriesDlSection" style="display:none">
             <div class="section-header"><h4 style="color:#38bdf8"><i class="fas fa-list-ol"></i> এপিসোড তালিকা</h4></div>
             <div class="helper-box" style="border-color:rgba(255,152,0,0.3);background:rgba(255,152,0,0.05)">
-                <i class="fas fa-info-circle" style="color:#ff9800"></i> প্রতিটি এপিসোডের নিচে <b style="color:#ff9800">"এপিসোডের নিজের অ্যাড লিংক"</b> ঘর আছে — সেখানে লিংক বসালে শুধু সেই এপিসোডের Download বাটনে ওই অ্যাডটা চলবে। খালি রাখলে উপরের গ্লোবাল অ্যাড লিংক চলবে।
+                <i class="fas fa-info-circle" style="color:#ff9800"></i> প্রতিটি এপিসোডের নিচে <b style="color:#ff9800">"এপিসোডের নিজের অ্যাড লিংক"</b> ঘর আছে — সেখানে লিংক বসালে শুধু সেই এপিসোডের Download বাটনে ওই অ্যাডটা চলবে। খালি রাখলে পুল থেকে র‍্যান্ডম অ্যাড চলবে।
             </div>
             <div id="epList"></div>
             <button class="btn btn-blue btn-sm" onclick="addEp()" style="margin-top:5px"><i class="fas fa-plus"></i> নতুন এপিসোড</button>
@@ -280,7 +294,7 @@ addMovieDl('480p HDRip','Dual Audio','470 MB','','');
 
 function addEp(n,dl,wt,a1,a2){
     var list=document.getElementById('epList'),div=document.createElement('div');div.className='ep-card';
-    div.innerHTML='<div class="ep-card-name"><input type="text" class="ep-name" placeholder="এপিসোডের নাম" value="'+(n||'')+'"></div><div class="ep-card-links"><div class="link-group"><label>Download Link</label><input type="text" class="ep-dl-link" placeholder="https://t.me/..." value="'+(dl||'')+'"></div><div class="link-group"><label>Watch Link <span class="optional-tag">OPT</span></label><input type="text" class="ep-watch-link" placeholder="https://..." value="'+(wt||'')+'"></div><button class="remove-btn" onclick="this.closest(\'.ep-card\').remove()"><i class="fas fa-times"></i></button></div><div class="ep-card-ads"><div class="link-group"><label><i class="fas fa-ad"></i> এপিসোডের নিজের অ্যাড লিংক ১ <span class="optional-tag">OPT</span></label><input type="text" class="ep-ad1-input" placeholder="খালি = গ্লোবাল অ্যাড ১ চলবে" value="'+(a1||'')+'"></div><div class="link-group"><label>অ্যাড লিংক ২ (ধাপ ২) <span class="optional-tag">OPT</span></label><input type="text" class="ep-ad2-input" placeholder="খালি = গ্লোবাল অ্যাড ২ চলবে" value="'+(a2||'')+'"></div></div>';
+    div.innerHTML='<div class="ep-card-name"><input type="text" class="ep-name" placeholder="এপিসোডের নাম" value="'+(n||'')+'"></div><div class="ep-card-links"><div class="link-group"><label>Download Link</label><input type="text" class="ep-dl-link" placeholder="https://t.me/..." value="'+(dl||'')+'"></div><div class="link-group"><label>Watch Link <span class="optional-tag">OPT</span></label><input type="text" class="ep-watch-link" placeholder="https://..." value="'+(wt||'')+'"></div><button class="remove-btn" onclick="this.closest(\'.ep-card\').remove()"><i class="fas fa-times"></i></button></div><div class="ep-card-ads"><div class="link-group"><label><i class="fas fa-ad"></i> এপিসোডের নিজের অ্যাড লিংক ১ <span class="optional-tag">OPT</span></label><input type="text" class="ep-ad1-input" placeholder="খালি = পুল থেকে র‍্যান্ডম অ্যাড চলবে" value="'+(a1||'')+'"></div><div class="link-group"><label>অ্যাড লিংক ২ (ধাপ ২) <span class="optional-tag">OPT</span></label><input type="text" class="ep-ad2-input" placeholder="খালি = পুল থেকে র‍্যান্ডম অ্যাড চলবে" value="'+(a2||'')+'"></div></div>';
     list.appendChild(div);
 }
 
@@ -288,9 +302,16 @@ document.getElementById('searchInput').addEventListener('keydown',function(e){if
 function esc(s){if(s===null||s===undefined)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function safeJson(o){return JSON.stringify(o).replace(/<\//g,'<\\/')}
 
-function saveAds(){var a1=document.getElementById('ad1').value.trim(),a2=document.getElementById('ad2').value.trim();localStorage.setItem('mbd_ad1',a1);localStorage.setItem('mbd_ad2',a2);var b=document.getElementById('saveAdsBtn'),bd=document.getElementById('adsSavedBadge');b.innerHTML='<i class="fas fa-check"></i> Saved!';bd.style.display='inline-block';setTimeout(function(){b.innerHTML='<i class="fas fa-save"></i> Save Ads'},2000)}
-function loadAds(){var s1=localStorage.getItem('mbd_ad1'),s2=localStorage.getItem('mbd_ad2');if(s1)document.getElementById('ad1').value=s1;if(s2)document.getElementById('ad2').value=s2;if(s1||s2)document.getElementById('adsSavedBadge').style.display='inline-block'}
+/* 🎲 র‍্যান্ডম অ্যাড পুল — নরমাল ৫টা + অ্যাডাল্ট ৩টা (ডিফল্ট লিংক আগে থেকেই বসানো, Save Ads দিয়ে বদলানো যায়) */
+var NORM_ADS_DEFAULT=["https://asiafilm.org/4/1952b9f3548cd57e994e610fde24e41f","https://asiafilm.org/4/7ef304669bcfc15f3404e1a5e5dcf1ba","https://asiafilm.org/4/dd496e8de5fdbe10f2ccf3defc93c342","https://uplcm.com/4/10918781","https://uplcm.com/4/12080503"];
+var ADULT_ADS_DEFAULT=["https://auctionr.org/4/1b6df569ebc094e3e8e592d2fd017b4f","https://auctionr.org/4/ae2d07d4c0488d06e6aec709d40d437f","https://auctionr.org/4/ef5b10414fe8fdd3f602e74bcdd4225c"];
+function readAdPool(prefix,count){var out=[];for(var i=1;i<=count;i++){var v=document.getElementById(prefix+i).value.trim();if(v)out.push(v)}return out}
+function writeAdPool(prefix,count,arr){for(var i=1;i<=count;i++){document.getElementById(prefix+i).value=arr&&arr[i-1]?arr[i-1]:''}}
+function saveAds(){localStorage.setItem('mbd_normAds',JSON.stringify(readAdPool('nad',5)));localStorage.setItem('mbd_adultAds',JSON.stringify(readAdPool('aad',3)));var b=document.getElementById('saveAdsBtn'),bd=document.getElementById('adsSavedBadge');b.innerHTML='<i class="fas fa-check"></i> Saved!';bd.style.display='inline-block';setTimeout(function(){b.innerHTML='<i class="fas fa-save"></i> Save Ads'},2000)}
+function loadAds(){var sn=localStorage.getItem('mbd_normAds'),sa=localStorage.getItem('mbd_adultAds'),n=null,a=null;try{if(sn!==null)n=JSON.parse(sn)}catch(e){}try{if(sa!==null)a=JSON.parse(sa)}catch(e){}if(sn===null&&sa===null){n=NORM_ADS_DEFAULT.slice();a=ADULT_ADS_DEFAULT.slice()}if(!Array.isArray(n))n=NORM_ADS_DEFAULT.slice();if(!Array.isArray(a))a=ADULT_ADS_DEFAULT.slice();writeAdPool('nad',5,n);writeAdPool('aad',3,a);if(sn!==null||sa!==null)document.getElementById('adsSavedBadge').style.display='inline-block'}
 loadAds();
+/* নরমাল ↔ অ্যাডাল্ট পুল টগল সুইচ: টিক দিলে যে পুলের ফিল্ডগুলো সেগুলো দেখাবে (Save Ads দুটো পুলই সেভ করে) */
+document.getElementById('adsPoolChips').addEventListener('click',function(e){var chip=e.target.closest('.lang-chip');if(!chip)return;this.querySelectorAll('.lang-chip').forEach(function(x){x.classList.remove('active')});chip.classList.add('active');var adult=chip.getAttribute('data-pool')==='adult';document.getElementById('normAdsBox').style.display=adult?'none':'block';document.getElementById('adultAdsBox').style.display=adult?'block':'none'});
 
 async function doSearch(){
     var q=document.getElementById('searchInput').value.trim(),t=document.getElementById('typeSelect').value,a=document.getElementById('resultsArea');
@@ -370,9 +391,14 @@ function generate(){
     document.querySelectorAll('#ssList .ss-link').forEach(function(inp){var v=inp.value.trim();if(v)screens+='<div class="mbd-ss-item"><img src="'+esc(v)+'" alt="'+esc(title)+' Screenshot" loading="lazy"></div>'});
     if(!screens)screens='<div class="mbd-ss-item"><img src="'+esc(poster)+'" alt="'+esc(title)+'" loading="lazy"></div>';
 
-    var adLink1=document.getElementById('ad1').value.trim()||'#';
-    var adLink2=document.getElementById('ad2').value.trim();
-    var isSingleAd=!adLink2;
+    /* 🎲 র‍্যান্ডম অ্যাড পুল: টাইটেলে "18+" থাকলে অ্যাডাল্ট পুল, নাহলে নরমাল পুল (একটা পুল খালি হলে আরেকটা ফলব্যাক) */
+    var isAdultPost=title.toUpperCase().indexOf('18+')!==-1;
+    var normAdsPool=[],adultAdsPool=[];
+    for(var pi=1;pi<=5;pi++){var pv=document.getElementById('nad'+pi).value.trim();if(pv)normAdsPool.push(pv)}
+    for(var pi2=1;pi2<=3;pi2++){var pv2=document.getElementById('aad'+pi2).value.trim();if(pv2)adultAdsPool.push(pv2)}
+    var adPool=isAdultPost?(adultAdsPool.length?adultAdsPool:normAdsPool):(normAdsPool.length?normAdsPool:adultAdsPool);
+    var isSingleAd=adPool.length<2;
+    var adFirst=adPool[0]||'#',adSecond=adPool[1]||adFirst;
 
     var movieDlArr=[];
     document.querySelectorAll('#movieDlList .dl-card').forEach(function(c){
@@ -609,18 +635,18 @@ function generate(){
     /* ধাপ ১ — নরমাল কন্টেন্ট + ওয়ার্নিং ভিউ */
     fc+='<div id="mbdStep1">\n';
     fc+='<div class="mbd-step-normal" id="mbdNormal1">\n';
-    fc+='<div class="mbd-vmsg"><h4>ধাপ ১: অ্যড ভিজিট করুন</h4><p>নিচের বাটনে ক্লিক করুন এবং অ্যড পেজে কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকুন</p></div>\n';
-    fc+='<a href="'+esc(adLink1)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb1"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n';
+    fc+='<div class="mbd-vmsg"><h4>ধাপ ১: অ্যড ভিজিট করুন</h4><p>নিচের বাটনে ক্লিক করুন এবং অ্যড পেজে কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকুন</p></div>\n';
+    fc+='<a href="'+esc(adFirst)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb1"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n';
     fc+='<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf1"></div></div>\n';
-    fc+='<p class="mbd-timer-txt" id="mbdTt1">অপেক্ষা করুন... <span id="mbdTc1">5</span> সেকেন্ড</p>\n';
+    fc+='<p class="mbd-timer-txt" id="mbdTt1">অপেক্ষা করুন... <span id="mbdTc1">10</span> সেকেন্ড</p>\n';
     fc+='<button class="mbd-unlock-btn" id="mbdUb1"><i class="fas fa-arrow-right"></i> পরবর্তী ধাপ</button>\n';
     fc+='</div>\n';
     /* ওয়ার্নিং ভিউ ১ */
     fc+='<div class="mbd-warn-view" id="mbdWarnView1" style="display:none">\n';
     fc+='<div class="mbd-warn-icon"><i class="fas fa-redo-alt"></i></div>\n';
     fc+='<h4>দুঃখিত! পুনরায় চেষ্টা করুন</h4>\n';
-    fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকেননি</p>\n';
-    fc+='<p class="mbd-warn-sub">কোনো সমস্যা নেই! অনুগ্রহ করে আবার নিচের বাটনে ক্লিক করুন। অ্যড পেজটি খুলবে — সেখানে কমপক্ষে ৫ সেকেন্ড থাকলেই পরবর্তী ধাপে যেতে পারবেন।</p>\n';
+    fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকেননি</p>\n';
+    fc+='<p class="mbd-warn-sub">কোনো সমস্যা নেই! অনুগ্রহ করে আবার নিচের বাটনে ক্লিক করুন। অ্যড পেজটি খুলবে — সেখানে কমপক্ষে ১০ সেকেন্ড থাকলেই পরবর্তী ধাপে যেতে পারবেন।</p>\n';
     fc+='<button class="mbd-retry-btn" id="mbdRetry1"><i class="fas fa-redo-alt"></i> আবার চেষ্টা করুন</button>\n';
     fc+='</div>\n';
     fc+='</div>\n';
@@ -629,16 +655,16 @@ function generate(){
     if(!isSingleAd){
         fc+='<div id="mbdStep2" style="display:none">\n';
         fc+='<div class="mbd-step-normal" id="mbdNormal2">\n';
-        fc+='<div class="mbd-vmsg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যড ভিজিট করুন এবং কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকুন</p></div>\n';
-        fc+='<a href="'+esc(adLink2)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb2"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n';
+        fc+='<div class="mbd-vmsg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যড ভিজিট করুন এবং কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকুন</p></div>\n';
+        fc+='<a href="'+esc(adSecond)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb2"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n';
         fc+='<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf2"></div></div>\n';
-        fc+='<p class="mbd-timer-txt" id="mbdTt2">অপেক্ষা করুন... <span id="mbdTc2">5</span> সেকেন্ড</p>\n';
+        fc+='<p class="mbd-timer-txt" id="mbdTt2">অপেক্ষা করুন... <span id="mbdTc2">10</span> সেকেন্ড</p>\n';
         fc+='<button class="mbd-unlock-btn" id="mbdUb2"><i class="fas fa-unlock"></i> আনলক করুন</button>\n';
         fc+='</div>\n';
         fc+='<div class="mbd-warn-view" id="mbdWarnView2" style="display:none">\n';
         fc+='<div class="mbd-warn-icon"><i class="fas fa-redo-alt"></i></div>\n';
         fc+='<h4>দুঃখিত! পুনরায় চেষ্টা করুন</h4>\n';
-        fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>৫ সেকেন্ড</strong> থাকেননি।</p>\n';
+        fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকেননি।</p>\n';
         fc+='<p class="mbd-warn-sub">কোনো সমস্যা নেই! অনুগ্রহ করে আবার নিচের বাটনে ক্লিক করুন। এটি শেষ ধাপ — এইবার সফল হলে আপনার ডাউনলোড রেডি হয়ে যাবে!</p>\n';
         fc+='<button class="mbd-retry-btn" id="mbdRetry2"><i class="fas fa-redo-alt"></i> আবার চেষ্টা করুন</button>\n';
         fc+='</div>\n';
@@ -653,8 +679,11 @@ function generate(){
 
     /* ===== JS ===== */
     fc+='<script>\n';
-    fc+='var mbdLink="",mbdAction="download",mbdTimer=null,mbdAdTime=0,mbdSingleAd='+(isSingleAd?'true':'false')+',mbdDefAd1="",mbdDefAd2="";\n';
+    fc+='var mbdLink="",mbdAction="download",mbdTimer=null,mbdAdTime=0,mbdSingleAd='+(isSingleAd?'true':'false')+',mbdWait=10;\n';
     fc+='var mbdDlText="'+esc(dlBtnText)+'",mbdWatchText="'+esc(watchBtnText)+'";\n';
+    /* 🎲 র‍্যান্ডম অ্যাড পিক: প্রতিবার ক্লিকে পুল থেকে র‍্যান্ডম লিংক — সেইম লিংক পরপর দুইবার যাবে না */
+    fc+='var mbdAds='+safeJson(adPool)+';var mbdLastAd="";\n';
+    fc+='function mbdPickAd(){var p=mbdAds.filter(function(u){return u!==mbdLastAd});if(!p.length)p=mbdAds;if(!p.length)return "";var u=p[Math.floor(Math.random()*p.length)];mbdLastAd=u;return u}\n';
 
     if(isTV&&totalP>1){
         fc+='(function(){var mbdTP='+totalP+',mbdCP=1;function mbdGoP(p){document.querySelectorAll(".mbd-ep-page").forEach(function(el){el.style.display=el.getAttribute("data-page")==p?"block":"none"});mbdCP=p;var pi=document.getElementById("mbdPageInfo");if(pi)pi.textContent="পেজ "+p+" / "+mbdTP;var pb=document.getElementById("mbdPrevBtn");if(pb)pb.style.visibility=p>1?"visible":"hidden";var nb=document.getElementById("mbdNextBtn");if(nb)nb.style.visibility=p<mbdTP?"visible":"hidden";}var pvb=document.getElementById("mbdPrevBtn");if(pvb)pvb.addEventListener("click",function(){if(mbdCP>1)mbdGoP(mbdCP-1)});var nvb=document.getElementById("mbdNextBtn");if(nvb)nvb.addEventListener("click",function(){if(mbdCP<mbdTP)mbdGoP(mbdCP+1)});mbdGoP(1);})();\n';
@@ -676,18 +705,19 @@ function generate(){
     fc+='document.getElementById("mbdVModal").addEventListener("click",function(e){if(e.target===this){var w=window.innerWidth;if(w>600)mbdCloseV();}});\n\n';
 
     /* ওপেন / ক্লোজ */
-    fc+='function mbdStartV(l,action,a1,a2){mbdLink=l;mbdAction=action||"download";var b1=document.getElementById("mbdAb1");if(b1){if(!mbdDefAd1)mbdDefAd1=b1.getAttribute("href");b1.href=a1||mbdDefAd1;}var b2=document.getElementById("mbdAb2");if(b2){if(!mbdDefAd2)mbdDefAd2=b2.getAttribute("href");b2.href=a2||mbdDefAd2;}mbdResetV();document.getElementById("mbdVModal").classList.add("active");document.body.style.overflow="hidden"}\n';
+    /* 🎲 প্রতিবার ক্লিকে পুল থেকে র‍্যান্ডম অ্যাড; এপিসোডের নিজের অ্যাড (data-ad1/ad2) থাকলে সেটাই চলবে */
+    fc+='function mbdStartV(l,action,a1,a2){mbdLink=l;mbdAction=action||"download";var b1=document.getElementById("mbdAb1");if(b1){var u1=a1||mbdPickAd();if(u1){b1.href=u1;mbdLastAd=u1;}}var b2=document.getElementById("mbdAb2");if(b2){var u2=a2||mbdPickAd();if(u2){b2.href=u2;mbdLastAd=u2;}}mbdResetV();document.getElementById("mbdVModal").classList.add("active");document.body.style.overflow="hidden"}\n';
     fc+='function mbdCloseV(){if(mbdTimer)clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusH);document.getElementById("mbdVModal").classList.remove("active");document.body.style.overflow=""}\n';
 
     /* রিসেট */
     fc+='function mbdResetV(){\nif(mbdTimer)clearInterval(mbdTimer);window.removeEventListener("focus",mbdFocusH);mbdAdTime=0;\n';
     fc+='document.getElementById("mbdStep1").style.display="block";document.getElementById("mbdStep3").style.display="none";\n';
     fc+='document.getElementById("mbdNormal1").style.display="block";document.getElementById("mbdWarnView1").style.display="none";\n';
-    fc+='document.getElementById("mbdTf1").style.width="0%";document.getElementById("mbdTc1").textContent="5";document.getElementById("mbdTt1").style.display="block";document.getElementById("mbdUb1").style.display="none";\n';
+    fc+='document.getElementById("mbdTf1").style.width="0%";document.getElementById("mbdTc1").textContent=mbdWait;document.getElementById("mbdTt1").style.display="block";document.getElementById("mbdUb1").style.display="none";\n';
     if(!isSingleAd){
         fc+='document.getElementById("mbdStep2").style.display="none";\n';
         fc+='document.getElementById("mbdNormal2").style.display="block";document.getElementById("mbdWarnView2").style.display="none";\n';
-        fc+='document.getElementById("mbdTf2").style.width="0%";document.getElementById("mbdTc2").textContent="5";document.getElementById("mbdTt2").style.display="block";document.getElementById("mbdUb2").style.display="none";\n';
+        fc+='document.getElementById("mbdTf2").style.width="0%";document.getElementById("mbdTc2").textContent=mbdWait;document.getElementById("mbdTt2").style.display="block";document.getElementById("mbdUb2").style.display="none";\n';
         fc+='document.getElementById("mbdS1").className="mbd-step active";document.getElementById("mbdS2").className="mbd-step";document.getElementById("mbdS3").className="mbd-step";document.getElementById("mbdL1").className="mbd-line";document.getElementById("mbdL2").className="mbd-line";\n';
     }
     fc+='}\n\n';
@@ -696,15 +726,15 @@ function generate(){
     fc+='function mbdClickAd(step){\n';
     fc+='document.getElementById("mbdNormal"+step).style.display="block";document.getElementById("mbdWarnView"+step).style.display="none";\n';
     fc+='var tf=document.getElementById("mbdTf"+step),tc=document.getElementById("mbdTc"+step),tt=document.getElementById("mbdTt"+step),ub=document.getElementById("mbdUb"+step);\n';
-    fc+='tf.style.width="0%";tc.textContent="5";tt.style.display="block";ub.style.display="none";mbdAdTime=0;\n';
+    fc+='tf.style.width="0%";tc.textContent=mbdWait;tt.style.display="block";ub.style.display="none";mbdAdTime=0;\n';
     fc+='if(mbdTimer)clearInterval(mbdTimer);\n';
-    fc+='mbdTimer=setInterval(function(){mbdAdTime++;var t=parseInt(tc.textContent);t--;if(t<0)t=0;tc.textContent=t;tf.style.width=((5-t)/5*100)+"%";if(t<=0){clearInterval(mbdTimer);tt.style.display="none";ub.style.display="block";}},1000);\n';
+    fc+='mbdTimer=setInterval(function(){mbdAdTime++;var t=parseInt(tc.textContent);t--;if(t<0)t=0;tc.textContent=t;tf.style.width=((mbdWait-t)/mbdWait*100)+"%";if(t<=0){clearInterval(mbdTimer);tt.style.display="none";ub.style.display="block";}},1000);\n';
     fc+='window.addEventListener("focus",mbdFocusH);\n';
     fc+='}\n\n';
 
     /* ফোকাস হ্যান্ডলার — ১০ সেকেন্ড হলে না হলে ওয়ার্নিং ভিউ */
     fc+='function mbdFocusH(){\n';
-    fc+='if(mbdAdTime<5){\n';
+    fc+='if(mbdAdTime<mbdWait){\n';
     fc+='var step=document.getElementById("mbdStep1").style.display!=="none"?1:2;\n';
     fc+='if(mbdTimer)clearInterval(mbdTimer);\n';
     fc+='window.removeEventListener("focus",mbdFocusH);\n';
@@ -719,7 +749,7 @@ function generate(){
     fc+='document.getElementById("mbdWarnView"+step).style.display="none";\n';
     fc+='document.getElementById("mbdNormal"+step).style.display="block";\n';
     fc+='document.getElementById("mbdTf"+step).style.width="0%";\n';
-    fc+='document.getElementById("mbdTc"+step).textContent="5";\n';
+    fc+='document.getElementById("mbdTc"+step).textContent=mbdWait;\n';
     fc+='document.getElementById("mbdTt"+step).style.display="block";\n';
     fc+='document.getElementById("mbdUb"+step).style.display="none";\n';
     fc+='mbdAdTime=0;\n';
@@ -729,7 +759,7 @@ function generate(){
     fc+='function mbdGoS2(){\n';
     if(isSingleAd){fc+='mbdShowFinal();\n'}
     else{
-        fc+='if(mbdAdTime<5){document.getElementById("mbdNormal1").style.display="none";document.getElementById("mbdWarnView1").style.display="block";return;}\n';
+        fc+='if(mbdAdTime<mbdWait){document.getElementById("mbdNormal1").style.display="none";document.getElementById("mbdWarnView1").style.display="block";return;}\n';
         fc+='window.removeEventListener("focus",mbdFocusH);\n';
         fc+='document.getElementById("mbdStep1").style.display="none";document.getElementById("mbdStep2").style.display="block";\n';
         fc+='document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdL1").className="mbd-line done";document.getElementById("mbdS2").className="mbd-step active";\n';
@@ -738,7 +768,7 @@ function generate(){
 
     if(!isSingleAd){
         fc+='function mbdGoS3(){\n';
-        fc+='if(mbdAdTime<5){document.getElementById("mbdNormal2").style.display="none";document.getElementById("mbdWarnView2").style.display="block";return;}\n';
+        fc+='if(mbdAdTime<mbdWait){document.getElementById("mbdNormal2").style.display="none";document.getElementById("mbdWarnView2").style.display="block";return;}\n';
         fc+='mbdShowFinal();\n';
         fc+='}\n';
     }
