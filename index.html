@@ -54,6 +54,10 @@
         .ads-saved-badge{background:rgba(76,175,80,0.15);color:#4caf50;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;display:none}
         .optional-tag{background:rgba(255,152,0,0.15);color:#ff9800;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:0.5px}
         .inline-label{font-size:11px;color:#666;margin-bottom:4px;display:block;font-weight:500}
+        .pool-row .pool-num{width:26px;min-width:26px;height:26px;background:rgba(56,189,248,0.15);color:#38bdf8;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+        #adultAdsList .pool-row .pool-num{background:rgba(255,82,82,0.15);color:#ff5252}
+        .pool-row .remove-btn{width:30px;height:30px;min-width:30px;font-size:11px}
+        .pool-add-hint{font-size:11px;color:#666;margin:4px 0 10px}
         .dl-card{background:rgba(255,255,255,0.03);border:1px solid #222;border-radius:10px;padding:14px;margin-bottom:10px;transition:border-color 0.3s}
         .dl-card:hover{border-color:rgba(204,0,0,0.4)}
         .dl-card-top{display:grid;grid-template-columns:1fr 130px 90px 34px;gap:8px;align-items:center;margin-bottom:10px}
@@ -173,16 +177,14 @@
             <span class="lang-chip" data-pool="adult"><i class="fas fa-fire" style="color:#ff4d4d"></i> অ্যাডাল্ট অ্যাডস (18+)</span>
         </div>
         <div id="normAdsBox">
-            <label>নরমাল অ্যাড লিংক ১</label><input type="text" id="nad1" placeholder="https://...">
-            <label>নরমাল অ্যাড লিংক ২</label><input type="text" id="nad2" placeholder="https://...">
-            <label>নরমাল অ্যাড লিংক ৩</label><input type="text" id="nad3" placeholder="https://...">
-            <label>নরমাল অ্যাড লিংক ৪</label><input type="text" id="nad4" placeholder="https://...">
-            <label>নরমাল অ্যাড লিংক ৫</label><input type="text" id="nad5" placeholder="https://...">
+            <div id="normAdsList"></div>
+            <p class="pool-add-hint"><i class="fas fa-circle-info"></i> ইচ্ছেমতো যত খুশি অ্যাড বসান — নতুন যোগ করুন চাপলেই নাম্বার দিয়ে নতুন ঘর আসবে (৬, ৭, ৮...)। ✕ চাপলে ঘরটা মুছে যাবে।</p>
+            <button class="btn btn-orange btn-sm" onclick="addPoolAd('normAdsList')"><i class="fas fa-plus"></i> নতুন অ্যাড লিংক যোগ করুন</button>
         </div>
         <div id="adultAdsBox" style="display:none">
-            <label>অ্যাডাল্ট অ্যাড লিংক ১</label><input type="text" id="aad1" placeholder="https://...">
-            <label>অ্যাডাল্ট অ্যাড লিংক ২</label><input type="text" id="aad2" placeholder="https://...">
-            <label>অ্যাডাল্ট অ্যাড লিংক ৩</label><input type="text" id="aad3" placeholder="https://...">
+            <div id="adultAdsList"></div>
+            <p class="pool-add-hint"><i class="fas fa-circle-info"></i> ইচ্ছেমতো যত খুশি অ্যাডাল্ট অ্যাড বসান — নতুন যোগ করুন চাপলেই নাম্বার দিয়ে নতুন ঘর আসবে (৪, ৫, ৬...)। ✕ চাপলে ঘরটা মুছে যাবে।</p>
+            <button class="btn btn-orange btn-sm" onclick="addPoolAd('adultAdsList')"><i class="fas fa-plus"></i> নতুন অ্যাডাল্ট অ্যাড যোগ করুন</button>
         </div>
         <div class="section-divider"></div>
         <div class="section-header"><h4 style="color:#e91e63"><i class="fas fa-paint-brush"></i> বাটন টেক্সট কাস্টমাইজ</h4></div>
@@ -302,13 +304,16 @@ document.getElementById('searchInput').addEventListener('keydown',function(e){if
 function esc(s){if(s===null||s===undefined)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function safeJson(o){return JSON.stringify(o).replace(/<\//g,'<\\/')}
 
-/* 🎲 র‍্যান্ডম অ্যাড পুল — নরমাল ৫টা + অ্যাডাল্ট ৩টা (ডিফল্ট লিংক আগে থেকেই বসানো, Save Ads দিয়ে বদলানো যায়) */
+/* 🎲 র‍্যান্ডম অ্যাড পুল — ডিফল্ট লিংক আগে থেকেই বসানো; "নতুন যোগ করুন" দিয়ে নরমাল/অ্যাডাল্ট দুটো পুলেই ইচ্ছেমতো যত খুশি অ্যাড বসানো যায় */
 var NORM_ADS_DEFAULT=["https://asiafilm.org/4/1952b9f3548cd57e994e610fde24e41f","https://asiafilm.org/4/7ef304669bcfc15f3404e1a5e5dcf1ba","https://asiafilm.org/4/dd496e8de5fdbe10f2ccf3defc93c342","https://uplcm.com/4/10918781","https://uplcm.com/4/12080503"];
 var ADULT_ADS_DEFAULT=["https://auctionr.org/4/1b6df569ebc094e3e8e592d2fd017b4f","https://auctionr.org/4/ae2d07d4c0488d06e6aec709d40d437f","https://auctionr.org/4/ef5b10414fe8fdd3f602e74bcdd4225c"];
-function readAdPool(prefix,count){var out=[];for(var i=1;i<=count;i++){var v=document.getElementById(prefix+i).value.trim();if(v)out.push(v)}return out}
-function writeAdPool(prefix,count,arr){for(var i=1;i<=count;i++){document.getElementById(prefix+i).value=arr&&arr[i-1]?arr[i-1]:''}}
-function saveAds(){localStorage.setItem('mbd_normAds',JSON.stringify(readAdPool('nad',5)));localStorage.setItem('mbd_adultAds',JSON.stringify(readAdPool('aad',3)));var b=document.getElementById('saveAdsBtn'),bd=document.getElementById('adsSavedBadge');b.innerHTML='<i class="fas fa-check"></i> Saved!';bd.style.display='inline-block';setTimeout(function(){b.innerHTML='<i class="fas fa-save"></i> Save Ads'},2000)}
-function loadAds(){var sn=localStorage.getItem('mbd_normAds'),sa=localStorage.getItem('mbd_adultAds'),n=null,a=null;try{if(sn!==null)n=JSON.parse(sn)}catch(e){}try{if(sa!==null)a=JSON.parse(sa)}catch(e){}if(sn===null&&sa===null){n=NORM_ADS_DEFAULT.slice();a=ADULT_ADS_DEFAULT.slice()}if(!Array.isArray(n))n=NORM_ADS_DEFAULT.slice();if(!Array.isArray(a))a=ADULT_ADS_DEFAULT.slice();writeAdPool('nad',5,n);writeAdPool('aad',3,a);if(sn!==null||sa!==null)document.getElementById('adsSavedBadge').style.display='inline-block'}
+function addPoolAd(listId,v){var list=document.getElementById(listId),div=document.createElement('div');div.className='ss-row pool-row';div.innerHTML='<span class="pool-num"></span><input type="text" class="pool-link" placeholder="https://..." value="'+(v||'')+'"><button class="remove-btn" onclick="rmPoolRow(this)" title="মুছে ফেলুন"><i class="fas fa-times"></i></button>';list.appendChild(div);renumPool()}
+function rmPoolRow(btn){btn.closest('.pool-row').remove();renumPool()}
+function renumPool(){['normAdsList','adultAdsList'].forEach(function(id){document.getElementById(id).querySelectorAll('.pool-num').forEach(function(s,i){s.textContent=i+1})})}
+function readAdPool(listId){var out=[];document.getElementById(listId).querySelectorAll('.pool-link').forEach(function(inp){var v=inp.value.trim();if(v)out.push(v)});return out}
+function renderAds(n,a){document.getElementById('normAdsList').innerHTML='';document.getElementById('adultAdsList').innerHTML='';(n.length?n:['']).forEach(function(v){addPoolAd('normAdsList',v)});(a.length?a:['']).forEach(function(v){addPoolAd('adultAdsList',v)})}
+function saveAds(){localStorage.setItem('mbd_normAds',JSON.stringify(readAdPool('normAdsList')));localStorage.setItem('mbd_adultAds',JSON.stringify(readAdPool('adultAdsList')));var b=document.getElementById('saveAdsBtn'),bd=document.getElementById('adsSavedBadge');b.innerHTML='<i class="fas fa-check"></i> Saved!';bd.style.display='inline-block';setTimeout(function(){b.innerHTML='<i class="fas fa-save"></i> Save Ads'},2000)}
+function loadAds(){var sn=localStorage.getItem('mbd_normAds'),sa=localStorage.getItem('mbd_adultAds'),n=null,a=null;try{if(sn!==null)n=JSON.parse(sn)}catch(e){}try{if(sa!==null)a=JSON.parse(sa)}catch(e){}if(sn===null&&sa===null){n=NORM_ADS_DEFAULT.slice();a=ADULT_ADS_DEFAULT.slice()}if(!Array.isArray(n))n=NORM_ADS_DEFAULT.slice();if(!Array.isArray(a))a=ADULT_ADS_DEFAULT.slice();renderAds(n,a);if(sn!==null||sa!==null)document.getElementById('adsSavedBadge').style.display='inline-block'}
 loadAds();
 /* নরমাল ↔ অ্যাডাল্ট পুল টগল সুইচ: টিক দিলে যে পুলের ফিল্ডগুলো সেগুলো দেখাবে (Save Ads দুটো পুলই সেভ করে) */
 document.getElementById('adsPoolChips').addEventListener('click',function(e){var chip=e.target.closest('.lang-chip');if(!chip)return;this.querySelectorAll('.lang-chip').forEach(function(x){x.classList.remove('active')});chip.classList.add('active');var adult=chip.getAttribute('data-pool')==='adult';document.getElementById('normAdsBox').style.display=adult?'none':'block';document.getElementById('adultAdsBox').style.display=adult?'block':'none'});
@@ -393,9 +398,7 @@ function generate(){
 
     /* 🎲 র‍্যান্ডম অ্যাড পুল: টাইটেলে "18+" থাকলে অ্যাডাল্ট পুল, নাহলে নরমাল পুল (একটা পুল খালি হলে আরেকটা ফলব্যাক) */
     var isAdultPost=title.toUpperCase().indexOf('18+')!==-1;
-    var normAdsPool=[],adultAdsPool=[];
-    for(var pi=1;pi<=5;pi++){var pv=document.getElementById('nad'+pi).value.trim();if(pv)normAdsPool.push(pv)}
-    for(var pi2=1;pi2<=3;pi2++){var pv2=document.getElementById('aad'+pi2).value.trim();if(pv2)adultAdsPool.push(pv2)}
+    var normAdsPool=readAdPool('normAdsList'),adultAdsPool=readAdPool('adultAdsList');
     var adPool=isAdultPost?(adultAdsPool.length?adultAdsPool:normAdsPool):(normAdsPool.length?normAdsPool:adultAdsPool);
     var isSingleAd=adPool.length<2;
     var adFirst=adPool[0]||'#',adSecond=adPool[1]||adFirst;
