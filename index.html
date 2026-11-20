@@ -187,6 +187,14 @@
             <button class="btn btn-orange btn-sm" onclick="addPoolAd('adultAdsList')"><i class="fas fa-plus"></i> নতুন অ্যাডাল্ট অ্যাড যোগ করুন</button>
         </div>
         <div class="section-divider"></div>
+        <div class="section-header"><h4 style="color:#38bdf8"><i class="fas fa-shield-alt"></i> ভেরিফিকেশন মোড (অ্যাড গেট)</h4></div>
+        <label><i class="fas fa-layer-group"></i> ডাউনলোডের আগে কত ধাপ অ্যাড দেখাবে?</label>
+        <select id="adStepsSelect">
+            <option value="1" selected>নরমাল — ১ ধাপ (সুপারিশকৃত: ইউজার ১টা অ্যাড দেখেই ফাইল পাবে)</option>
+            <option value="2">২ ধাপ — ধাপ ১ + ধাপ ২ (বেশি অ্যাড ইনকাম)</option>
+        </select>
+        <p class="warn">💡 নরমাল (১ ধাপ) মোডে ইউজার ১টা অ্যাড ভিজিট করে ১০ সেকেন্ড থাকলেই সরাসরি ডাউনলোড পাবে — ইউজারের জন্য সহজ। ২ ধাপ সিলেক্ট করলে আগের মতো দুইটা অ্যাড স্টেপ যাবে।</p>
+        <div class="section-divider"></div>
         <div class="section-header"><h4 style="color:#e91e63"><i class="fas fa-paint-brush"></i> বাটন টেক্সট কাস্টমাইজ</h4></div>
         <div class="btn-text-row">
             <div><span class="inline-label">Download বাটনের টেক্সট</span><input type="text" id="dlBtnText" value="Download Links"></div>
@@ -296,7 +304,7 @@ addMovieDl('480p HDRip','Dual Audio','470 MB','','');
 
 function addEp(n,dl,wt,a1,a2){
     var list=document.getElementById('epList'),div=document.createElement('div');div.className='ep-card';
-    div.innerHTML='<div class="ep-card-name"><input type="text" class="ep-name" placeholder="এপিসোডের নাম" value="'+(n||'')+'"></div><div class="ep-card-links"><div class="link-group"><label>Download Link</label><input type="text" class="ep-dl-link" placeholder="https://t.me/..." value="'+(dl||'')+'"></div><div class="link-group"><label>Watch Link <span class="optional-tag">OPT</span></label><input type="text" class="ep-watch-link" placeholder="https://..." value="'+(wt||'')+'"></div><button class="remove-btn" onclick="this.closest(\'.ep-card\').remove()"><i class="fas fa-times"></i></button></div><div class="ep-card-ads"><div class="link-group"><label><i class="fas fa-ad"></i> এপিসোডের নিজের অ্যাড লিংক ১ <span class="optional-tag">OPT</span></label><input type="text" class="ep-ad1-input" placeholder="খালি = পুল থেকে র‍্যান্ডম অ্যাড চলবে" value="'+(a1||'')+'"></div><div class="link-group"><label>অ্যাড লিংক ২ (ধাপ ২) <span class="optional-tag">OPT</span></label><input type="text" class="ep-ad2-input" placeholder="খালি = পুল থেকে র‍্যান্ডম অ্যাড চলবে" value="'+(a2||'')+'"></div></div>';
+    div.innerHTML='<div class="ep-card-name"><input type="text" class="ep-name" placeholder="এপিসোডের নাম" value="'+(n||'')+'"></div><div class="ep-card-links"><div class="link-group"><label>Download Link</label><input type="text" class="ep-dl-link" placeholder="https://t.me/..." value="'+(dl||'')+'"></div><div class="link-group"><label>Watch Link <span class="optional-tag">OPT</span></label><input type="text" class="ep-watch-link" placeholder="https://..." value="'+(wt||'')+'"></div><button class="remove-btn" onclick="this.closest(\'.ep-card\').remove()"><i class="fas fa-times"></i></button></div><div class="ep-card-ads"><div class="link-group"><label><i class="fas fa-ad"></i> এপিসোডের নিজের অ্যাড লিংক ১ <span class="optional-tag">OPT</span></label><input type="text" class="ep-ad1-input" placeholder="খালি = পুল থেকে র‍্যান্ডম অ্যাড চলবে" value="'+(a1||'')+'"></div><div class="link-group"><label>অ্যাড লিংক ২ (শুধু ২-ধাপ মোডে) <span class="optional-tag">OPT</span></label><input type="text" class="ep-ad2-input" placeholder="খালি = পুল থেকে র‍্যান্ডম অ্যাড চলবে" value="'+(a2||'')+'"></div></div>';
     list.appendChild(div);
 }
 
@@ -306,7 +314,7 @@ function safeJson(o){return JSON.stringify(o).replace(/<\//g,'<\\/')}
 
 /* 🎲 র‍্যান্ডম অ্যাড পুল — ডিফল্ট লিংক আগে থেকেই বসানো; "নতুন যোগ করুন" দিয়ে নরমাল/অ্যাডাল্ট দুটো পুলেই ইচ্ছেমতো যত খুশি অ্যাড বসানো যায় */
 var NORM_ADS_DEFAULT=["https://asiafilm.org/4/1952b9f3548cd57e994e610fde24e41f","https://asiafilm.org/4/7ef304669bcfc15f3404e1a5e5dcf1ba","https://asiafilm.org/4/dd496e8de5fdbe10f2ccf3defc93c342","https://uplcm.com/4/10918781","https://uplcm.com/4/12080503"];
-var ADULT_ADS_DEFAULT=["https://auctionr.org/4/1b6df569ebc094e3e8e592d2fd017b4f","https://auctionr.org/4/ae2d07d4c0488d06e6aec709d40d437f","https://auctionr.org/4/ef5b10414fe8fdd3f602e74bcdd4225c"];
+var ADULT_ADS_DEFAULT=["https://auctionr.org/4/1b6df569ebc094e3e8e592d2fd017b4f","https://auctionr.org/4/ae2d07d4c0488d06e6aec709d40d437f","https://auctionr.org/4/ef5b10414fe8fdd3f602e74bcdd4225c","https://auctionr.org/4/9a420739bd309e36f6535c4bcad2d3c9","https://auctionr.org/4/b51d4b4d19155b12b384cdd6f2b31daa"];
 function addPoolAd(listId,v){var list=document.getElementById(listId),div=document.createElement('div');div.className='ss-row pool-row';div.innerHTML='<span class="pool-num"></span><input type="text" class="pool-link" placeholder="https://..." value="'+(v||'')+'"><button class="remove-btn" onclick="rmPoolRow(this)" title="মুছে ফেলুন"><i class="fas fa-times"></i></button>';list.appendChild(div);renumPool()}
 function rmPoolRow(btn){btn.closest('.pool-row').remove();renumPool()}
 function renumPool(){['normAdsList','adultAdsList'].forEach(function(id){document.getElementById(id).querySelectorAll('.pool-num').forEach(function(s,i){s.textContent=i+1})})}
@@ -401,6 +409,9 @@ function generate(){
     var normAdsPool=readAdPool('normAdsList'),adultAdsPool=readAdPool('adultAdsList');
     var adPool=isAdultPost?(adultAdsPool.length?adultAdsPool:normAdsPool):(normAdsPool.length?normAdsPool:adultAdsPool);
     var isSingleAd=adPool.length<2;
+    /* ভেরিফিকেশন মোড: নরমাল = ১ ধাপ (ডিফল্ট), ২ ধাপ = অপশনাল (উপরের সিলেক্ট থেকে) */
+    var adStepsSel=parseInt((document.getElementById('adStepsSelect')||{value:'1'}).value,10);
+    var isTwoStep=!isSingleAd&&adStepsSel===2;
     var adFirst=adPool[0]||'#',adSecond=adPool[1]||adFirst;
 
     var movieDlArr=[];
@@ -633,29 +644,30 @@ function generate(){
     fc+='<div class="mbd-modal" id="mbdVModal">\n<div class="mbd-modal-box">\n<div class="mbd-modal-handle"></div>\n';
     fc+='<div class="mbd-modal-head"><h3><i class="fas fa-shield-alt"></i> ভেরিফিকেশন</h3><button class="mbd-modal-close" id="mbdCloseBtn"><i class="fas fa-times"></i></button></div>\n';
     fc+='<div class="mbd-modal-body">\n';
-    if(!isSingleAd) fc+='<div class="mbd-steps"><div class="mbd-step active" id="mbdS1">1</div><div class="mbd-line" id="mbdL1"></div><div class="mbd-step" id="mbdS2">2</div><div class="mbd-line" id="mbdL2"></div><div class="mbd-step" id="mbdS3"><i class="fas fa-check" style="font-size:11px"></i></div></div>\n';
+    if(isTwoStep) fc+='<div class="mbd-steps"><div class="mbd-step active" id="mbdS1">1</div><div class="mbd-line" id="mbdL1"></div><div class="mbd-step" id="mbdS2">2</div><div class="mbd-line" id="mbdL2"></div><div class="mbd-step" id="mbdS3"><i class="fas fa-check" style="font-size:11px"></i></div></div>\n';
+    else if(!isSingleAd) fc+='<div class="mbd-steps"><div class="mbd-step active" id="mbdS1">1</div><div class="mbd-line" id="mbdL1"></div><div class="mbd-step" id="mbdS3"><i class="fas fa-check" style="font-size:11px"></i></div></div>\n';
 
     /* ধাপ ১ — নরমাল কন্টেন্ট + ওয়ার্নিং ভিউ */
     fc+='<div id="mbdStep1">\n';
     fc+='<div class="mbd-step-normal" id="mbdNormal1">\n';
-    fc+='<div class="mbd-vmsg"><h4>ধাপ ১: অ্যড ভিজিট করুন</h4><p>নিচের বাটনে ক্লিক করুন এবং অ্যড পেজে কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকুন</p></div>\n';
+    fc+='<div class="mbd-vmsg"><h4>ধাপ ১: অ্যড ভিজিট করুন</h4><p>'+(isTwoStep?'নিচের বাটনে ক্লিক করুন এবং অ্যড পেজে কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকুন':'নিচের বাটনে ক্লিক করুন এবং অ্যড পেজে কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকুন — এরপরই ডাউনলোড আনলক হবে!')+'</p></div>\n';
     fc+='<a href="'+esc(adFirst)+'" target="_blank" rel="noopener" class="mbd-ad-btn" id="mbdAb1"><i class="fas fa-external-link-alt"></i> অ্যড ভিজিট করুন</a>\n';
     fc+='<div class="mbd-timer-bar"><div class="mbd-timer-fill" id="mbdTf1"></div></div>\n';
     fc+='<p class="mbd-timer-txt" id="mbdTt1">অপেক্ষা করুন... <span id="mbdTc1">10</span> সেকেন্ড</p>\n';
-    fc+='<button class="mbd-unlock-btn" id="mbdUb1"><i class="fas fa-arrow-right"></i> পরবর্তী ধাপ</button>\n';
+    fc+='<button class="mbd-unlock-btn" id="mbdUb1"><i class="fas fa-'+(isTwoStep?'arrow-right':'unlock')+'"></i> '+(isTwoStep?'পরবর্তী ধাপ':'আনলক করুন')+'</button>\n';
     fc+='</div>\n';
     /* ওয়ার্নিং ভিউ ১ */
     fc+='<div class="mbd-warn-view" id="mbdWarnView1" style="display:none">\n';
     fc+='<div class="mbd-warn-icon"><i class="fas fa-redo-alt"></i></div>\n';
     fc+='<h4>দুঃখিত! পুনরায় চেষ্টা করুন</h4>\n';
     fc+='<p class="mbd-warn-main">আপনি অ্যড পেজে কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকেননি</p>\n';
-    fc+='<p class="mbd-warn-sub">কোনো সমস্যা নেই! অনুগ্রহ করে আবার নিচের বাটনে ক্লিক করুন। অ্যড পেজটি খুলবে — সেখানে কমপক্ষে ১০ সেকেন্ড থাকলেই পরবর্তী ধাপে যেতে পারবেন।</p>\n';
+    fc+='<p class="mbd-warn-sub">কোনো সমস্যা নেই! অনুগ্রহ করে আবার নিচের বাটনে ক্লিক করুন। অ্যড পেজটি খুলবে — সেখানে কমপক্ষে ১০ সেকেন্ড থাকলেই '+(isTwoStep?'পরবর্তী ধাপে যেতে পারবেন।':'ডাউনলোড আনলক হয়ে যাবে।')+'</p>\n';
     fc+='<button class="mbd-retry-btn" id="mbdRetry1"><i class="fas fa-redo-alt"></i> আবার চেষ্টা করুন</button>\n';
     fc+='</div>\n';
     fc+='</div>\n';
 
-    /* ধাপ ২ — নরমাল + ওয়ার্নিং */
-    if(!isSingleAd){
+    /* ধাপ ২ — নরমাল + ওয়ার্নিং (শুধু ২-ধাপ মোডে) */
+    if(isTwoStep){
         fc+='<div id="mbdStep2" style="display:none">\n';
         fc+='<div class="mbd-step-normal" id="mbdNormal2">\n';
         fc+='<div class="mbd-vmsg"><h4>ধাপ ২: চূড়ান্ত ভেরিফিকেশন</h4><p>আরেকটি অ্যড ভিজিট করুন এবং কমপক্ষে <strong>১০ সেকেন্ড</strong> থাকুন</p></div>\n';
@@ -696,9 +708,9 @@ function generate(){
     fc+='document.addEventListener("click",function(e){\n';
     fc+='var dlBtn=e.target.closest(".mbd-trigger-dl");if(dlBtn){e.preventDefault();mbdStartV(dlBtn.getAttribute("data-link"),dlBtn.getAttribute("data-action")||"download",dlBtn.getAttribute("data-ad1"),dlBtn.getAttribute("data-ad2"));return;}\n';
     fc+='if(e.target.closest("#mbdAb1")){mbdClickAd(1);return;}\n';
-    fc+='if(e.target.closest("#mbdUb1")){mbdGoS2();return;}\n';
+    fc+='if(e.target.closest("#mbdUb1")){'+(isTwoStep?'mbdGoS2();':'mbdGoS3(1);')+'return;}\n';
     fc+='if(e.target.closest("#mbdRetry1")){mbdRetry(1);return;}\n';
-    if(!isSingleAd){
+    if(isTwoStep){
         fc+='if(e.target.closest("#mbdAb2")){mbdClickAd(2);return;}\n';
         fc+='if(e.target.closest("#mbdUb2")){mbdGoS3();return;}\n';
         fc+='if(e.target.closest("#mbdRetry2")){mbdRetry(2);return;}\n';
@@ -717,11 +729,15 @@ function generate(){
     fc+='document.getElementById("mbdStep1").style.display="block";document.getElementById("mbdStep3").style.display="none";\n';
     fc+='document.getElementById("mbdNormal1").style.display="block";document.getElementById("mbdWarnView1").style.display="none";\n';
     fc+='document.getElementById("mbdTf1").style.width="0%";document.getElementById("mbdTc1").textContent=mbdWait;document.getElementById("mbdTt1").style.display="block";document.getElementById("mbdUb1").style.display="none";\n';
-    if(!isSingleAd){
+    if(isTwoStep){
         fc+='document.getElementById("mbdStep2").style.display="none";\n';
         fc+='document.getElementById("mbdNormal2").style.display="block";document.getElementById("mbdWarnView2").style.display="none";\n';
         fc+='document.getElementById("mbdTf2").style.width="0%";document.getElementById("mbdTc2").textContent=mbdWait;document.getElementById("mbdTt2").style.display="block";document.getElementById("mbdUb2").style.display="none";\n';
         fc+='document.getElementById("mbdS1").className="mbd-step active";document.getElementById("mbdS2").className="mbd-step";document.getElementById("mbdS3").className="mbd-step";document.getElementById("mbdL1").className="mbd-line";document.getElementById("mbdL2").className="mbd-line";\n';
+    }
+    else if(!isSingleAd){
+        /* নরমাল (১ ধাপ) মোডের স্টেপার রিসেট: ① অ্যাকটিভ, ✓ ডিফল্ট */
+        fc+='document.getElementById("mbdS1").className="mbd-step active";document.getElementById("mbdS3").className="mbd-step";document.getElementById("mbdL1").className="mbd-line";\n';
     }
     fc+='}\n\n';
 
@@ -758,10 +774,10 @@ function generate(){
     fc+='mbdAdTime=0;\n';
     fc+='}\n\n';
 
-    /* ধাপ ১ → ধাপ ২ */
+    /* ধাপ ১ → ধাপ ২ (শুধু ২-ধাপ মোডে ব্যবহার হয়; নরমাল মোডে mbdUb1 সরাসরি mbdGoS3(1)-এ যায়) */
     fc+='function mbdGoS2(){\n';
     if(isSingleAd){fc+='mbdShowFinal();\n'}
-    else{
+    else if(isTwoStep){
         fc+='if(mbdAdTime<mbdWait){document.getElementById("mbdNormal1").style.display="none";document.getElementById("mbdWarnView1").style.display="block";return;}\n';
         fc+='window.removeEventListener("focus",mbdFocusH);\n';
         fc+='document.getElementById("mbdStep1").style.display="none";document.getElementById("mbdStep2").style.display="block";\n';
@@ -770,17 +786,19 @@ function generate(){
     fc+='}\n';
 
     if(!isSingleAd){
-        fc+='function mbdGoS3(){\n';
-        fc+='if(mbdAdTime<mbdWait){document.getElementById("mbdNormal2").style.display="none";document.getElementById("mbdWarnView2").style.display="block";return;}\n';
+        /* স্টেপ-প্যারাম: ২-ধাপ মোডে ২ (mbdUb2), নরমাল ১-ধাপ মোডে ১ (mbdUb1) — সময় কম হলে ওই ধাপেরই ওয়ার্নিং দেখাবে */
+        fc+='function mbdGoS3(step){step=step||2;\n';
+        fc+='if(mbdAdTime<mbdWait){document.getElementById("mbdNormal"+step).style.display="none";document.getElementById("mbdWarnView"+step).style.display="block";return;}\n';
         fc+='mbdShowFinal();\n';
         fc+='}\n';
     }
 
     /* ফাইনাল */
     fc+='function mbdShowFinal(){\nwindow.removeEventListener("focus",mbdFocusH);\n';
-    if(!isSingleAd) fc+='document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdS2").className="mbd-step done";document.getElementById("mbdL2").className="mbd-line done";document.getElementById("mbdS3").className="mbd-step done";\n';
+    if(isTwoStep) fc+='document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdS2").className="mbd-step done";document.getElementById("mbdL2").className="mbd-line done";document.getElementById("mbdS3").className="mbd-step done";\n';
+    else if(!isSingleAd) fc+='document.getElementById("mbdS1").className="mbd-step done";document.getElementById("mbdL1").className="mbd-line done";document.getElementById("mbdS3").className="mbd-step done";\n';
     fc+='document.getElementById("mbdStep1").style.display="none";\n';
-    if(!isSingleAd) fc+='document.getElementById("mbdStep2").style.display="none";\n';
+    if(isTwoStep) fc+='document.getElementById("mbdStep2").style.display="none";\n';
     fc+='document.getElementById("mbdStep3").style.display="block";\n';
     fc+='var fb=document.getElementById("mbdFdl");fb.href=mbdLink;\n';
     fc+='if(mbdAction==="watch"){fb.innerHTML=\'<i class="fas fa-play-circle"></i> \'+mbdWatchText;}else{fb.innerHTML=\'<i class="fas fa-download"></i> \'+mbdDlText;}\n';
